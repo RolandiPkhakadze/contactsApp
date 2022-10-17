@@ -1,4 +1,4 @@
-package com.example.contactsApp.Service;
+package com.example.contactsApp.service;
 
 
 import com.example.contactsApp.entity.Contact;
@@ -16,8 +16,8 @@ public class ContactService {
         this.contactRepository = contactRepository;
     }
 
-    public List<Contact> GetContact(){
-        return  ContactRepository.findAll();
+    public List<Contact> GetContacts(){
+        return  contactRepository.findAll();
     }
 
 }
