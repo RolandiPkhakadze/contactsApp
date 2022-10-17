@@ -18,7 +18,7 @@ public class Contact {
     @SequenceGenerator(name = "contact_id_gen", sequenceName = "contact_id_seq")
     private Long id;
     @OneToOne
-    @JoinColumn(name = "phone_number_id")
+    @JoinColumn(name = "phone_id")
     private PhoneNumber phoneNumber;
     @Column(name = "is_favorite")
     private boolean isFavorite;

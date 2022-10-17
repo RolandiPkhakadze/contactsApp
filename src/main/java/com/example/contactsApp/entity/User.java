@@ -31,8 +31,8 @@ public class User {
     private String username;
     @Column(name = "password")
     private  String password;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Contact> allContacts;
-    @OneToMany(mappedBy = "numberprovider")
+    @OneToMany(mappedBy = "user")
     private List<PhoneNumber> phoneNumberList;
 }

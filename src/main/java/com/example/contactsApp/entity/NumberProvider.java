@@ -16,14 +16,14 @@ import java.util.List;
 public class NumberProvider {
     @Id
     @SequenceGenerator(
-            name = "numberprovider_sequence",
-            sequenceName = "numberprovider_sequence",
+            name = "number_provider_sequence",
+            sequenceName = "number_provider_sequence",
             allocationSize = 1
     )
 
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "numberprovider_sequence"
+            generator = "number_provider_sequence"
     )
     private Long id;
     @Column(name = "name")
@@ -37,7 +37,7 @@ public class NumberProvider {
     @Column(name = "tariff_for_non_geo")
     private int tariffForNonGeo;
 
-    @OneToMany(mappedBy = "numberprovider")
+    @OneToMany(mappedBy = "provider")
     private List<PhoneNumber> phoneNumberList;
 
 }

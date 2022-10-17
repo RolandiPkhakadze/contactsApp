@@ -16,8 +16,8 @@ import java.sql.Date;
 public class History {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_id_gen")
-    @SequenceGenerator(name = "history_id_gen", sequenceName = "history_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_sequence")
+    @SequenceGenerator(name = "history_sequence", sequenceName = "history_sequence")
     private Long Id;
     @ManyToOne
     @JoinColumn(name = "phone_number_id")

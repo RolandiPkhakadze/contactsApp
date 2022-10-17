@@ -4,8 +4,14 @@ import com.example.contactsApp.entity.User;
 import com.example.contactsApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
+@RequestMapping(path  = "api")
 public class UserController {
 
     private final UserService userService;
@@ -15,8 +21,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    public User createUser(final User user) {
-        return userService.createUser(user);
+    @GetMapping
+    public List<User> GetUser() {
+        return userService.GetAllUsers();
     }
 
 
