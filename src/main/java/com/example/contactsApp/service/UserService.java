@@ -30,4 +30,13 @@ public class UserService {
         return userRepository.getUserByUsernameAndPassword(username, password);
     }
 
+
+    public void registerUser(User user) {
+        Optional <User> userOptional = userRepository.findUserByEmail(user.getEmail());
+        if(userOptional.isPresent()){
+            throw new IllegalStateException();
+        }
+
+        userRepository.save(user);
+    }
 }

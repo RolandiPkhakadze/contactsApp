@@ -1,10 +1,10 @@
-create table user(
+CREATE TABLE user(
     id int GENERATED ALWAYS AS IDENTITY,
     email varchar (50) not null UNIQUE ,
     username varchar (50) not null UNIQUE ,
     password varchar (300) not null,
     PRIMARY KEY (id),
-)
+);
 
 CREATE SEQUENCE user_sequence
     START WITH 1
@@ -23,7 +23,7 @@ create table history(
      CONSTRAINT fk_phone
          FOREIGN KEY(phone_id)
              REFERENCES customers(phone_id)
-)
+);
 
 CREATE SEQUENCE history_sequence
     START WITH 1
@@ -45,7 +45,7 @@ create table phone(
         CONSTRAINT fk_provider
             FOREIGN KEY(provider_id)
                 REFERENCES customers(provider_id)
-)
+);
 
 CREATE SEQUENCE number_sequence
     START WITH 1
@@ -68,7 +68,7 @@ create table contact(
                              CONSTRAINT fk_phone_number
                                  FOREIGN KEY(phone_id)
                                      REFERENCES customers(phone_id)
-)
+);
 
 CREATE SEQUENCE contact_sequence
     START WITH 1
@@ -85,7 +85,7 @@ create table number_provider(
                         tariff_for_non_geo int,
                         tariff_for_same int,
                         PRIMARY KEY (id),
-)
+);
 
 CREATE SEQUENCE number_provider_sequence
     START WITH 1
