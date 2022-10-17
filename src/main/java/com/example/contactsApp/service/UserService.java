@@ -6,6 +6,7 @@ import com.example.contactsApp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -20,4 +21,13 @@ public class UserService {
     public List<User> GetUsers(){
         return  userRepository.findAll();
     }
+
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public Optional<User> getUserByUsernameAndPassword(String username, String password) {
+        return userRepository.getUserByUsernameAndPassword(username, password);
+    }
+
 }
