@@ -26,15 +26,15 @@ public class NumberProvider {
             generator = "numberprovider_sequence"
     )
     private Long id;
-
+    @Column(name = "name")
     private String  name;
-
+    @Column(name = "is_georgian")
     private boolean isGeorgian;
-
+    @Column(name = "tariff_for_geo")
     private int tariffForGeo;
-
+    @Column(name = "tariff_for_same")
     private int tariffForSame;
-
+    @Column(name = "tariff_for_non_geo")
     private int tariffForNonGeo;
 
     @OneToMany(mappedBy = "numberprovider")

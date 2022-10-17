@@ -25,14 +25,14 @@ public class User {
             generator = "user_sequence"
     )
     private Long id;
-
+    @Column(name = "email")
     private String email;
-
+    @Column(name = "username")
     private String username;
-
+    @Column(name = "password")
     private  String password;
-
-
+    @OneToMany
+    private List<Contact> allContacts;
     @OneToMany(mappedBy = "numberprovider")
     private List<PhoneNumber> phoneNumberList;
 }

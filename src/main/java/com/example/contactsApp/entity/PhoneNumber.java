@@ -24,10 +24,12 @@ public class PhoneNumber {
             generator = "NumberProvider_sequence"
     )
     private Long id;
-    private String phonenumber;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+    @Column(name = "balance")
     private Long balance;
     @ManyToOne
     @JoinColumn(name = "providerId")
