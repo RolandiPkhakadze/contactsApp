@@ -1,9 +1,10 @@
 package com.example.contactsApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.Duration;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -31,13 +32,15 @@ public class History {
     @JoinColumn(name = "id")
     private PhoneNumber phoneNumber;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
+
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
     @Transient
-    private Long duration;
+    private Long duration= Duration.between(startDate,endDate).toSeconds();
 
 }

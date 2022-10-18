@@ -1,6 +1,5 @@
 package com.example.contactsApp.service;
 
-import com.example.contactsApp.entity.History;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -33,10 +31,11 @@ public class UserServiceImpl implements UserService{
     public User loginUser(User user) {
         User userOptional = userRepository.findUserByEmailOrUsername(user.getEmail(), user.getUsername());
 
-        if(userOptional.getPassword().equals(user.getPassword()))
-        return userOptional;
+        if(!userOptional.getPassword().equals(user.getPassword())) {
+            throw new IllegalStateException();
+        }
 
-        throw new IllegalStateException();
+        return userOptional;
     }
 
     @Override
@@ -50,9 +49,10 @@ public class UserServiceImpl implements UserService{
         return userOptional;
     }
 
+
     @Override
-    public User getUserById(Long userId) {
-        return userRepository.getUserById(userId);
+    public void deletePhone(Long userId) {
+        userRepository.deleteById(userId);
     }
 
 

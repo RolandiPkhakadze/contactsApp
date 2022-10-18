@@ -8,19 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 @Slf4j
 public class PhoneNumberServiceImpl implements PhoneNumberService{
     private final UserRepository userRepository;
     private final PhoneNumberRepository phoneNumberRepository;
-
-    @Override
-    public List<PhoneNumber> GetPhoneNumbers() {
-        return  phoneNumberRepository.findAll();
-    }
 
     @Override
     public void addUserPhone(PhoneNumber phone, Long userId) {
@@ -32,16 +25,13 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
     }
 
     @Override
-    public void addContactPhone(PhoneNumber phone, Long contactId) {
-        User userOptional = userRepository.getUserById(contactId);
-        log.debug("dsfdsfsd");
-
-        phone.setUser(userOptional);
+    public void addContactPhone(PhoneNumber phone) {
         phoneNumberRepository.save(phone);
     }
 
     @Override
-    public List<PhoneNumber> getAllPhoneNumbersByUser(User user) {
-        return phoneNumberRepository.getPhoneNumbersByUser(user);
+    public void deletePhone(Long phoneId) {
+        phoneNumberRepository.deleteById(phoneId);
     }
+
 }

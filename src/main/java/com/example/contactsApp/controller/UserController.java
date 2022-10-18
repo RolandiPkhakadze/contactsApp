@@ -1,6 +1,5 @@
 package com.example.contactsApp.controller;
 
-import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path  = "/get_all")
+    @GetMapping(path  = "/get-all")
     public List<User> GetUser() {
         return userService.getAllUsers();
     }
@@ -36,10 +35,15 @@ public class UserController {
         return userService.loginUser(user);
     }
 
-    @PostMapping(path = "/change_password")
+    @PostMapping(path = "/change-password")
     public User changePassword(@RequestBody User user){
         return userService.changePassword(user);
     }
 
 
+    @DeleteMapping(path = "/delete-user")
+    public String deleteUser(@RequestParam Long userId){
+        userService.deletePhone(userId);
+        return "provider deleted";
+    }
 }

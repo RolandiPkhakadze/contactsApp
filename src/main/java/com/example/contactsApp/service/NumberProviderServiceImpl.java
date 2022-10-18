@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -16,7 +14,12 @@ public class NumberProviderServiceImpl implements NumberProviderService{
     private NumberProviderRepository numberProviderRepository;
 
     @Override
-    public List<NumberProvider> GetNumberProviders() {
-        return numberProviderRepository.findAll();
+    public void addProvider(NumberProvider provider) {
+        numberProviderRepository.save(provider);
+    }
+
+    @Override
+    public void deleteProvider(Long providerId) {
+        numberProviderRepository.deleteById(providerId);
     }
 }
