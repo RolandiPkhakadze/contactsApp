@@ -1,5 +1,6 @@
 package com.example.contactsApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class PhoneNumber {
     private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @Column(name = "balance")
     private Long balance;

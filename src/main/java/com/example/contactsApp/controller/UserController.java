@@ -19,24 +19,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path  = "get_all")
+    @GetMapping(path  = "/get_all")
     public List<User> GetUser() {
         return userService.getAllUsers();
     }
 
 
-    @PutMapping(path = "register")
+    @PutMapping(path = "/register")
     public String registerUser(@RequestBody User user){
         userService.registerUser(user);
         return "User registered";
     }
 
-    @PostMapping(path = "login")
+    @PostMapping(path = "/login")
     public User loginUser(@RequestBody User user){
         return userService.loginUser(user);
     }
 
-    @PostMapping(path = "change_password")
+    @PostMapping(path = "/change_password")
     public User changePassword(@RequestBody User user){
         return userService.changePassword(user);
     }

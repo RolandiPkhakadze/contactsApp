@@ -17,7 +17,6 @@ public class ContactController {
     @PutMapping
     public String addPhone(@RequestParam Long userId, @RequestBody Contact contact){
         contactService.addContact(contact,userId);
-        System.out.println(userId);
         return "contact added";
     }
 }
