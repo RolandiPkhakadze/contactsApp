@@ -1,5 +1,6 @@
 package com.example.contactsApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Contact {
     private boolean isFavorite;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @Column(name = "first_name")
     private String firstName;

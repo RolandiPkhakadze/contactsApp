@@ -1,5 +1,6 @@
 package com.example.contactsApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class User {
     @Column(name = "password")
     private  String password;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Contact> allContacts;
     @OneToMany(mappedBy = "user")
     private List<PhoneNumber> phoneNumberList;
