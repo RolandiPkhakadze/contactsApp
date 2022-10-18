@@ -25,7 +25,7 @@ public class UserController {
     }
 
 
-    @PostMapping(path = "register")
+    @PutMapping(path = "register")
     public String registerUser(@RequestBody User user){
         userService.registerUser(user);
         return "User registered";

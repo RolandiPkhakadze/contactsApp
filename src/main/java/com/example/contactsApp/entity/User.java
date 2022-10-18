@@ -33,7 +33,6 @@ public class User {
     @Column(name = "password")
     private  String password;
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
     private List<Contact> allContacts;
     @OneToMany(mappedBy = "user")
     private List<PhoneNumber> phoneNumberList;

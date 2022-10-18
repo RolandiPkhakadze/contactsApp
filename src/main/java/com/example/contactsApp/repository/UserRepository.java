@@ -14,10 +14,20 @@ public interface UserRepository  extends JpaRepository<User, Long> {
         return findUserById(id).orElseThrow(() -> new RuntimeException("dsf"));
     }
 
-    @Query("SELECT u FROM User u WHERE u.email = ?1 OR u.username =?2")
-    Optional<User> findUserByEmailOrUsername(String email,String username);
 
-    Optional<User> getUserByUsernameAndPassword(String username, String password);
+    default User findUserByEmailOrUsername(String email,String username){
+        return getUserByEmailOrUsername(email,username).orElseThrow(() -> new RuntimeException("dsf"));
+    }
+
+    default void findUserByEmailOrUsernameForRegister(String email,String username){
+
+        if(getUserByEmailOrUsername(email,username).isPresent()){
+            new RuntimeException("dsf");
+        }
+    }
+
+    @Query("SELECT u FROM User u WHERE u.email = ?1 OR u.username =?2")
+    Optional<User> getUserByEmailOrUsername(String email,String username);
 
     Optional<User> findUserById(Long id);
 
