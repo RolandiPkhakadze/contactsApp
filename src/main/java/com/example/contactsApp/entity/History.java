@@ -12,15 +12,23 @@ import java.sql.Date;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table
+@Table(name = "histories")
 public class History {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_sequence")
-    @SequenceGenerator(name = "history_sequence", sequenceName = "history_sequence")
+    @SequenceGenerator(
+            name = "histories_id_seq",
+            sequenceName = "histories_id_seq",
+            allocationSize = 1
+    )
+
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "histories_id_seq"
+    )
     private Long Id;
     @ManyToOne
-    @JoinColumn(name = "phone_number_id")
+    @JoinColumn(name = "phone_id")
     private PhoneNumber phoneNumber;
     @Column(name = "start_date")
     private Date startDate;

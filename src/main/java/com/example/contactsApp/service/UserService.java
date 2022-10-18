@@ -18,25 +18,41 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> GetAllUsers(){
+    public List<User> getAllUsers(){
         return  userRepository.findAll();
     }
 
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
-
-    public Optional<User> getUserByUsernameAndPassword(String username, String password) {
-        return userRepository.getUserByUsernameAndPassword(username, password);
-    }
-
-
     public void registerUser(User user) {
-        Optional <User> userOptional = userRepository.findUserByEmail(user.getEmail());
+        Optional <User> userOptional = userRepository.findUserByEmailOrUsername(user.getEmail(), user.getUsername());
         if(userOptional.isPresent()){
             throw new IllegalStateException();
         }
 
         userRepository.save(user);
     }
+
+    public User loginUser(User user) {
+        Optional <User> userOptional = userRepository.findUserByEmailOrUsername(user.getEmail(), user.getUsername()).
+                                        filter(x -> x.getPassword().equals(user.getPassword()) );
+        if(!userOptional.isPresent()){
+            throw  new IllegalStateException();
+        }
+
+        return userOptional.get();
+    }
+
+    public User changePassword(User user) {
+        Optional<User> userOptional = userRepository.findUserByEmailOrUsername(user.getEmail(), user.getUsername());
+        if(!userOptional.isPresent()){
+            throw  new IllegalStateException();
+        }
+
+        userOptional.get().setPassword(user.getPassword());
+
+        userRepository.save(userOptional.get());
+
+        return userOptional.get();
+    }
+
+
 }

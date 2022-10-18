@@ -10,18 +10,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "phone")
+@Table(name = "phones")
 public class PhoneNumber {
     @Id
     @SequenceGenerator(
-            name = "phone_sequence",
-            sequenceName = "phone_sequence",
+            name = "phones_id_seq",
+            sequenceName = "phones_id_seq",
             allocationSize = 1
     )
 
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "phone_sequence"
+            generator = "phones_id_seq"
     )
     private Long id;
     @Column(name = "phone_number")

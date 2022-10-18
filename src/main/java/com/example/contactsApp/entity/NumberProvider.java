@@ -12,18 +12,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "number_providers")
 public class NumberProvider {
     @Id
     @SequenceGenerator(
-            name = "number_provider_sequence",
-            sequenceName = "number_provider_sequence",
+            name = "number_providers_id_seq",
+            sequenceName = "number_providers_id_seq",
             allocationSize = 1
     )
 
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "number_provider_sequence"
+            generator = "number_providers_id_seq"
     )
     private Long id;
     @Column(name = "name")

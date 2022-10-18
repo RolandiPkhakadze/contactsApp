@@ -4,21 +4,28 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table
+@Table(name = "contacts")
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_id_gen")
-    @SequenceGenerator(name = "contact_id_gen", sequenceName = "contact_id_seq")
+    @SequenceGenerator(
+            name = "contacts_id_seq",
+            sequenceName = "contacts_id_seq",
+            allocationSize = 1
+    )
+
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "contacts_id_seq"
+    )
     private Long id;
     @OneToOne
-    @JoinColumn(name = "phone_id")
+    @JoinColumn(name = "id")
     private PhoneNumber phoneNumber;
     @Column(name = "is_favorite")
     private boolean isFavorite;
