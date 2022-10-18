@@ -1,11 +1,14 @@
 package com.example.contactsApp.service;
 
 import com.example.contactsApp.entity.History;
-import com.example.contactsApp.repository.HistoryRepository;
+import com.example.contactsApp.entity.PhoneNumber;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface HistoryService {
 
-    List<History> GetHistories();
+    History saveHistory(History history);
+
+    List<History> getAllHistoriesForUser(Long userId);
 }

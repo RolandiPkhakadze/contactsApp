@@ -36,4 +36,6 @@ public class User {
     private List<Contact> allContacts;
     @OneToMany(mappedBy = "user")
     private List<PhoneNumber> phoneNumberList;
+    @OneToMany(mappedBy = "user")
+    private List<History> historyList;
 }

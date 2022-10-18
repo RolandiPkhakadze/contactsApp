@@ -13,4 +13,6 @@ public interface UserService {
     public User loginUser(User user);
 
     public User changePassword(User user);
+
+    User getUserById(Long userId);
 }

@@ -50,5 +50,10 @@ public class UserServiceImpl implements UserService{
         return userOptional;
     }
 
+    @Override
+    public User getUserById(Long userId) {
+        return userRepository.getUserById(userId);
+    }
+
 
 }

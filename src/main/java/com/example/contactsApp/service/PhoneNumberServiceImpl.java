@@ -1,6 +1,5 @@
 package com.example.contactsApp.service;
 
-import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.PhoneNumberRepository;
@@ -17,7 +16,6 @@ import java.util.List;
 public class PhoneNumberServiceImpl implements PhoneNumberService{
     private final UserRepository userRepository;
     private final PhoneNumberRepository phoneNumberRepository;
-
 
     @Override
     public List<PhoneNumber> GetPhoneNumbers() {
@@ -40,5 +38,10 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
 
         phone.setUser(userOptional);
         phoneNumberRepository.save(phone);
+    }
+
+    @Override
+    public List<PhoneNumber> getAllPhoneNumbersByUser(User user) {
+        return phoneNumberRepository.getPhoneNumbersByUser(user);
     }
 }

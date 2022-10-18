@@ -27,9 +27,12 @@ public class History {
             generator = "histories_id_seq"
     )
     private Long Id;
-    @ManyToOne
-    @JoinColumn(name = "phone_id")
+    @OneToOne
+    @JoinColumn(name = "id")
     private PhoneNumber phoneNumber;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User user;
     @Column(name = "start_date")
     private Date startDate;
     @Column(name = "end_date")
