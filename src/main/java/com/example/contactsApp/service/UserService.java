@@ -12,7 +12,7 @@ public interface UserService {
 
     User loginUser(User user);
 
-    User changePassword(User user);
+    User changePassword(Long userId, String password);
 
     void deletePhone(Long userId);
 }
