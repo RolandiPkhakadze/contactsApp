@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface HistoryService {
 
-    History saveHistory(History history, Long userId);
+    void saveHistory(History history, Long userId);
 
     List<History> getAllHistoriesForUser(Long userId);
 

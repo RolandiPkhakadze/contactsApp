@@ -7,6 +7,9 @@ import org.thymeleaf.util.Validate;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static java.time.Duration.between;
 
 @Getter
 @Setter
@@ -32,16 +35,17 @@ public class History {
     private Long Id;
     @OneToOne
     @JoinColumn(name = "id")
+    @JsonIgnore
     private PhoneNumber phoneNumber;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
     @Column(name = "start_date")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
     @Column(name = "end_date")
-    private LocalDate endDate;
+    private LocalDateTime endDate;
     @Transient
-    private Long duration= Duration.between(startDate,endDate).toSeconds();
+    private Long duration;
 
 }
