@@ -2,7 +2,9 @@ package com.example.contactsApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Getter
@@ -42,4 +44,8 @@ public class History {
     @Transient
     private Long duration;
 
+    @PostLoad
+    public void initDuring() {
+        duration = Duration.between(startDate, endDate).toSeconds();
+    }
 }
