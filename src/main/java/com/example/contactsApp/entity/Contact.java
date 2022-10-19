@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @ToString
@@ -34,6 +36,8 @@ public class Contact {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+    @NotNull
+    @NotBlank
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")

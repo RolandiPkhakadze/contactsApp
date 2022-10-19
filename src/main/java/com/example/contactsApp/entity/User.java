@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter
@@ -26,10 +27,15 @@ public class User {
             generator = "users_seq"
     )
     private Long id;
+
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+    @Email
     @Column(name = "email")
     private String email;
+    @Pattern(regexp = "^[a-z0-9_-]{3,15}$")
     @Column(name = "username")
     private String username;
+    @Pattern(regexp = "\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$\"")
     @Column(name = "password")
     private  String password;
     @OneToMany(mappedBy = "user")

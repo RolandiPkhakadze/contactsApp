@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Getter
 @Setter
@@ -31,10 +34,10 @@ public class History {
     @JoinColumn(name = "phone_id")
     private PhoneNumber phoneNumber;
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
     @Transient
-    private Long duration;
+    private Long duration = Duration.between(startDate, endDate).toSeconds();
 
 }
