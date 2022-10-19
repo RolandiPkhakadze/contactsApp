@@ -3,10 +3,7 @@ package com.example.contactsApp.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.Period;
 
 @Getter
 @Setter
@@ -38,7 +35,7 @@ public class History {
     @Column(name = "end_date")
     private LocalDate endDate;
     @Transient
-    private Long duration = Duration.between(startDate, endDate).toSeconds();
+    private Long duration;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

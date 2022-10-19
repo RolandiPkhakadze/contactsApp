@@ -1,6 +1,5 @@
 package com.example.contactsApp.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,14 +27,13 @@ public class User {
     )
     private Long id;
 
-    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
-    @Email
+    @NotBlank(message = "email must be entered")
     @Column(name = "email")
     private String email;
-    @Pattern(regexp = "^[a-z0-9_-]{3,15}$")
+    @Pattern(regexp = "^[a-z0-9_-]{3,15}$",message = "username format is bad")
     @Column(name = "username")
     private String username;
-    @Pattern(regexp = "\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$\"")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",message = "weak password")
     @Column(name = "password")
     private  String password;
     @OneToMany(mappedBy = "user")
