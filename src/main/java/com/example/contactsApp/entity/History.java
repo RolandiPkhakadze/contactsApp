@@ -1,9 +1,15 @@
 package com.example.contactsApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.thymeleaf.util.Validate;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static java.time.Duration.between;
 
 @Getter
 @Setter
@@ -27,18 +33,19 @@ public class History {
             generator = "histories_id_seq"
     )
     private Long Id;
-    @ManyToOne
-    @JoinColumn(name = "phone_id")
+    @OneToOne
+    @JoinColumn(name = "id")
+    @JsonIgnore
     private PhoneNumber phoneNumber;
-    @Column(name = "start_date")
-    private LocalDate startDate;
-    @Column(name = "end_date")
-    private LocalDate endDate;
-    @Transient
-    private Long duration;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
+    @Column(name = "start_date")
+    private LocalDateTime startDate;
+    @Column(name = "end_date")
+    private LocalDateTime endDate;
+    @Transient
+    private Long duration;
 
 }
