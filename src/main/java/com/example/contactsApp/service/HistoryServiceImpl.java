@@ -19,9 +19,9 @@ public class HistoryServiceImpl implements HistoryService {
     private final UserRepository userRepository;
 
     @Override
-    public History saveHistory(History history, Long userId) {
+    public void saveHistory(History history, Long userId) {
         history.setUser(userRepository.getUserById(userId));
-        return historyRepository.save(history);
+        historyRepository.save(history);
     }
 
     @Override

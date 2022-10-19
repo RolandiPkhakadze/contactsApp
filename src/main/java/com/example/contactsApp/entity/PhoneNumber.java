@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -26,6 +27,7 @@ public class PhoneNumber {
     )
     private Long id;
     @Column(name = "phone_number")
+    @Pattern(regexp = "(\\d{9})")
     private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "user_id")
