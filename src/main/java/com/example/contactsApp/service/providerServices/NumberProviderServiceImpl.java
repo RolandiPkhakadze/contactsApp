@@ -1,4 +1,4 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.providerServices;
 
 
 import com.example.contactsApp.entity.NumberProvider;
@@ -14,8 +14,8 @@ public class NumberProviderServiceImpl implements NumberProviderService{
     private NumberProviderRepository numberProviderRepository;
 
     @Override
-    public void addProvider(NumberProvider provider) {
-        numberProviderRepository.save(provider);
+    public NumberProvider addProvider(NumberProvider provider) {
+        return numberProviderRepository.save(provider);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.userServices;
 
 import com.example.contactsApp.entity.User;
 
@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserService {
     List<User> getAllUsers();
 
-    Long registerUser(User user);
+    User registerUser(User user);
 
     User loginUser(String usernameOrEmail, String password);
 

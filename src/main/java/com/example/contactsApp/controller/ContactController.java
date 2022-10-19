@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
 import com.example.contactsApp.entity.Contact;
-import com.example.contactsApp.service.ContactService;
+import com.example.contactsApp.service.contactServices.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +13,17 @@ import javax.validation.Valid;
 public class ContactController {
     private final ContactService contactService;
 
-    @PutMapping(path = "/add-contact")
-    public String addContact( @RequestParam Long userId,@Valid @RequestBody Contact contact){
-        contactService.addContact(contact,userId);
-        return "contact added";
+    @PostMapping(path = "/add-contact")
+    public Contact addContact( @RequestParam Long userId,@Valid @RequestBody Contact contact){
+        return contactService.addContact(contact,userId);
+    }
+
+    @PutMapping(path = "/update-contact/{id}")
+    public  Contact updateContact( @RequestParam Long userId,
+                                    @Valid @RequestBody Contact contact,
+                                    @PathVariable("id") Long id){
+        contact.setId(id);
+        return contactService.addContact(contact,userId);
     }
 
     @DeleteMapping(path = "/delete-history")

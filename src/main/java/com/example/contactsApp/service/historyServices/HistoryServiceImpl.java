@@ -1,4 +1,4 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.historyServices;
 
 
 import com.example.contactsApp.Exception.CallTimesException;
@@ -20,13 +20,13 @@ public class HistoryServiceImpl implements HistoryService {
     private final UserRepository userRepository;
 
     @Override
-    public void saveHistory(History history, Long userId) {
+    public History saveHistory(History history, Long userId) {
         if(history.getStartDate().isAfter(history.getEndDate())){
             log.debug("Call Times exception was thrown");
             throw new CallTimesException("call's start time should be less than end time");
         }
         history.setUser(userRepository.getUserById(userId));
-        historyRepository.save(history);
+        return historyRepository.save(history);
     }
 
     @Override

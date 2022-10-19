@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
 import com.example.contactsApp.entity.PhoneNumber;
-import com.example.contactsApp.service.PhoneNumberService;
+import com.example.contactsApp.service.phoneServices.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +19,16 @@ public class PhoneNumberController {
         return "user phone added";
     }
 
-    @PutMapping(path = "/add-contact-phone")
-    public String addContactPhone(@Valid @RequestBody PhoneNumber phone){
-        phoneNumberService.addContactPhone(phone);
-        return "contact phone added";
+    @PostMapping(path = "/add-contact-phone")
+    public PhoneNumber addContactPhone(@Valid @RequestBody PhoneNumber phone){
+        return phoneNumberService.addContactPhone(phone);
+    }
+
+    @PutMapping(path = "/update-phone/{id}")
+    public PhoneNumber updateHistory(@Valid  @RequestBody PhoneNumber phone,
+                                 @PathVariable("id") Long id){
+        phone.setId(id);
+        return phoneNumberService.addContactPhone(phone);
     }
 
     @DeleteMapping(path = "/delete-phone")

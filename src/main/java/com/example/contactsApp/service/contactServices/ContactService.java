@@ -1,11 +1,11 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.contactServices;
 
 import com.example.contactsApp.entity.Contact;
 
 
 public interface ContactService {
 
-    void addContact(Contact contact, Long userId);
+    Contact addContact(Contact contact, Long userId);
 
     void deleteContact(Long contactId);
 }

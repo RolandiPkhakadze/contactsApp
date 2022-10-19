@@ -1,4 +1,4 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.userServices;
 
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
@@ -22,9 +22,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Long registerUser(User user) {
+    public User registerUser(User user) {
         userRepository.findUserByEmailOrUsernameForRegister(user.getEmail(), user.getUsername());
-        return userRepository.save(user).getId();
+        return userRepository.save(user);
     }
 
     @Override
