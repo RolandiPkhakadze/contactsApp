@@ -34,8 +34,6 @@ public class UserController {
     @PostMapping(path = "/login")
     public User loginUser(@RequestParam String usernameOrEmail,@RequestParam String password){
         return userService.loginUser(usernameOrEmail, password);
-    public User loginUser(@Valid @RequestBody User user){
-        return userService.loginUser(user);
     }
 
     @PostMapping(path = "/change-password")
