@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
 import com.example.contactsApp.entity.NumberProvider;
-import com.example.contactsApp.service.NumberProviderService;
+import com.example.contactsApp.service.providerServices.NumberProviderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,17 @@ public class NumberProviderController {
 
     private final NumberProviderService numberProviderService;
 
-    @PutMapping(path = "/add-provider")
-    public String addProvider(@Valid  @RequestBody NumberProvider provider){
-        numberProviderService.addProvider(provider);
-        return "provider added";
+    @PostMapping(path = "/add-provider")
+    public NumberProvider addProvider(@Valid  @RequestBody NumberProvider provider){
+
+        return numberProviderService.addProvider(provider);
+    }
+
+    @PutMapping(path = "/update-provider/{id}")
+    public NumberProvider updateHistory(@Valid  @RequestBody NumberProvider provider,
+                                     @PathVariable("id") Long id){
+        provider.setId(id);
+        return numberProviderService.addProvider(provider);
     }
 
     @DeleteMapping(path = "/delete-provider")

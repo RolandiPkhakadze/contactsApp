@@ -1,4 +1,4 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.phoneServices;
 
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
@@ -25,8 +25,8 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
     }
 
     @Override
-    public void addContactPhone(PhoneNumber phone) {
-        phoneNumberRepository.save(phone);
+    public PhoneNumber addContactPhone(PhoneNumber phone) {
+        return phoneNumberRepository.save(phone);
     }
 
     @Override

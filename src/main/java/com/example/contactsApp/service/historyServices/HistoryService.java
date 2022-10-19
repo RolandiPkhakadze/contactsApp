@@ -1,4 +1,4 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.historyServices;
 
 import com.example.contactsApp.entity.History;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface HistoryService {
 
-    void saveHistory(History history, Long userId);
+    History saveHistory(History history, Long userId);
 
     List<History> getAllHistoriesForUser(Long userId);
 

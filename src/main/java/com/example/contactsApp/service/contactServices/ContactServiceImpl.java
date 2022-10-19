@@ -1,4 +1,4 @@
-package com.example.contactsApp.service;
+package com.example.contactsApp.service.contactServices;
 
 
 import com.example.contactsApp.entity.Contact;
@@ -17,12 +17,12 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
 
     @Override
-    public void addContact(Contact contact, Long userId) {
+    public Contact addContact(Contact contact, Long userId) {
         User userOptional = userRepository.getUserById(userId);
         log.debug("dsfdsfsd");
 
         contact.setUser(userOptional);
-        contactRepository.save(contact);
+        return contactRepository.save(contact);
     }
 
     @Override

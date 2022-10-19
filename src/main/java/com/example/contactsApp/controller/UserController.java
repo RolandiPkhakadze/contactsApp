@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.service.UserService;
+import com.example.contactsApp.service.userServices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +25,16 @@ public class UserController {
     }
 
 
-    @PutMapping(path = "/register")
-    public String registerUser(@Valid @RequestBody User user){
-        Long userId = userService.registerUser(user);
-        return "User registered with id " + userId;
+    @PostMapping(path = "/register")
+    public User registerUser(@Valid @RequestBody User user){
+        return userService.registerUser(user);
+    }
+
+    @PutMapping(path = "/update-user/{id}")
+    public User updateHistory(@Valid  @RequestBody  User user,
+                                     @PathVariable("id") Long id){
+        user.setId(id);
+        return userService.registerUser(user);
     }
 
     @PostMapping(path = "/login")
@@ -36,10 +42,9 @@ public class UserController {
         return userService.loginUser(usernameOrEmail, password);
     }
 
-    @PostMapping(path = "/change-password")
-    public String changePassword(@RequestParam Long userId, @RequestParam String password){
-        userService.changePassword(userId, password);
-        return "password changed successfully";
+    @PutMapping(path = "/change-password")
+    public User changePassword(@RequestParam Long userId, @RequestParam String password){
+        return userService.changePassword(userId, password);
     }
 
 

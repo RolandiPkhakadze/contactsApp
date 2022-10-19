@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
 import com.example.contactsApp.entity.History;
-import com.example.contactsApp.service.*;
+import com.example.contactsApp.service.historyServices.HistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +28,17 @@ public class HistoryController {
 
     }
 
-    @PutMapping(path = "/add-history")
-    public void addHistory(@Valid  @RequestBody History history, @RequestParam Long userId) {
-        historyService.saveHistory(history,userId);
+    @PostMapping(path = "/add-history")
+    public History addHistory(@Valid  @RequestBody History history, @RequestParam Long userId) {
+        return historyService.saveHistory(history,userId);
+    }
+
+    @PutMapping(path = "/update-history/{id}")
+    public History updateHistory(@RequestParam Long userId,
+                                 @Valid  @RequestBody History history,
+                                  @PathVariable("id") Long id){
+        history.setId(id);
+        return historyService.saveHistory(history,userId);
     }
 
     @DeleteMapping(path = "/delete-history")
