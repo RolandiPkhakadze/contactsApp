@@ -40,4 +40,8 @@ public class History {
     @Transient
     private Long duration = Duration.between(startDate, endDate).toSeconds();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

@@ -4,6 +4,8 @@ import com.example.contactsApp.entity.History;
 import com.example.contactsApp.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +21,7 @@ public class HistoryController {
     }
 
     @PutMapping(path = "/add-history")
-    public History addHistory(@RequestBody History history,@RequestParam Long userId) {
+    public History addHistory(@Valid @RequestBody History history, @RequestParam Long userId) {
         return historyService.saveHistory(history,userId);
     }
 

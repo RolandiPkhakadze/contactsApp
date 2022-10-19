@@ -5,6 +5,8 @@ import com.example.contactsApp.service.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(path  = "contact")
@@ -12,7 +14,7 @@ public class ContactController {
     private final ContactService contactService;
 
     @PutMapping(path = "/add-contact")
-    public String addContact(@RequestParam Long userId, @RequestBody Contact contact){
+    public String addContact(@RequestParam Long userId, @Valid @RequestBody Contact contact){
         contactService.addContact(contact,userId);
         return "contact added";
     }
