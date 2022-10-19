@@ -3,9 +3,9 @@ package com.example.contactsApp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
-import org.springframework.boot.convert.DataSizeUnit;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @ToString
@@ -36,6 +36,8 @@ public class Contact {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+    @NotNull
+    @NotBlank(message = "first name must be entered")
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")

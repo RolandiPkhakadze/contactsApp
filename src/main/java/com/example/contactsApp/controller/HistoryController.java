@@ -5,7 +5,7 @@ import com.example.contactsApp.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,17 +22,14 @@ public class HistoryController {
     public List<History> getAllHistoriesForUser(@RequestParam Long userId) {
         return historyService.getAllHistoriesForUser(userId)
                 .stream()
-                .map(history -> {
-                    history.setDuration((
-                            between(history.getStartDate(), history.getEndDate()).toSeconds()));
-                    return history;
-                })
+                .peek(history -> history.setDuration((
+                        between(history.getStartDate(), history.getEndDate()).toSeconds())))
                 .collect(Collectors.toList());
 
     }
 
     @PutMapping(path = "/add-history")
-    public void addHistory(@RequestBody History history,@RequestParam Long userId) {
+    public void addHistory(@Valid  @RequestBody History history, @RequestParam Long userId) {
         historyService.saveHistory(history,userId);
     }
 

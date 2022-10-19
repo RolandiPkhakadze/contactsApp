@@ -31,12 +31,13 @@ CREATE TABLE phones(
 
 CREATE TABLE histories(
       id SERIAL PRIMARY KEY,
+      phone_id INT,
       user_id INT,
       start_date date,
       end_date date,
       duration INT,
       CONSTRAINT fk_phone
-          FOREIGN KEY(id)
+          FOREIGN KEY(phone_id)
               REFERENCES phones(id),
       CONSTRAINT fk_user
           FOREIGN KEY(user_id)

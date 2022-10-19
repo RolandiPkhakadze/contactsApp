@@ -5,6 +5,8 @@ import com.example.contactsApp.service.NumberProviderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "provider")
@@ -13,7 +15,7 @@ public class NumberProviderController {
     private final NumberProviderService numberProviderService;
 
     @PutMapping(path = "/add-provider")
-    public String addProvider(@RequestBody NumberProvider provider){
+    public String addProvider(@Valid  @RequestBody NumberProvider provider){
         numberProviderService.addProvider(provider);
         return "provider added";
     }

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,16 +28,20 @@ public class PhoneNumber {
     )
     private Long id;
     @Column(name = "phone_number")
-    @Pattern(regexp = "(\\d{9})")
+    @Pattern(regexp = "^[0-9]{9}$",message = "wrong phone number")
     private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+    @Pattern(regexp = "^[1-9][0-9]$",message = "You should enter only digits")
     @Column(name = "balance")
     private Long balance;
     @ManyToOne
     @JoinColumn(name = "provider_id")
     @JsonIgnore
     private NumberProvider provider;
+    @OneToMany(mappedBy = "phoneNumber")
+    @ToString.Exclude
+    private List<History> historyList;
 }
