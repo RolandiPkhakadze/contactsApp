@@ -8,9 +8,9 @@ import java.util.List;
 public interface UserService {
     List<User> getAllUsers();
 
-    void registerUser(User user);
+    Long registerUser(User user);
 
-    User loginUser(User user);
+    User loginUser(String usernameOrEmail, String password);
 
     User changePassword(Long userId, String password);
 
