@@ -22,17 +22,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void registerUser(User user) {
+    public Long registerUser(User user) {
         userRepository.findUserByEmailOrUsernameForRegister(user.getEmail(), user.getUsername());
-
-        userRepository.save(user);
+        return userRepository.save(user).getId();
     }
 
     @Override
-    public User loginUser(User user) {
-        User userOptional = userRepository.findUserByEmailOrUsername(user.getEmail(), user.getUsername());
-
-        if(!userOptional.getPassword().equals(user.getPassword())) {
+    public User loginUser(String usernameOrEmail, String password) {
+        User userOptional = userRepository.findUserByEmailOrUsername(usernameOrEmail,usernameOrEmail);
+        if(!userOptional.getPassword().equals(password)) {
             throw new WrongPasswordException("wrong password try again");
         }
 

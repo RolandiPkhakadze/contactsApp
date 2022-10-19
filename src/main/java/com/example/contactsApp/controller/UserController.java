@@ -27,18 +27,21 @@ public class UserController {
 
     @PutMapping(path = "/register")
     public String registerUser(@Valid @RequestBody User user){
-        userService.registerUser(user);
-        return "User registered";
+        Long userId = userService.registerUser(user);
+        return "User registered with id " + userId;
     }
 
     @PostMapping(path = "/login")
+    public User loginUser(@RequestParam String usernameOrEmail,@RequestParam String password){
+        return userService.loginUser(usernameOrEmail, password);
     public User loginUser(@Valid @RequestBody User user){
         return userService.loginUser(user);
     }
 
     @PostMapping(path = "/change-password")
-    public User changePassword(@RequestParam Long userId, @RequestParam String password){
-        return userService.changePassword(userId, password);
+    public String changePassword(@RequestParam Long userId, @RequestParam String password){
+        userService.changePassword(userId, password);
+        return "password changed successfully";
     }
 
 
