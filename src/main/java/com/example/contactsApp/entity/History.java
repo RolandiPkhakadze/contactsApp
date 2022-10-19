@@ -2,6 +2,8 @@ package com.example.contactsApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.thymeleaf.util.Validate;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -35,7 +37,6 @@ public class History {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
-
     @Column(name = "start_date")
     private LocalDate startDate;
     @Column(name = "end_date")

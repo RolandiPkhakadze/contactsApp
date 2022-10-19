@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository
 public interface PhoneNumberRepository  extends JpaRepository<PhoneNumber, Long> {
-    List<PhoneNumber> getPhoneNumbersByUser(User user);
 }

@@ -1,5 +1,6 @@
 package com.example.contactsApp.service;
 
+import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService{
         User userOptional = userRepository.findUserByEmailOrUsername(user.getEmail(), user.getUsername());
 
         if(!userOptional.getPassword().equals(user.getPassword())) {
-            throw new IllegalStateException();
+            throw new WrongPasswordException("wrong password try again");
         }
 
         return userOptional;
