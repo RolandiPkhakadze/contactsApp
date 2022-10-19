@@ -2,9 +2,7 @@ package com.example.contactsApp.controller;
 
 import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.service.ContactService;
-import com.example.contactsApp.service.ContactServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,10 +11,15 @@ import org.springframework.web.bind.annotation.*;
 public class ContactController {
     private final ContactService contactService;
 
-    @RequestMapping(path = "add_contact")
-    @PutMapping
-    public String addPhone(@RequestParam Long userId, @RequestBody Contact contact){
+    @PutMapping(path = "/add-contact")
+    public String addContact(@RequestParam Long userId, @RequestBody Contact contact){
         contactService.addContact(contact,userId);
         return "contact added";
+    }
+
+    @DeleteMapping(path = "/delete-history")
+    public String deletePhone(@RequestParam Long contactId){
+        contactService.deleteContact(contactId);
+        return "provider deleted";
     }
 }

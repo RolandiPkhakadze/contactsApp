@@ -35,5 +35,6 @@ public class PhoneNumber {
     private Long balance;
     @ManyToOne
     @JoinColumn(name = "provider_id")
+    @JsonIgnore
     private NumberProvider provider;
 }

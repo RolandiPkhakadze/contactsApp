@@ -1,7 +1,9 @@
 package com.example.contactsApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 import lombok.*;
+import org.springframework.boot.convert.DataSizeUnit;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

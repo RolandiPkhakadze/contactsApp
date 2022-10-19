@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -19,16 +17,16 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
 
     @Override
-    public List<Contact> getContacts() {
-        return  contactRepository.findAll();
-    }
-
-    @Override
     public void addContact(Contact contact, Long userId) {
         User userOptional = userRepository.getUserById(userId);
         log.debug("dsfdsfsd");
 
         contact.setUser(userOptional);
         contactRepository.save(contact);
+    }
+
+    @Override
+    public void deleteContact(Long contactId) {
+        contactRepository.deleteById(contactId);
     }
 }

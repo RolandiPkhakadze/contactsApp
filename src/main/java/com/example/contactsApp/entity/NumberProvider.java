@@ -36,7 +36,6 @@ public class NumberProvider {
     private int tariffForSame;
     @Column(name = "tariff_for_non_geo")
     private int tariffForNonGeo;
-
     @OneToMany(mappedBy = "provider")
     private List<PhoneNumber> phoneNumberList;
 
