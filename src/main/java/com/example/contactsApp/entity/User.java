@@ -1,9 +1,10 @@
 package com.example.contactsApp.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Getter
@@ -26,10 +27,13 @@ public class User {
             generator = "users_seq"
     )
     private Long id;
+    @NotBlank(message = "email must be entered")
     @Column(name = "email")
     private String email;
+    @Pattern(regexp = "^[a-z0-9_-]{3,15}$",message = "username format is bad")
     @Column(name = "username")
     private String username;
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",message = "weak password")
     @Column(name = "password")
     private  String password;
     @OneToMany(mappedBy = "user")

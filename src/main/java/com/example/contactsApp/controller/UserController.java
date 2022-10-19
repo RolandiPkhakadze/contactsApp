@@ -5,6 +5,7 @@ import com.example.contactsApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
 
 
     @PutMapping(path = "/register")
-    public String registerUser(@RequestBody User user){
+    public String registerUser(@Valid @RequestBody User user){
         userService.registerUser(user);
         return "User registered";
     }
@@ -36,8 +37,8 @@ public class UserController {
     }
 
     @PostMapping(path = "/change-password")
-    public User changePassword(@RequestBody User user){
-        return userService.changePassword(user);
+    public User changePassword(@RequestParam Long userId, @RequestParam String password){
+        return userService.changePassword(userId, password);
     }
 
 

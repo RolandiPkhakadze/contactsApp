@@ -40,10 +40,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User changePassword(User user) {
-        User userOptional = userRepository.findUserByEmailOrUsername(user.getEmail(), user.getUsername());
+    public User changePassword(Long userId, String password) {
+        User userOptional = userRepository.getUserById(userId);
 
-        userOptional.setPassword(user.getPassword());
+        userOptional.setPassword(password);
 
         userRepository.save(userOptional);
 
