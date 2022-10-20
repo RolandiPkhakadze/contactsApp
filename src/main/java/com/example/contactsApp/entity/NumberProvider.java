@@ -32,16 +32,16 @@ public class NumberProvider {
     @Column(name = "name")
     private String  name;
     @Column(name = "is_georgian")
-    private boolean isGeorgian;
+    private Boolean isGeorgian;
     @Min(value = 0,message = "minimum tariff is 0")
     @Column(name = "tariff_for_geo")
-    private int tariffForGeo;
+    private Integer tariffForGeo;
     @Min(value = 0,message = "minimum tariff is 0")
     @Column(name = "tariff_for_same")
-    private int tariffForSame;
+    private Integer tariffForSame;
     @Min(value = 0,message = "minimum tariff is 0")
     @Column(name = "tariff_for_non_geo")
-    private int tariffForNonGeo;
+    private Integer tariffForNonGeo;
     @OneToMany(mappedBy = "provider")
     private List<PhoneNumber> phoneNumberList;
 
