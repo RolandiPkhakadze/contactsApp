@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class PhoneConverter {
     public PhoneDto entityToDto(PhoneNumber phone){
-        PhoneDto dto = new PhoneDto();
 
-        dto.setId(phone.getId());
-        dto.setBalance(phone.getBalance());
-        dto.setPhoneNumber(phone.getPhoneNumber());
-        return dto;
+        return PhoneDto.builder()
+                .id(phone.getId())
+                .phoneNumber(phone.getPhoneNumber())
+                .balance(phone.getBalance())
+                .build();
     }
 
 

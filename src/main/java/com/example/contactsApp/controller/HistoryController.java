@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
+import com.example.contactsApp.dtoConverter.converter.HistoryConverter;
 import com.example.contactsApp.dtoConverter.dtoModel.HistoryDto;
-import com.example.contactsApp.dtoConverter.HistoryConverter;
 import com.example.contactsApp.entity.History;
 import com.example.contactsApp.service.Intf.HistoryService;
 import lombok.AllArgsConstructor;

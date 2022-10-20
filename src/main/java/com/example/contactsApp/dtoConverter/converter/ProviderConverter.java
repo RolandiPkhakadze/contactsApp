@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProviderConverter {
     public ProviderDto entityToDto(NumberProvider provider){
-        ProviderDto dto = new ProviderDto();
 
-        dto.setId(provider.getId());
-        dto.setName(provider.getName());
-        dto.setIsGeorgian(provider.getIsGeorgian());
-        dto.setTariffForGeo(provider.getTariffForGeo());
-        dto.setTariffForSame(provider.getTariffForSame());
-        dto.setTariffForNonGeo(provider.getTariffForNonGeo());
-        return dto;
+        return ProviderDto.builder().
+                id(provider.getId()).
+                isGeorgian(provider.getIsGeorgian()).
+                name(provider.getName()).
+                tariffForGeo(provider.getTariffForGeo()).
+                tariffForNonGeo(provider.getTariffForSame()).
+                tariffForSame(provider.getTariffForNonGeo()).
+                build();
     }
 
 

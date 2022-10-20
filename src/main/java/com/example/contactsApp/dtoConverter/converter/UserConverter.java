@@ -10,17 +10,16 @@ import java.util.stream.Collectors;
 @Component
 public class UserConverter {
     public UserDto entityToDto(User user){
-        UserDto dto = new UserDto();
-
-        dto.setId(user.getId());
-        dto.setUsername(user.getUsername());
-        dto.setPassword(user.getPassword());
-        dto.setEmail(user.getEmail());
-        return dto;
+        return UserDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .email(user.getEmail())
+                .build();
     }
 
     public List<UserDto> entityToDto(List<User> user){
-        return user.stream().map(x -> entityToDto(x)).collect(Collectors.toList());
+        return user.stream().map(this::entityToDto).collect(Collectors.toList());
     }
 
     public User dtoToEntity(UserDto dto){

@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
+import com.example.contactsApp.dtoConverter.converter.ContactConverter;
 import com.example.contactsApp.dtoConverter.dtoModel.ContactDto;
-import com.example.contactsApp.dtoConverter.ContactConverter;
 import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.service.Intf.ContactService;
 import lombok.AllArgsConstructor;

@@ -45,10 +45,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     @Override
     public PhoneNumber updatePhonePartially(PhoneNumber phone, Long id) {
         PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(id);
-        String phoneNumber = phone.getPhoneNumber();
-        phoneForSave.setPhoneNumber(phoneNumber !=null? phoneNumber : phoneForSave.getPhoneNumber());
-        Long balance = phone.getBalance();
-        phoneForSave.setBalance(balance !=null? balance : phoneForSave.getBalance());
+
         return phoneNumberRepository.save(phoneForSave);
     }
 
