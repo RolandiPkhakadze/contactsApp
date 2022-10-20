@@ -29,4 +29,23 @@ public class ContactServiceImpl implements ContactService {
     public void deleteContact(Long contactId) {
         contactRepository.deleteById(contactId);
     }
+
+    @Override
+    public Contact updateContactPartially(Contact contact, Long id) {
+        Contact contactForSave = contactRepository.getContactById(id);
+        var firstName = contact.getFirstName();
+        contactForSave.setFirstName(firstName != null ? firstName : contactForSave.getFirstName());
+        var lastName = contact.getLastName();
+        contactForSave.setLastName(lastName != null ? lastName : contactForSave.getLastName());
+        var isFavorite = contact.getIsFavorite();
+        contactForSave.setIsFavorite(isFavorite != null ? isFavorite : contactForSave.getIsFavorite());
+        return updateContact(contactForSave, id);
+    }
+
+    @Override
+    public Contact updateContact(Contact contact, Long id) {
+        contactRepository.getContactById(id);
+        contact.setId(id);
+        return contactRepository.save(contact);
+    }
 }

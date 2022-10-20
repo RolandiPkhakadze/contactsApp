@@ -19,12 +19,18 @@ public class ContactController {
     }
 
     @PutMapping(path = "/update-contact/{id}")
-    public  Contact updateContact( @RequestParam Long userId,
-                                    @Valid @RequestBody Contact contact,
+    public  Contact updateContact( @Valid @RequestBody Contact contact,
                                     @PathVariable("id") Long id){
         contact.setId(id);
-        return contactService.addContact(contact,userId);
+        return contactService.updateContact(contact, id);
     }
+
+    @PatchMapping(path = "/update-contact/{id}")
+    public Contact updateContactPartially(@RequestBody Contact contact,
+                                          @PathVariable("id") Long id) {
+        return contactService.updateContactPartially(contact, id);
+    }
+
 
     @DeleteMapping(path = "/delete-history")
     public String deletePhone(@RequestParam Long contactId){
