@@ -1,5 +1,7 @@
 package com.example.contactsApp.controller;
 
+import com.example.contactsApp.dboConverter.converter.UserConverter;
+import com.example.contactsApp.dboConverter.dtoModel.UserDto;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.service.userServices.UserService;
 import lombok.AllArgsConstructor;
@@ -14,40 +16,47 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserConverter converter;
 
     @GetMapping(path  = "/get-all")
-    public List<User> GetUser() {
-        return userService.getAllUsers();
+    public List<UserDto> GetUser() {
+        List<User> findAll = userService.getAllUsers();
+        return converter.entityToDto(findAll);
     }
 
 
     @PostMapping(path = "/register")
-    public User registerUser(@Valid @RequestBody User user){
-        return userService.registerUser(user);
+    public UserDto registerUser( @RequestBody UserDto dto){
+        User user = userService.registerUser(converter.dtoToEntity(dto));
+        return converter.entityToDto(user);
     }
 
     @PutMapping(path = "/update-user/{id}")
-    public User updateUser(@Valid  @RequestBody  User user,
+    public UserDto updateUser(  @RequestBody  UserDto dto,
                                      @PathVariable("id") Long id){
 
-        return userService.updateUser(user,id);
+        User user = userService.updateUser(converter.dtoToEntity(dto),id);
+        return converter.entityToDto(user);
     }
 
     @PatchMapping(path = "/update-user/{id}")
-    public User updateUserPartially(@RequestBody User user,
+    public UserDto updateUserPartially(@RequestBody UserDto dto,
                                     @PathVariable("id") Long id){
 
-        return userService.updateUserPartially(user,id);
+        User user = userService.updateUserPartially(converter.dtoToEntity(dto),id);
+        return converter.entityToDto(user);
     }
 
     @PostMapping(path = "/login")
-    public User loginUser(@RequestParam String usernameOrEmail,@RequestParam String password){
-        return userService.loginUser(usernameOrEmail, password);
+    public UserDto loginUser(@RequestParam String usernameOrEmail,@RequestParam String password){
+        User user = userService.loginUser(usernameOrEmail, password);
+        return converter.entityToDto(user);
     }
 
     @PutMapping(path = "/change-password")
-    public User changePassword(@RequestParam Long userId, @RequestParam String password){
-        return userService.changePassword(userId, password);
+    public UserDto changePassword(@RequestParam Long userId, @RequestParam String password){
+        User user = userService.changePassword(userId, password);
+        return converter.entityToDto(user);
     }
 
 
