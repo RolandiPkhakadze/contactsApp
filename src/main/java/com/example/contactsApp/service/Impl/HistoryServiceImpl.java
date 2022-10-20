@@ -8,9 +8,9 @@ import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.Intf.HistoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -33,7 +33,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public List<History> getAllHistoriesForUser(Long userId) {
-        return historyRepository.getHistoriesByUser(userRepository.getUserById(userId));
+        return historyRepository.getHistoriesByUser(userRepository.getUserById(userId), PageRequest.of(0,2));
     }
 
     @Override
@@ -57,10 +57,6 @@ public class HistoryServiceImpl implements HistoryService {
     public History updateHistoryPartially(History history, Long id) {
         History historyForSave = historyRepository.getHistoriesById(id);
 
-        LocalDateTime startDate = history.getStartTime();
-        historyForSave.setStartTime(startDate !=null? startDate :historyForSave.getStartTime());
-        LocalDateTime endDate = history.getEndTime();
-        historyForSave.setEndTime(endDate !=null? endDate :historyForSave.getEndTime());
-        return historyRepository.save(historyForSave);
+        return historyRepository.save(CustomMapperImpl.historyNullExclude(historyForSave,history));
     }
 }

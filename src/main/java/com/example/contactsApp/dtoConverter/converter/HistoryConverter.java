@@ -18,7 +18,7 @@ public class HistoryConverter {
         History history = new History();
         history.setEndTime(historyDto.getEndTime());
         history.setStartTime(historyDto.getStartTime());
-        history.setPhoneNumber(phoneNumberService.getPhoneNumberByPhoneNumber(historyDto.getPhoneNumber()));
+        history.setPhoneNumber(historyDto.getPhoneNumber());
 
         return history;
     }
@@ -28,12 +28,12 @@ public class HistoryConverter {
     }
 
     public HistoryDto entityToDto(History history) {
-        HistoryDto historyDto = new HistoryDto();
-        historyDto.setEndTime(history.getEndTime());
-        historyDto.setStartTime(history.getStartTime());
-        historyDto.setPhoneNumber(history.getPhoneNumber().getPhoneNumber());
 
-        return historyDto;
+        return HistoryDto.builder()
+                .endTime(history.getEndTime())
+                .startTime(history.getStartTime())
+                .phoneNumber(history.getPhoneNumber())
+                .build();
     }
 
     public List<HistoryDto> entityToDto(List<History> history) {

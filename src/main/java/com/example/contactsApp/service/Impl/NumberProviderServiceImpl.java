@@ -36,17 +36,7 @@ public class NumberProviderServiceImpl implements NumberProviderService {
     @Override
     public NumberProvider updateProvider(NumberProvider provider, Long id) {
         NumberProvider providerForSave = numberProviderRepository.getNumberProviderById(id);
-        String name = provider.getName();
-        providerForSave.setName(name !=null? name : providerForSave.getName());
-        Boolean isGeorgian = provider.getIsGeorgian();
-        providerForSave.setIsGeorgian(isGeorgian !=null? isGeorgian : providerForSave.getIsGeorgian());
-        Integer tariffForGeo = provider.getTariffForGeo();
-        providerForSave.setTariffForGeo(tariffForGeo !=null? tariffForGeo : providerForSave.getTariffForGeo());
-        Integer tariffForNonGeo = provider.getTariffForNonGeo();
-        providerForSave.setTariffForNonGeo(tariffForNonGeo !=null? tariffForNonGeo : providerForSave.getTariffForNonGeo());
-        Integer tariffForSame = provider.getTariffForSame();
-        providerForSave.setTariffForSame(tariffForSame !=null? tariffForSame : providerForSave.getTariffForSame());
 
-        return null;
+        return numberProviderRepository.save(CustomMapperImpl.providerNullExclude(providerForSave,provider));
     }
 }

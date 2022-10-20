@@ -6,6 +6,7 @@ import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.Intf.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return  userRepository.findAll();
+        return  userRepository.findAll(PageRequest.of(0,2)).stream().toList();
     }
 
     @Override
@@ -64,13 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUserPartially(User user, Long id) {
         User userForSave = userRepository.getUserById(id);
-        String email = user.getEmail();
-        userForSave.setEmail(email !=null? email : userForSave.getEmail());
-        String password = user.getPassword();
-        userForSave.setPassword(password !=null? password : userForSave.getPassword());
-        String username = user.getUsername();
-        userForSave.setUsername(username !=null? username : userForSave.getUsername());
-        return userRepository.save(userForSave);
+        return userRepository.save(CustomMapperImpl.userNullExclude(userForSave,user));
     }
 
 
