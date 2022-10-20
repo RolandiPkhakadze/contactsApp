@@ -1,5 +1,7 @@
 package com.example.contactsApp.controller;
 
+import com.example.contactsApp.dboConverter.converter.ProviderConverter;
+import com.example.contactsApp.dboConverter.dtoModel.ProviderDto;
 import com.example.contactsApp.entity.NumberProvider;
 import com.example.contactsApp.service.providerServices.NumberProviderService;
 import lombok.AllArgsConstructor;
@@ -13,23 +15,26 @@ import javax.validation.Valid;
 public class NumberProviderController {
 
     private final NumberProviderService numberProviderService;
+    private final ProviderConverter converter;
 
     @PostMapping(path = "/add-provider")
-    public NumberProvider addProvider(@Valid  @RequestBody NumberProvider provider){
-
-        return numberProviderService.addProvider(provider);
+    public ProviderDto addProvider(@RequestBody ProviderDto dto){
+        NumberProvider provider = converter.dtoToEntity(dto);
+        return converter.entityToDto(numberProviderService.addProvider(provider));
     }
 
     @PutMapping(path = "/update-provider/{id}")
-    public NumberProvider updateProvider(@Valid  @RequestBody NumberProvider provider,
+    public ProviderDto updateProvider(@RequestBody ProviderDto dto,
                                      @PathVariable("id") Long id){
-        return numberProviderService.updateProvider(provider,id);
+        NumberProvider provider = converter.dtoToEntity(dto);
+        return converter.entityToDto(numberProviderService.updateProvider(provider,id));
     }
 
     @PatchMapping(path = "/update-provider/{id}")
-    public NumberProvider updateProviderPartially(@Valid  @RequestBody NumberProvider provider,
+    public ProviderDto updateProviderPartially(@RequestBody ProviderDto dto,
                                         @PathVariable("id") Long id){
-        return numberProviderService.addProviderPartially(provider,id);
+        NumberProvider provider = converter.dtoToEntity(dto);
+        return converter.entityToDto(numberProviderService.addProviderPartially(provider,id));
     }
 
     @DeleteMapping(path = "/delete-provider")
