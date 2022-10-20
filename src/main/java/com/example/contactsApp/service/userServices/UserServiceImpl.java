@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -50,8 +51,24 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public void deletePhone(Long userId) {
+    public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public User updateUser(User user, Long id) {
+        user.setId(id);
+        userRepository.getUserById(id);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUserPartially(User user, Long id) {
+        User userForSave = userRepository.getUserById(id);
+        userForSave.setEmail(user.getEmail()!=null? user.getEmail() : userForSave.getEmail());
+        userForSave.setPassword(user.getPassword()!=null? user.getPassword(): userForSave.getPassword());
+        userForSave.setUsername(user.getUsername()!=null? user.getUsername() : userForSave.getUsername());
+        return userRepository.save(userForSave);
     }
 
 

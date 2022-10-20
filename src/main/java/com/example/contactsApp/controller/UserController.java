@@ -2,22 +2,18 @@ package com.example.contactsApp.controller;
 
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.service.userServices.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(path  = "user")
 public class UserController {
 
     private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping(path  = "/get-all")
     public List<User> GetUser() {
@@ -31,10 +27,17 @@ public class UserController {
     }
 
     @PutMapping(path = "/update-user/{id}")
-    public User updateHistory(@Valid  @RequestBody  User user,
+    public User updateUser(@Valid  @RequestBody  User user,
                                      @PathVariable("id") Long id){
         user.setId(id);
-        return userService.registerUser(user);
+        return userService.updateUser(user,id);
+    }
+
+    @PatchMapping(path = "/update-user/{id}")
+    public User updateUserPartially(@RequestBody User user,
+                                    @PathVariable("id") Long id){
+        user.setId(id);
+        return userService.updateUserPartially(user,id);
     }
 
     @PostMapping(path = "/login")
@@ -50,7 +53,7 @@ public class UserController {
 
     @DeleteMapping(path = "/delete-user")
     public String deleteUser(@RequestParam Long userId){
-        userService.deletePhone(userId);
+        userService.deleteUser(userId);
         return "provider deleted";
     }
 }
