@@ -29,14 +29,14 @@ public class UserController {
     @PutMapping(path = "/update-user/{id}")
     public User updateUser(@Valid  @RequestBody  User user,
                                      @PathVariable("id") Long id){
-        user.setId(id);
+
         return userService.updateUser(user,id);
     }
 
     @PatchMapping(path = "/update-user/{id}")
     public User updateUserPartially(@RequestBody User user,
                                     @PathVariable("id") Long id){
-        user.setId(id);
+
         return userService.updateUserPartially(user,id);
     }
 
