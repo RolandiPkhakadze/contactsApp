@@ -1,5 +1,7 @@
 package com.example.contactsApp.controller;
 
+import com.example.contactsApp.dto.HistoryDto;
+import com.example.contactsApp.dtoConverter.HistoryConverter;
 import com.example.contactsApp.entity.History;
 import com.example.contactsApp.service.historyServices.HistoryService;
 import lombok.AllArgsConstructor;
@@ -17,32 +19,33 @@ import static java.time.Duration.between;
 public class HistoryController {
 
     private final HistoryService historyService;
+    private final HistoryConverter historyConverter;
 
     @GetMapping(path = "/histories")
     public List<History> getAllHistoriesForUser(@RequestParam Long userId) {
         return historyService.getAllHistoriesForUser(userId)
                 .stream()
                 .peek(history -> history.setDuration((
-                        between(history.getStartDate(), history.getEndDate()).toSeconds())))
+                        between(history.getStartTime(), history.getEndTime()).toSeconds())))
                 .collect(Collectors.toList());
 
     }
 
     @PostMapping(path = "/add-history")
-    public History addHistory(@Valid  @RequestBody History history, @RequestParam Long userId) {
-        return historyService.saveHistory(history,userId);
+    public History addHistory(@Valid  @RequestBody HistoryDto historyDto, @RequestParam Long userId) {
+        return historyService.saveHistory(historyConverter.dtoToEntity(historyDto),userId);
     }
 
     @PutMapping(path = "/update-history/{id}")
-    public History updateHistory(@Valid  @RequestBody History history,
+    public History updateHistory(@Valid  @RequestBody HistoryDto historyDto,
                                   @PathVariable("id") Long id){
-
-        return historyService.updateHistory(history,id);
+        return historyService.updateHistory(historyConverter.dtoToEntity(historyDto),id);
     }
 
     @PatchMapping(path = "/update-history/{id}")
-    public History updateHistoryPartially(@Valid  @RequestBody History history,
+    public History updateHistoryPartially(@Valid  @RequestBody HistoryDto historyDto,
                                           @PathVariable("id") Long id){
+        var history = historyConverter.dtoToEntity(historyDto);
         history.setId(id);
         return historyService.updateHistoryPartially(history,id);
     }

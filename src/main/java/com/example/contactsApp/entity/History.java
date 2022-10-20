@@ -38,14 +38,14 @@ public class History {
     @JsonIgnore
     private User user;
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDateTime startTime;
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDateTime endTime;
     @Transient
     private Long duration;
 
     @PostLoad
     public void initDuring() {
-        duration = Duration.between(startDate, endDate).toSeconds();
+        duration = Duration.between(startTime, endTime).toSeconds();
     }
 }

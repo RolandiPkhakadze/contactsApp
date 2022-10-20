@@ -51,4 +51,9 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
         return phoneNumberRepository.save(phoneForSave);
     }
 
+    @Override
+    public PhoneNumber getPhoneNumberByPhoneNumber(String phoneNumber) {
+        return phoneNumberRepository.getPhoneNumberByPhoneNumber(phoneNumber);
+    }
+
 }

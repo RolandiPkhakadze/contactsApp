@@ -12,4 +12,6 @@ public interface ContactService {
     Contact updateContactPartially(Contact contact, Long id);
 
     Contact updateContact(Contact contact, Long id);
+
+
 }

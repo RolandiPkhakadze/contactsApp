@@ -22,7 +22,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public History saveHistory(History history, Long userId) {
-        if(history.getStartDate().isAfter(history.getEndDate())){
+        if(history.getStartTime().isAfter(history.getEndTime())){
             log.debug("Call Times exception was thrown");
             throw new CallTimesException("call's start time should be less than end time");
         }
@@ -42,7 +42,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public History updateHistory(History history, Long id) {
-        if(history.getStartDate().isAfter(history.getEndDate())){
+        if(history.getStartTime().isAfter(history.getEndTime())){
             throw new CallTimesException("call's start time should be less than end time");
         }
 
@@ -56,10 +56,10 @@ public class HistoryServiceImpl implements HistoryService {
     public History updateHistoryPartially(History history, Long id) {
         History historyForSave = historyRepository.getHistoriesById(id);
 
-        LocalDateTime startDate = history.getStartDate();
-        historyForSave.setStartDate(startDate !=null? startDate :historyForSave.getStartDate());
-        LocalDateTime endDate = history.getEndDate();
-        historyForSave.setEndDate(endDate !=null? endDate :historyForSave.getEndDate());
+        LocalDateTime startDate = history.getStartTime();
+        historyForSave.setStartTime(startDate !=null? startDate :historyForSave.getStartTime());
+        LocalDateTime endDate = history.getEndTime();
+        historyForSave.setEndTime(endDate !=null? endDate :historyForSave.getEndTime());
         return historyRepository.save(historyForSave);
     }
 }
