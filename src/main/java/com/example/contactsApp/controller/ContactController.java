@@ -1,9 +1,9 @@
 package com.example.contactsApp.controller;
 
-import com.example.contactsApp.dto.ContactDto;
+import com.example.contactsApp.dtoConverter.dtoModel.ContactDto;
 import com.example.contactsApp.dtoConverter.ContactConverter;
 import com.example.contactsApp.entity.Contact;
-import com.example.contactsApp.service.contactServices.ContactService;
+import com.example.contactsApp.service.Intf.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

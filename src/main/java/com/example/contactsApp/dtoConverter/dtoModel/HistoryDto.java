@@ -1,4 +1,4 @@
-package com.example.contactsApp.dto;
+package com.example.contactsApp.dtoConverter.dtoModel;
 
 import lombok.Data;
 import java.time.LocalDateTime;

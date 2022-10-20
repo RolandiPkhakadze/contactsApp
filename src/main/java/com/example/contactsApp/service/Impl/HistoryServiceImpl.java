@@ -1,10 +1,11 @@
-package com.example.contactsApp.service.historyServices;
+package com.example.contactsApp.service.Impl;
 
 
 import com.example.contactsApp.Exception.CallTimesException;
 import com.example.contactsApp.entity.History;
 import com.example.contactsApp.repository.HistoryRepository;
 import com.example.contactsApp.repository.UserRepository;
+import com.example.contactsApp.service.Intf.HistoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

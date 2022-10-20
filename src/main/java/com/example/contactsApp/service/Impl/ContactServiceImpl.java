@@ -1,10 +1,11 @@
-package com.example.contactsApp.service.contactServices;
+package com.example.contactsApp.service.Impl;
 
 
 import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.ContactRepository;
 import com.example.contactsApp.repository.UserRepository;
+import com.example.contactsApp.service.Intf.ContactService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

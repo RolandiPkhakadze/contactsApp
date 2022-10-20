@@ -1,13 +1,11 @@
 package com.example.contactsApp.controller;
 
-import com.example.contactsApp.dboConverter.converter.PhoneConverter;
-import com.example.contactsApp.dboConverter.dtoModel.PhoneDto;
+import com.example.contactsApp.dtoConverter.converter.PhoneConverter;
+import com.example.contactsApp.dtoConverter.dtoModel.PhoneDto;
 import com.example.contactsApp.entity.PhoneNumber;
-import com.example.contactsApp.service.phoneServices.PhoneNumberService;
+import com.example.contactsApp.service.Intf.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor

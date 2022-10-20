@@ -2,7 +2,7 @@ package com.example.contactsApp.serviceTest;
 
 import com.example.contactsApp.Exception.UserDoesNotExistException;
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.service.userServices.UserServiceImpl;
+import com.example.contactsApp.service.Impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

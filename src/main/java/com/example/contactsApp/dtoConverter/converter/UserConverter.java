@@ -1,6 +1,6 @@
-package com.example.contactsApp.dboConverter.converter;
+package com.example.contactsApp.dtoConverter.converter;
 
-import com.example.contactsApp.dboConverter.dtoModel.UserDto;
+import com.example.contactsApp.dtoConverter.dtoModel.UserDto;
 import com.example.contactsApp.entity.User;
 import org.springframework.stereotype.Component;
 

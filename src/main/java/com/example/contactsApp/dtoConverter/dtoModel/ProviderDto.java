@@ -1,10 +1,6 @@
-package com.example.contactsApp.dboConverter.dtoModel;
+package com.example.contactsApp.dtoConverter.dtoModel;
 
 import lombok.Data;
-
-import javax.persistence.Column;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 
 @Data
 public class ProviderDto {

@@ -1,4 +1,4 @@
-package com.example.contactsApp.service.userServices;
+package com.example.contactsApp.service.Intf;
 
 import com.example.contactsApp.entity.User;
 

@@ -1,9 +1,9 @@
 package com.example.contactsApp.controller;
 
-import com.example.contactsApp.dto.HistoryDto;
+import com.example.contactsApp.dtoConverter.dtoModel.HistoryDto;
 import com.example.contactsApp.dtoConverter.HistoryConverter;
 import com.example.contactsApp.entity.History;
-import com.example.contactsApp.service.historyServices.HistoryService;
+import com.example.contactsApp.service.Intf.HistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

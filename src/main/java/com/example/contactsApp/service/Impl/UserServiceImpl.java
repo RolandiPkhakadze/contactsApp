@@ -1,8 +1,9 @@
-package com.example.contactsApp.service.userServices;
+package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.UserRepository;
+import com.example.contactsApp.service.Intf.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 

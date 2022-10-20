@@ -1,9 +1,10 @@
-package com.example.contactsApp.service.phoneServices;
+package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.PhoneNumberRepository;
 import com.example.contactsApp.repository.UserRepository;
+import com.example.contactsApp.service.Intf.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class PhoneNumberServiceImpl implements PhoneNumberService{
+public class PhoneNumberServiceImpl implements PhoneNumberService {
     private final UserRepository userRepository;
     private final PhoneNumberRepository phoneNumberRepository;
 

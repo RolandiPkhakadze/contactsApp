@@ -1,8 +1,8 @@
-package com.example.contactsApp.dtoConverter;
+package com.example.contactsApp.dtoConverter.converter;
 
-import com.example.contactsApp.dto.HistoryDto;
+import com.example.contactsApp.dtoConverter.dtoModel.HistoryDto;
 import com.example.contactsApp.entity.History;
-import com.example.contactsApp.service.phoneServices.PhoneNumberServiceImpl;
+import com.example.contactsApp.service.Impl.PhoneNumberServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
