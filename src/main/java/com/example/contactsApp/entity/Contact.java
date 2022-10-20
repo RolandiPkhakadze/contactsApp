@@ -31,7 +31,7 @@ public class Contact {
     @JoinColumn(name = "id")
     private PhoneNumber phoneNumber;
     @Column(name = "is_favorite")
-    private boolean isFavorite;
+    private Boolean isFavorite;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
