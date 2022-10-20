@@ -23,8 +23,13 @@ public class NumberProviderController {
     @PutMapping(path = "/update-provider/{id}")
     public NumberProvider updateHistory(@Valid  @RequestBody NumberProvider provider,
                                      @PathVariable("id") Long id){
-        provider.setId(id);
-        return numberProviderService.addProvider(provider);
+        return numberProviderService.updateProvider(provider,id);
+    }
+
+    @PatchMapping(path = "/update-provider/{id}")
+    public NumberProvider updateHistoryPartially(@Valid  @RequestBody NumberProvider provider,
+                                        @PathVariable("id") Long id){
+        return numberProviderService.addProviderPartially(provider,id);
     }
 
     @DeleteMapping(path = "/delete-provider")
