@@ -8,4 +8,8 @@ public interface PhoneNumberService {
     PhoneNumber addContactPhone(PhoneNumber phone);
 
     void deletePhone(Long phoneId);
+
+    PhoneNumber updatePhone(PhoneNumber phone, Long id);
+
+    PhoneNumber updatePhonePartially(PhoneNumber phone, Long id);
 }

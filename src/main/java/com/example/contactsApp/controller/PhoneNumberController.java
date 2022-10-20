@@ -25,10 +25,14 @@ public class PhoneNumberController {
     }
 
     @PutMapping(path = "/update-phone/{id}")
-    public PhoneNumber updateHistory(@Valid  @RequestBody PhoneNumber phone,
+    public PhoneNumber updatePhone(@Valid  @RequestBody PhoneNumber phone,
                                  @PathVariable("id") Long id){
-        phone.setId(id);
-        return phoneNumberService.addContactPhone(phone);
+        return phoneNumberService.updatePhone(phone,id);
+    }
+    @PatchMapping(path = "/update-phone/{id}")
+    public PhoneNumber updatePhonePartially(@Valid  @RequestBody PhoneNumber phone,
+                                     @PathVariable("id") Long id){
+        return phoneNumberService.updatePhonePartially(phone,id);
     }
 
     @DeleteMapping(path = "/delete-phone")

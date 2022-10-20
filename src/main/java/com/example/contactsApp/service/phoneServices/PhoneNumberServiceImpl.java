@@ -34,4 +34,21 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
         phoneNumberRepository.deleteById(phoneId);
     }
 
+    @Override
+    public PhoneNumber updatePhone(PhoneNumber phone, Long id) {
+        phoneNumberRepository.getPhoneById(id);
+        phone.setId(id);
+        return phoneNumberRepository.save(phone);
+    }
+
+    @Override
+    public PhoneNumber updatePhonePartially(PhoneNumber phone, Long id) {
+        PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(id);
+        String phoneNumber = phone.getPhoneNumber();
+        phoneForSave.setPhoneNumber(phoneNumber !=null? phoneNumber : phoneForSave.getPhoneNumber());
+        Long balance = phone.getBalance();
+        phoneForSave.setBalance(balance !=null? balance : phoneForSave.getBalance());
+        return phoneNumberRepository.save(phoneForSave);
+    }
+
 }
