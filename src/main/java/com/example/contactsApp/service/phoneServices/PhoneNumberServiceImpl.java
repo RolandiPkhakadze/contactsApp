@@ -16,12 +16,12 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
     private final PhoneNumberRepository phoneNumberRepository;
 
     @Override
-    public void addUserPhone(PhoneNumber phone, Long userId) {
+    public PhoneNumber addUserPhone(PhoneNumber phone, Long userId) {
         User userOptional = userRepository.getUserById(userId);
         log.debug("dsfdsfsd");
 
         phone.setUser(userOptional);
-        phoneNumberRepository.save(phone);
+        return phoneNumberRepository.save(phone);
     }
 
     @Override
