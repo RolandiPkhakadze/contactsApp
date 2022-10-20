@@ -11,4 +11,8 @@ public interface HistoryService {
     List<History> getAllHistoriesForUser(Long userId);
 
     void deleteHistory(Long historyId);
+
+    History updateHistory(History history, Long id);
+
+    History updateHistoryPartially(History history, Long id);
 }

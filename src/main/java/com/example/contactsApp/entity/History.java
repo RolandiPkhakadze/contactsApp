@@ -28,7 +28,7 @@ public class History {
             strategy = GenerationType.SEQUENCE,
             generator = "histories_id_seq"
     )
-    private Long Id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "phone_id")
     @JsonIgnore

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -37,5 +38,28 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public void deleteHistory(Long historyId) {
         historyRepository.deleteById(historyId);
+    }
+
+    @Override
+    public History updateHistory(History history, Long id) {
+        if(history.getStartDate().isAfter(history.getEndDate())){
+            throw new CallTimesException("call's start time should be less than end time");
+        }
+
+        historyRepository.getHistoriesById(id);
+        history.setId(id);
+
+        return historyRepository.save(history);
+    }
+
+    @Override
+    public History updateHistoryPartially(History history, Long id) {
+        History historyForSave = historyRepository.getHistoriesById(id);
+
+        LocalDateTime startDate = history.getStartDate();
+        historyForSave.setStartDate(startDate !=null? startDate :historyForSave.getStartDate());
+        LocalDateTime endDate = history.getEndDate();
+        historyForSave.setEndDate(endDate !=null? endDate :historyForSave.getEndDate());
+        return historyRepository.save(historyForSave);
     }
 }

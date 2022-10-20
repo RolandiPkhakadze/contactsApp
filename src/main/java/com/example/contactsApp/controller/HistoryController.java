@@ -34,11 +34,17 @@ public class HistoryController {
     }
 
     @PutMapping(path = "/update-history/{id}")
-    public History updateHistory(@RequestParam Long userId,
-                                 @Valid  @RequestBody History history,
+    public History updateHistory(@Valid  @RequestBody History history,
                                   @PathVariable("id") Long id){
+
+        return historyService.updateHistory(history,id);
+    }
+
+    @PatchMapping(path = "/update-history/{id}")
+    public History updateHistoryPartially(@Valid  @RequestBody History history,
+                                          @PathVariable("id") Long id){
         history.setId(id);
-        return historyService.saveHistory(history,userId);
+        return historyService.updateHistoryPartially(history,id);
     }
 
     @DeleteMapping(path = "/delete-history")
