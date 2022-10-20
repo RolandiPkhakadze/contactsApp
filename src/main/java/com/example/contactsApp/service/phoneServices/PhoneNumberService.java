@@ -12,4 +12,6 @@ public interface PhoneNumberService {
     PhoneNumber updatePhone(PhoneNumber phone, Long id);
 
     PhoneNumber updatePhonePartially(PhoneNumber phone, Long id);
+
+    PhoneNumber getPhoneNumberByPhoneNumber(String phoneNumber);
 }

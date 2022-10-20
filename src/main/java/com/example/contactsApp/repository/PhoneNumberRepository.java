@@ -1,6 +1,7 @@
 package com.example.contactsApp.repository;
 
 import com.example.contactsApp.Exception.PhoneDoesNotExistException;
+import com.example.contactsApp.Exception.PhoneNotFoundException;
 import com.example.contactsApp.entity.PhoneNumber;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,5 +14,10 @@ public interface PhoneNumberRepository  extends JpaRepository<PhoneNumber, Long>
         return findPhoneById(id).orElseThrow(() -> new PhoneDoesNotExistException("phone with id: "+id+" was not found."));
     }
 
+    default PhoneNumber getPhoneNumberByPhoneNumber(String phoneNumber) {
+        return findPhoneNumberByPhoneNumber(phoneNumber).orElseThrow(() -> new PhoneNotFoundException(String.format("phone with %S phone number not found", phoneNumber)));
+    }
+
+    Optional<PhoneNumber> findPhoneNumberByPhoneNumber(String phoneNumber);
     Optional<PhoneNumber> findPhoneById(Long id);
 }

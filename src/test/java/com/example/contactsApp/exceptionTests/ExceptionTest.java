@@ -92,8 +92,8 @@ public class ExceptionTest {
     void callTimeExceptionTest() {
         var history = new History();
         var user = registerUser();
-        history.setStartDate(LocalDateTime.of(2022, Month.OCTOBER, 20, 16, 9, 16));
-        history.setEndDate(LocalDateTime.of(2022, Month.OCTOBER, 20, 16, 9, 8));
+        history.setStartTime(LocalDateTime.of(2022, Month.OCTOBER, 20, 16, 9, 16));
+        history.setEndTime(LocalDateTime.of(2022, Month.OCTOBER, 20, 16, 9, 8));
 
         Assertions.assertThrows(CallTimesException.class, () -> historyService.saveHistory(history, user.getId()));
 
