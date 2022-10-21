@@ -1,4 +1,4 @@
-package com.example.contactsApp.service.Intf;
+package com.example.contactsApp.service;
 
 import com.example.contactsApp.entity.Contact;
 
@@ -9,9 +9,9 @@ public interface ContactService {
 
     void deleteContact(Long contactId);
 
-    Contact updateContactPartially(Contact contact, Long id);
+    Contact updateContactPartially(Contact contact);
 
-    Contact updateContact(Contact contact, Long id);
+    Contact updateContact(Contact contact);
 
 
 }

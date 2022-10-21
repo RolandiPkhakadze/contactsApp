@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface ContactRepository  extends JpaRepository<Contact, Long> {
-    default Contact getContactById(Long id) {
+    default Contact getContactById(String id) {
         return findContactById(id).orElseThrow(() -> new ContactDoesNotExistException("contact with id: "+id+" was not found."));
     }
 
-    Optional<Contact> findContactById(Long id);
+    Optional<Contact> findContactById(String id);
 }

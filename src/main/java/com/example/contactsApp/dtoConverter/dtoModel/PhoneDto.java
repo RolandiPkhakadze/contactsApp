@@ -12,7 +12,6 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @Data
 public class PhoneDto {
-    private Long id;
     @Pattern(regexp = "^[0-9]{9}$", message = "wrong phone number")
     private String phoneNumber;
     //a@Pattern(regexp = "\\d+", message = "You should enter only digits")

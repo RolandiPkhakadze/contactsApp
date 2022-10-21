@@ -3,7 +3,7 @@ package com.example.contactsApp.controller;
 import com.example.contactsApp.dtoConverter.converter.ContactConverter;
 import com.example.contactsApp.dtoConverter.dtoModel.ContactDto;
 import com.example.contactsApp.entity.Contact;
-import com.example.contactsApp.service.Intf.ContactService;
+import com.example.contactsApp.service.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,18 +21,15 @@ public class ContactController {
         return contactService.addContact(contactConverter.dtoToEntity(contactDto),userId);
     }
 
-    @PutMapping(path = "/update-contact/{id}")
-    public  Contact updateContact( @Valid @RequestBody ContactDto contactDto,
-                                    @PathVariable("id") Long id){
+    @PutMapping(path = "/update-contact")
+    public  Contact updateContact( @Valid @RequestBody ContactDto contactDto){
         Contact contact = contactConverter.dtoToEntity(contactDto);
-        contact.setId(id);
-        return contactService.updateContact(contact, id);
+        return contactService.updateContact(contact);
     }
 
-    @PatchMapping(path = "/update-contact/{id}")
-    public Contact updateContactPartially(@RequestBody ContactDto contactDto,
-                                          @PathVariable("id") Long id) {
-        return contactService.updateContactPartially(contactConverter.dtoToEntity(contactDto), id);
+    @PatchMapping(path = "/update-contact")
+    public Contact updateContactPartially(@RequestBody ContactDto contactDto) {
+        return contactService.updateContactPartially(contactConverter.dtoToEntity(contactDto));
     }
 
 

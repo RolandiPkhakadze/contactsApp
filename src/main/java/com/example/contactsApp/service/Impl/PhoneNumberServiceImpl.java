@@ -1,12 +1,11 @@
 package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.Exception.PhoneDoesNotExistException;
-import com.example.contactsApp.Exception.ProviderDoesNotExistException;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.PhoneNumberRepository;
 import com.example.contactsApp.repository.UserRepository;
-import com.example.contactsApp.service.Intf.PhoneNumberService;
+import com.example.contactsApp.service.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PhoneNumberServiceImpl implements PhoneNumberService {
     private final UserRepository userRepository;
     private final PhoneNumberRepository phoneNumberRepository;
+    private final CustomMapper mapper;
 
     @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
@@ -43,17 +43,16 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
 
     @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
-    public PhoneNumber updatePhone(PhoneNumber phone, Long id) {
-        phoneNumberRepository.getPhoneById(id);
-        phone.setId(id);
+    public PhoneNumber updatePhone(PhoneNumber phone) {
+        phoneNumberRepository.getPhoneById(phone.getPhoneNumber());
         return phoneNumberRepository.save(phone);
     }
 
     @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
-    public PhoneNumber updatePhonePartially(PhoneNumber phone, Long id) {
-        PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(id);
-        return phoneNumberRepository.save(CustomMapperImpl.phoneNullExclude(phoneForSave,phone));
+    public PhoneNumber updatePhonePartially(PhoneNumber phone) {
+        PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(phone.getPhoneNumber());
+        return phoneNumberRepository.save(mapper.phoneNullExclude(phoneForSave,phone));
     }
 
     @Override

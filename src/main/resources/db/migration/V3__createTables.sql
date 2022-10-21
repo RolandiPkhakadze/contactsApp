@@ -1,0 +1,2 @@
+ALTER TABLE histories
+    ALTER COLUMN phone_id TYPE VARCHAR(50);

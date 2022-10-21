@@ -26,7 +26,7 @@ public class Contact {
             strategy = GenerationType.SEQUENCE,
             generator = "contacts_id_seq"
     )
-    private Long id;
+    private String id;
     @OneToOne
     @JoinColumn(name = "id")
     private PhoneNumber phoneNumber;

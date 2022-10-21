@@ -3,7 +3,7 @@ package com.example.contactsApp.controller;
 import com.example.contactsApp.dtoConverter.converter.PhoneConverter;
 import com.example.contactsApp.dtoConverter.dtoModel.PhoneDto;
 import com.example.contactsApp.entity.PhoneNumber;
-import com.example.contactsApp.service.Intf.PhoneNumberService;
+import com.example.contactsApp.service.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,16 +29,14 @@ public class PhoneNumberController {
         return converter.entityToDto(phone);
     }
 
-    @PutMapping(path = "/update-phone/{id}")
-    public PhoneDto updatePhone(@Valid  @RequestBody PhoneDto dto,
-                                 @PathVariable("id") Long id){
-        PhoneNumber phone = phoneNumberService.updatePhone(converter.dtoToEntity(dto),id);
+    @PutMapping(path = "/update-phone")
+    public PhoneDto updatePhone(@Valid  @RequestBody PhoneDto dto){
+        PhoneNumber phone = phoneNumberService.updatePhone(converter.dtoToEntity(dto));
         return converter.entityToDto(phone);
     }
-    @PatchMapping(path = "/update-phone/{id}")
-    public PhoneDto updatePhonePartially(  @RequestBody PhoneDto dto,
-                                         @PathVariable("id") Long id){
-        PhoneNumber phone = phoneNumberService.updatePhonePartially(converter.dtoToEntity(dto),id);
+    @PatchMapping(path = "/update-phone")
+    public PhoneDto updatePhonePartially(  @RequestBody PhoneDto dto){
+        PhoneNumber phone = phoneNumberService.updatePhonePartially(converter.dtoToEntity(dto));
         return converter.entityToDto(phone);
     }
 

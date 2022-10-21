@@ -18,7 +18,7 @@ public class HistoryConverter {
         History history = new History();
         history.setEndTime(historyDto.getEndTime());
         history.setStartTime(historyDto.getStartTime());
-        history.setPhoneNumber(historyDto.getPhoneNumber());
+        history.setPhoneNumber(phoneNumberService.getPhoneNumberByPhoneNumber(historyDto.getPhoneNumber()));
 
         return history;
     }
@@ -32,7 +32,7 @@ public class HistoryConverter {
         return HistoryDto.builder()
                 .endTime(history.getEndTime())
                 .startTime(history.getStartTime())
-                .phoneNumber(history.getPhoneNumber())
+                .phoneNumber(history.getPhoneNumber().getPhoneNumber())
                 .build();
     }
 

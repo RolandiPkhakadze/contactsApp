@@ -1,13 +1,13 @@
 package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.entity.*;
+import org.springframework.stereotype.Component;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
+@Component
+public class CustomMapper {
 
-public class CustomMapperImpl {
-
-    static public Contact contactNullExclude(Contact contactFromBase, Contact contactFromApi) {
+    public Contact contactNullExclude(Contact contactFromBase, Contact contactFromApi) {
         var firstName = contactFromApi.getFirstName();
         contactFromBase.setFirstName(firstName != null ? firstName : contactFromBase.getFirstName());
         var lastName = contactFromApi.getLastName();
@@ -19,7 +19,7 @@ public class CustomMapperImpl {
     }
 
 
-    static public User userNullExclude(User userFromBase, User userFromApi) {
+     public User userNullExclude(User userFromBase, User userFromApi) {
         String email = userFromApi.getEmail();
         userFromBase.setEmail(email !=null? email : userFromBase.getEmail());
         String password = userFromApi.getPassword();
@@ -30,7 +30,7 @@ public class CustomMapperImpl {
     }
 
 
-    static public PhoneNumber phoneNullExclude(PhoneNumber phoneFromBase, PhoneNumber phoneFromApi) {
+    public PhoneNumber phoneNullExclude(PhoneNumber phoneFromBase, PhoneNumber phoneFromApi) {
         String phoneNumber = phoneFromApi.getPhoneNumber();
         phoneFromBase.setPhoneNumber(phoneNumber !=null? phoneNumber : phoneFromBase.getPhoneNumber());
         Long balance = phoneFromApi.getBalance();
@@ -39,7 +39,7 @@ public class CustomMapperImpl {
     }
 
 
-    static public NumberProvider providerNullExclude(NumberProvider providerFromBase, NumberProvider providerFromApi) {
+    public NumberProvider providerNullExclude(NumberProvider providerFromBase, NumberProvider providerFromApi) {
         String name = providerFromApi.getName();
         providerFromBase.setName(name !=null? name : providerFromBase.getName());
         Boolean isGeorgian = providerFromApi.getIsGeorgian();
@@ -55,7 +55,7 @@ public class CustomMapperImpl {
     }
 
 
-    static public History historyNullExclude(History historyFromBase, History historyFromApi) {
+    public History historyNullExclude(History historyFromBase, History historyFromApi) {
 
         LocalDateTime startDate = historyFromApi.getStartTime();
         historyFromBase.setStartTime(startDate !=null? startDate :historyFromBase.getStartTime());

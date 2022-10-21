@@ -5,11 +5,11 @@ import com.example.contactsApp.entity.History;
 import com.example.contactsApp.entity.NumberProvider;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.service.Intf.HistoryService;
+import com.example.contactsApp.service.HistoryService;
 import com.example.contactsApp.service.Impl.HistoryServiceImpl;
-import com.example.contactsApp.service.Intf.PhoneNumberService;
+import com.example.contactsApp.service.PhoneNumberService;
 import com.example.contactsApp.service.Impl.PhoneNumberServiceImpl;
-import com.example.contactsApp.service.Intf.NumberProviderService;
+import com.example.contactsApp.service.NumberProviderService;
 import com.example.contactsApp.service.Impl.NumberProviderServiceImpl;
 import com.example.contactsApp.service.Impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -80,7 +80,7 @@ public class ExceptionTest {
 
     @Test
     void phoneDoesNotExistExceptionTest() {
-        Assertions.assertThrows(PhoneDoesNotExistException.class,() -> phoneNumberService.updatePhone(new PhoneNumber(), -1L));
+        Assertions.assertThrows(PhoneDoesNotExistException.class,() -> phoneNumberService.updatePhone(new PhoneNumber()));
     }
 
     @Test

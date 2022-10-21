@@ -6,7 +6,7 @@ import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.ContactRepository;
 import com.example.contactsApp.repository.UserRepository;
-import com.example.contactsApp.service.Intf.ContactService;
+import com.example.contactsApp.service.ContactService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ContactServiceImpl implements ContactService {
     private final UserRepository userRepository;
     private final ContactRepository contactRepository;
+    private final CustomMapper mapper;
 
 
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
@@ -38,16 +39,15 @@ public class ContactServiceImpl implements ContactService {
     
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
-    public Contact updateContactPartially(Contact contact, Long id) {
-        Contact contactForSave = contactRepository.getContactById(id);
-        return contactRepository.save(CustomMapperImpl.contactNullExclude(contactForSave,contact));
+    public Contact updateContactPartially(Contact contact) {
+        Contact contactForSave = contactRepository.getContactById(contact.getId());
+        return contactRepository.save(mapper.contactNullExclude(contactForSave,contact));
     }
 
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
-    public Contact updateContact(Contact contact, Long id) {
-        contactRepository.getContactById(id);
-        contact.setId(id);
+    public Contact updateContact(Contact contact) {
+        contactRepository.getContactById(contact.getId());
         return contactRepository.save(contact);
     }
 }

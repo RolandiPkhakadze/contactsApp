@@ -3,7 +3,7 @@ package com.example.contactsApp.controller;
 import com.example.contactsApp.dtoConverter.converter.HistoryConverter;
 import com.example.contactsApp.dtoConverter.dtoModel.HistoryDto;
 import com.example.contactsApp.entity.History;
-import com.example.contactsApp.service.Intf.HistoryService;
+import com.example.contactsApp.service.HistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +20,8 @@ public class HistoryController {
     private final HistoryConverter historyConverter;
 
     @GetMapping(path = "/histories")
-    public List<History> getAllHistoriesForUser(@RequestParam Long userId) {
-        return historyService.getAllHistoriesForUser(userId);
+    public List<HistoryDto> getAllHistoriesForUser(@RequestParam Long userId) {
+        return historyConverter.entityToDto(historyService.getAllHistoriesForUser(userId));
 
     }
 

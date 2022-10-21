@@ -11,10 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
 public class ContactConverter {
-
-    private final PhoneNumberServiceImpl phoneNumberService;
 
 
     public Contact dtoToEntity(ContactDto contactDto) {
@@ -22,7 +19,8 @@ public class ContactConverter {
         contact.setFirstName(contactDto.getFirstName());
         contact.setLastName(contactDto.getLastName());
         contact.setIsFavorite(contactDto.getIsFavorite());
-        contact.setId(phoneNumberService.getPhoneNumberByPhoneNumber(contactDto.getPhoneNumber()).getId());
+        contact.setId(contactDto.getPhoneNumber());
+      //  contact.setId(phoneNumberService.getPhoneNumberByPhoneNumber(contactDto.getPhoneNumber()).getId());
         return contact;
     }
 
