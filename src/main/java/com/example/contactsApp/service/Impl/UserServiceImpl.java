@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
         return  userRepository.findAll(PageRequest.of(0,2)).stream().toList();
     }
 
+    @Transactional
     @Override
     public User registerUser(User user) {
         userRepository.findUserByEmailOrUsernameForRegister(user.getEmail(), user.getUsername());
@@ -38,6 +40,7 @@ public class UserServiceImpl implements UserService {
         return userOptional;
     }
 
+    @Transactional
     @Override
     public User changePassword(Long userId, String password) {
         User userOptional = userRepository.getUserById(userId);
@@ -50,11 +53,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Transactional
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
 
+    @Transactional
     @Override
     public User updateUser(User user, Long id) {
         userRepository.getUserById(id);
@@ -62,6 +67,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 //mappers, mapstruct, objectMapper
+    @Transactional
     @Override
     public User updateUserPartially(User user, Long id) {
         User userForSave = userRepository.getUserById(id);

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class HistoryServiceImpl implements HistoryService {
     private final HistoryRepository historyRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     @Override
     public History saveHistory(History history, Long userId) {
         if(history.getStartTime().isAfter(history.getEndTime())){
@@ -36,11 +38,13 @@ public class HistoryServiceImpl implements HistoryService {
         return historyRepository.getHistoriesByUser(userRepository.getUserById(userId), PageRequest.of(0,2));
     }
 
+    @Transactional
     @Override
     public void deleteHistory(Long historyId) {
         historyRepository.deleteById(historyId);
     }
 
+    @Transactional
     @Override
     public History updateHistory(History history, Long id) {
         if(history.getStartTime().isAfter(history.getEndTime())){
@@ -53,6 +57,7 @@ public class HistoryServiceImpl implements HistoryService {
         return historyRepository.save(history);
     }
 
+    @Transactional
     @Override
     public History updateHistoryPartially(History history, Long id) {
         History historyForSave = historyRepository.getHistoriesById(id);

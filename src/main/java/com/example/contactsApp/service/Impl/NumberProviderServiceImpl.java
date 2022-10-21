@@ -7,6 +7,7 @@ import com.example.contactsApp.service.Intf.NumberProviderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class NumberProviderServiceImpl implements NumberProviderService {
     private NumberProviderRepository numberProviderRepository;
 
+    @Transactional
     @Override
     public NumberProvider addProvider(NumberProvider provider) {
         return numberProviderRepository.save(provider);
@@ -21,11 +23,13 @@ public class NumberProviderServiceImpl implements NumberProviderService {
 
 
 
+    @Transactional
     @Override
     public void deleteProvider(Long providerId) {
         numberProviderRepository.deleteById(providerId);
     }
 
+    @Transactional
     @Override
     public NumberProvider addProviderPartially(NumberProvider provider, Long id) {
         numberProviderRepository.getNumberProviderById(id);
@@ -33,6 +37,7 @@ public class NumberProviderServiceImpl implements NumberProviderService {
         return provider;
     }
 
+    @Transactional
     @Override
     public NumberProvider updateProvider(NumberProvider provider, Long id) {
         NumberProvider providerForSave = numberProviderRepository.getNumberProviderById(id);

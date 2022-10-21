@@ -8,6 +8,7 @@ import com.example.contactsApp.service.Intf.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +17,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     private final UserRepository userRepository;
     private final PhoneNumberRepository phoneNumberRepository;
 
+    @Transactional
     @Override
     public PhoneNumber addUserPhone(PhoneNumber phone, Long userId) {
         User userOptional = userRepository.getUserById(userId);
@@ -25,16 +27,19 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         return phoneNumberRepository.save(phone);
     }
 
+    @Transactional
     @Override
     public PhoneNumber addContactPhone(PhoneNumber phone) {
         return phoneNumberRepository.save(phone);
     }
 
+    @Transactional
     @Override
     public void deletePhone(Long phoneId) {
         phoneNumberRepository.deleteById(phoneId);
     }
 
+    @Transactional
     @Override
     public PhoneNumber updatePhone(PhoneNumber phone, Long id) {
         phoneNumberRepository.getPhoneById(id);
@@ -42,6 +47,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         return phoneNumberRepository.save(phone);
     }
 
+    @Transactional
     @Override
     public PhoneNumber updatePhonePartially(PhoneNumber phone, Long id) {
         PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(id);
