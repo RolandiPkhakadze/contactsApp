@@ -22,7 +22,7 @@ public class ContactConverter {
         contact.setFirstName(contactDto.getFirstName());
         contact.setLastName(contactDto.getLastName());
         contact.setIsFavorite(contactDto.getIsFavorite());
-        contact.setPhoneNumber(phoneNumberService.getPhoneNumberByPhoneNumber(contactDto.getPhoneNumber()));
+        contact.setId(phoneNumberService.getPhoneNumberByPhoneNumber(contactDto.getPhoneNumber()).getId());
         return contact;
     }
 

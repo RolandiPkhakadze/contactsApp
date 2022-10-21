@@ -7,6 +7,8 @@ import com.example.contactsApp.service.Intf.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(path  = "phone")
@@ -14,21 +16,21 @@ public class PhoneNumberController {
     private final PhoneNumberService phoneNumberService;
     private final PhoneConverter converter;
 
-    @PutMapping(path = "/add-user-phone")
-    public PhoneDto addUserPhone(@RequestParam Long userId, @RequestBody PhoneDto dto){
+    @PostMapping(path = "/add-user-phone")
+    public PhoneDto addUserPhone( @RequestParam Long userId, @RequestBody  PhoneDto dto){
 
-        PhoneNumber phone = phoneNumberService.addUserPhone(converter.dtoToEntity(dto),userId);
+        @Valid PhoneNumber phone = phoneNumberService.addUserPhone(converter.dtoToEntity(dto),userId);
         return converter.entityToDto(phone);
     }
 
     @PostMapping(path = "/add-contact-phone")
-    public PhoneDto addContactPhone( @RequestBody PhoneDto dto){
+    public PhoneDto addContactPhone(@Valid @RequestBody PhoneDto dto){
         PhoneNumber phone = phoneNumberService.addContactPhone(converter.dtoToEntity(dto));
         return converter.entityToDto(phone);
     }
 
     @PutMapping(path = "/update-phone/{id}")
-    public PhoneDto updatePhone(  @RequestBody PhoneDto dto,
+    public PhoneDto updatePhone(@Valid  @RequestBody PhoneDto dto,
                                  @PathVariable("id") Long id){
         PhoneNumber phone = phoneNumberService.updatePhone(converter.dtoToEntity(dto),id);
         return converter.entityToDto(phone);

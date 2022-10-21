@@ -28,7 +28,7 @@ public class NumberProvider {
             generator = "number_providers_id_seq"
     )
     private Long id;
-    @Pattern(regexp = "^[A-Z]$", message = "provider name should consist only with uppercase letters")
+    @Pattern(regexp = "[A-Z]+$", message = "provider name should consist only with uppercase letters")
     @Column(name = "name")
     private String  name;
     @Column(name = "is_georgian")
