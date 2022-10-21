@@ -3,7 +3,6 @@ package com.example.contactsApp.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class User {
             generator = "users_seq"
     )
     private Long id;
-    @NotBlank(message = "email must be entered")
+    @Pattern(regexp = "^(.+)@(\\S+)$", message = "email must be valid")
     @Column(name = "email")
     private String email;
     @Pattern(regexp = "^[a-z0-9_-]{3,15}$",message = "username format is bad")

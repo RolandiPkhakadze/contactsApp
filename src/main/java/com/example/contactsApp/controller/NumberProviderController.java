@@ -7,6 +7,8 @@ import com.example.contactsApp.service.Intf.NumberProviderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "provider")
@@ -16,22 +18,22 @@ public class NumberProviderController {
     private final ProviderConverter converter;
 
     @PostMapping(path = "/add-provider")
-    public ProviderDto addProvider(@RequestBody ProviderDto dto){
-        NumberProvider provider = converter.dtoToEntity(dto);
+    public ProviderDto addProvider(@RequestBody @Valid ProviderDto dto){
+        @Valid NumberProvider provider = converter.dtoToEntity(dto);
         return converter.entityToDto(numberProviderService.addProvider(provider));
     }
 
     @PutMapping(path = "/update-provider/{id}")
     public ProviderDto updateProvider(@RequestBody ProviderDto dto,
                                      @PathVariable("id") Long id){
-        NumberProvider provider = converter.dtoToEntity(dto);
+        @Valid NumberProvider provider = converter.dtoToEntity(dto);
         return converter.entityToDto(numberProviderService.updateProvider(provider,id));
     }
 
     @PatchMapping(path = "/update-provider/{id}")
-    public ProviderDto updateProviderPartially(@RequestBody ProviderDto dto,
+    public ProviderDto updateProviderPartially(@RequestBody @Valid ProviderDto dto,
                                         @PathVariable("id") Long id){
-        NumberProvider provider = converter.dtoToEntity(dto);
+        @Valid NumberProvider provider = converter.dtoToEntity(dto);
         return converter.entityToDto(numberProviderService.addProviderPartially(provider,id));
     }
 

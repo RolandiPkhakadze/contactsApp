@@ -7,6 +7,7 @@ import com.example.contactsApp.service.Intf.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,13 +26,13 @@ public class UserController {
 
 
     @PostMapping(path = "/register")
-    public UserDto registerUser( @RequestBody UserDto dto){
+    public UserDto registerUser(@Valid @RequestBody UserDto dto){
         User user = userService.registerUser(converter.dtoToEntity(dto));
         return converter.entityToDto(user);
     }
 
     @PutMapping(path = "/update-user/{id}")
-    public UserDto updateUser(  @RequestBody  UserDto dto,
+    public UserDto updateUser(@Valid  @RequestBody  UserDto dto,
                                      @PathVariable("id") Long id){
 
         User user = userService.updateUser(converter.dtoToEntity(dto),id);
@@ -52,11 +53,11 @@ public class UserController {
         return converter.entityToDto(user);
     }
 
-    @PutMapping(path = "/change-password")
-    public UserDto changePassword(@RequestParam Long userId, @RequestParam String password){
-        User user = userService.changePassword(userId, password);
-        return converter.entityToDto(user);
-    }
+//    @PatchMapping(path = "/change-password")
+//    public UserDto changePassword(@RequestParam Long userId, @RequestParam String password){
+//        User user = userService.changePassword(userId, password);
+//        return converter.entityToDto(user);
+//    }
 
 
     @DeleteMapping(path = "/delete-user")

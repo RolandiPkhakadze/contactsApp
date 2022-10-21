@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.time.Duration.between;
 
 @RestController
 @AllArgsConstructor
@@ -23,11 +21,7 @@ public class HistoryController {
 
     @GetMapping(path = "/histories")
     public List<History> getAllHistoriesForUser(@RequestParam Long userId) {
-        return historyService.getAllHistoriesForUser(userId)
-                .stream()
-                .peek(history -> history.setDuration((
-                        between(history.getStartTime(), history.getEndTime()).toSeconds())))
-                .collect(Collectors.toList());
+        return historyService.getAllHistoriesForUser(userId);
 
     }
 
@@ -43,7 +37,7 @@ public class HistoryController {
     }
 
     @PatchMapping(path = "/update-history/{id}")
-    public History updateHistoryPartially(@Valid  @RequestBody HistoryDto historyDto,
+    public History updateHistoryPartially(  @RequestBody HistoryDto historyDto,
                                           @PathVariable("id") Long id){
         var history = historyConverter.dtoToEntity(historyDto);
         history.setId(id);
