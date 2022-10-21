@@ -1,5 +1,7 @@
 package com.example.contactsApp.service.Impl;
 
+import com.example.contactsApp.Exception.PhoneDoesNotExistException;
+import com.example.contactsApp.Exception.UserDoesNotExistException;
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.UserRepository;
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
         return  userRepository.findAll(PageRequest.of(0,2)).stream().toList();
     }
 
-    @Transactional
+    @Transactional(rollbackFor = UserDoesNotExistException.class)
     @Override
     public User registerUser(User user) {
         userRepository.findUserByEmailOrUsernameForRegister(user.getEmail(), user.getUsername());
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
         return userOptional;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = UserDoesNotExistException.class)
     @Override
     public User changePassword(Long userId, String password) {
         User userOptional = userRepository.getUserById(userId);
@@ -54,13 +56,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Transactional
+    @Transactional(rollbackFor = UserDoesNotExistException.class)
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = UserDoesNotExistException.class)
     @Override
     public User updateUser(@Valid User user, Long id) {
         userRepository.getUserById(id);
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 //mappers, mapstruct, objectMapper
-    @Transactional
+    @Transactional(rollbackFor = UserDoesNotExistException.class)
     @Override
     public User updateUserPartially(User user, Long id) {
         User userForSave = userRepository.getUserById(id);

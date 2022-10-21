@@ -1,5 +1,7 @@
 package com.example.contactsApp.service.Impl;
 
+import com.example.contactsApp.Exception.PhoneDoesNotExistException;
+import com.example.contactsApp.Exception.ProviderDoesNotExistException;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.PhoneNumberRepository;
@@ -17,7 +19,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     private final UserRepository userRepository;
     private final PhoneNumberRepository phoneNumberRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
     public PhoneNumber addUserPhone(PhoneNumber phone, Long userId) {
         User userOptional = userRepository.getUserById(userId);
@@ -27,19 +29,19 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         return phoneNumberRepository.save(phone);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
     public PhoneNumber addContactPhone(PhoneNumber phone) {
         return phoneNumberRepository.save(phone);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
     public void deletePhone(Long phoneId) {
         phoneNumberRepository.deleteById(phoneId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
     public PhoneNumber updatePhone(PhoneNumber phone, Long id) {
         phoneNumberRepository.getPhoneById(id);
@@ -47,7 +49,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         return phoneNumberRepository.save(phone);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
     public PhoneNumber updatePhonePartially(PhoneNumber phone, Long id) {
         PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(id);

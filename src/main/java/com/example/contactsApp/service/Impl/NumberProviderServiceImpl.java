@@ -1,6 +1,7 @@
 package com.example.contactsApp.service.Impl;
 
 
+import com.example.contactsApp.Exception.ProviderDoesNotExistException;
 import com.example.contactsApp.entity.NumberProvider;
 import com.example.contactsApp.repository.NumberProviderRepository;
 import com.example.contactsApp.service.Intf.NumberProviderService;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class NumberProviderServiceImpl implements NumberProviderService {
     private NumberProviderRepository numberProviderRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
     public NumberProvider addProvider(NumberProvider provider) {
         return numberProviderRepository.save(provider);
@@ -23,13 +24,13 @@ public class NumberProviderServiceImpl implements NumberProviderService {
 
 
 
-    @Transactional
+    @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
     public void deleteProvider(Long providerId) {
         numberProviderRepository.deleteById(providerId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
     public NumberProvider addProviderPartially(NumberProvider provider, Long id) {
         numberProviderRepository.getNumberProviderById(id);
@@ -37,7 +38,7 @@ public class NumberProviderServiceImpl implements NumberProviderService {
         return provider;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
     public NumberProvider updateProvider(NumberProvider provider, Long id) {
         NumberProvider providerForSave = numberProviderRepository.getNumberProviderById(id);

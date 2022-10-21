@@ -1,6 +1,7 @@
 package com.example.contactsApp.service.Impl;
 
 
+import com.example.contactsApp.Exception.ContactDoesNotExistException;
 import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.ContactRepository;
@@ -19,7 +20,7 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
 
 
-    @Transactional
+    @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
     public Contact addContact(Contact contact, Long userId) {
         User userOptional = userRepository.getUserById(userId);
@@ -35,14 +36,14 @@ public class ContactServiceImpl implements ContactService {
         contactRepository.deleteById(contactId);
     }
     
-    @Transactional
+    @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
     public Contact updateContactPartially(Contact contact, Long id) {
         Contact contactForSave = contactRepository.getContactById(id);
         return contactRepository.save(CustomMapperImpl.contactNullExclude(contactForSave,contact));
     }
 
-    @Transactional
+    @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
     public Contact updateContact(Contact contact, Long id) {
         contactRepository.getContactById(id);

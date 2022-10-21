@@ -2,6 +2,8 @@ package com.example.contactsApp.service.Impl;
 
 
 import com.example.contactsApp.Exception.CallTimesException;
+import com.example.contactsApp.Exception.ContactDoesNotExistException;
+import com.example.contactsApp.Exception.HistoryDoesNotExistException;
 import com.example.contactsApp.entity.History;
 import com.example.contactsApp.repository.HistoryRepository;
 import com.example.contactsApp.repository.UserRepository;
@@ -22,7 +24,7 @@ public class HistoryServiceImpl implements HistoryService {
     private final HistoryRepository historyRepository;
     private final UserRepository userRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
     @Override
     public History saveHistory(History history, Long userId) {
         if(history.getStartTime().isAfter(history.getEndTime())){
@@ -38,13 +40,13 @@ public class HistoryServiceImpl implements HistoryService {
         return historyRepository.getHistoriesByUser(userRepository.getUserById(userId), PageRequest.of(0,2));
     }
 
-    @Transactional
+    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
     @Override
     public void deleteHistory(Long historyId) {
         historyRepository.deleteById(historyId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
     @Override
     public History updateHistory(History history, Long id) {
         if(history.getStartTime().isAfter(history.getEndTime())){
@@ -57,7 +59,7 @@ public class HistoryServiceImpl implements HistoryService {
         return historyRepository.save(history);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
     @Override
     public History updateHistoryPartially(History history, Long id) {
         History historyForSave = historyRepository.getHistoriesById(id);

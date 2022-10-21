@@ -34,7 +34,6 @@ public class PhoneNumber {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
-    @Pattern(regexp = "^[1-9][0-9]$",message = "You should enter only digits")
     @Column(name = "balance")
     private Long balance;
     @ManyToOne
