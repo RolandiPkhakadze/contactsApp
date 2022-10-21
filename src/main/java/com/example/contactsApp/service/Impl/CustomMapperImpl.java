@@ -1,35 +1,34 @@
 package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.entity.*;
-import org.hibernate.annotations.Source;
-import org.mapstruct.*;
-import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 
-import static org.mapstruct.ReportingPolicy.IGNORE;
-
-@Component
-@Mapper(componentModel = "spring", unmappedTargetPolicy = IGNORE)
 public class CustomMapperImpl {
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "lastName", target = "lastName")
-    @Mapping(source = "isFavorite", target = "isFavorite")
     static public Contact contactNullExclude(Contact contactFromBase, Contact contactFromApi) {
+        var firstName = contactFromApi.getFirstName();
+        contactFromBase.setFirstName(firstName != null ? firstName : contactFromBase.getFirstName());
+        var lastName = contactFromApi.getLastName();
+        contactFromBase.setLastName(lastName != null ? lastName : contactFromBase.getLastName());
+        var isFavorite = contactFromApi.getIsFavorite();
+        contactFromBase.setIsFavorite(isFavorite != null ? isFavorite : contactFromBase.getIsFavorite());
+
         return contactFromBase;
     }
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(source = "username",  target = "username")
-    @Mapping(source = "password", target = "password")
-    @Mapping(source = "email", target = "email")
-    public static User userNullExclude(User userFromBase, @MappingTarget User userFromApi) {
+
+
+    static public User userNullExclude(User userFromBase, User userFromApi) {
+        String email = userFromApi.getEmail();
+        userFromBase.setEmail(email !=null? email : userFromBase.getEmail());
+        String password = userFromApi.getPassword();
+        userFromBase.setPassword(password !=null? password : userFromBase.getPassword());
+        String username = userFromApi.getUsername();
+        userFromBase.setUsername(username !=null? username : userFromBase.getUsername());
         return userFromBase;
     }
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+
     static public PhoneNumber phoneNullExclude(PhoneNumber phoneFromBase, PhoneNumber phoneFromApi) {
         String phoneNumber = phoneFromApi.getPhoneNumber();
         phoneFromBase.setPhoneNumber(phoneNumber !=null? phoneNumber : phoneFromBase.getPhoneNumber());
@@ -39,7 +38,7 @@ public class CustomMapperImpl {
         return phoneFromBase;
     }
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+
     static public NumberProvider providerNullExclude(NumberProvider providerFromBase, NumberProvider providerFromApi) {
         String name = providerFromApi.getName();
         providerFromBase.setName(name !=null? name : providerFromBase.getName());
@@ -55,7 +54,7 @@ public class CustomMapperImpl {
         return providerFromBase;
     }
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+
     static public History historyNullExclude(History historyFromBase, History historyFromApi) {
 
         LocalDateTime startDate = historyFromApi.getStartTime();
