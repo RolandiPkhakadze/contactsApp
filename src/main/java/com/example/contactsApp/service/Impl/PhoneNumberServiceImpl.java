@@ -51,8 +51,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     @Override
     public PhoneNumber updatePhonePartially(PhoneNumber phone, Long id) {
         PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(id);
-
-        return phoneNumberRepository.save(phoneForSave);
+        return phoneNumberRepository.save(CustomMapperImpl.phoneNullExclude(phoneForSave,phone));
     }
 
     @Override

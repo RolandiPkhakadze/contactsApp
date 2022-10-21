@@ -4,12 +4,13 @@ import com.example.contactsApp.dtoConverter.dtoModel.UserDto;
 import com.example.contactsApp.entity.User;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class UserConverter {
-    public UserDto entityToDto(User user){
+    public UserDto entityToDto( User user){
         return UserDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())

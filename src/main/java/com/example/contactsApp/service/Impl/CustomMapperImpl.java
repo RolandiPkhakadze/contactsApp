@@ -2,6 +2,7 @@ package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.entity.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 public class CustomMapperImpl {
@@ -34,7 +35,6 @@ public class CustomMapperImpl {
         phoneFromBase.setPhoneNumber(phoneNumber !=null? phoneNumber : phoneFromBase.getPhoneNumber());
         Long balance = phoneFromApi.getBalance();
         phoneFromBase.setBalance(balance !=null? balance : phoneFromBase.getBalance());
-
         return phoneFromBase;
     }
 

@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 @Service
 @AllArgsConstructor
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User updateUser(User user, Long id) {
+    public User updateUser(@Valid User user, Long id) {
         userRepository.getUserById(id);
         user.setId(id);
         return userRepository.save(user);
