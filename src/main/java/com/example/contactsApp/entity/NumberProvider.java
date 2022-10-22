@@ -45,4 +45,11 @@ public class NumberProvider {
     @OneToMany(mappedBy = "provider")
     private List<PhoneNumber> phoneNumberList;
 
+    public NumberProvider(String name, Boolean isGeorgian, Integer tariffForGeo, Integer tariffForSame, Integer tariffForNonGeo) {
+        this.name = name;
+        this.isGeorgian = isGeorgian;
+        this.tariffForGeo = tariffForGeo;
+        this.tariffForSame = tariffForSame;
+        this.tariffForNonGeo = tariffForNonGeo;
+    }
 }

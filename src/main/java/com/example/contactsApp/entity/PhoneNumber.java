@@ -32,4 +32,16 @@ public class PhoneNumber {
     @OneToMany(mappedBy = "phoneNumber")
     @ToString.Exclude
     private List<History> historyList;
+
+    public PhoneNumber(User user, Long balance, NumberProvider provider) {
+        this.user = user;
+        this.balance = balance;
+        this.provider = provider;
+    }
+
+    public PhoneNumber(String phoneNumber, Long balance, NumberProvider provider) {
+        this.phoneNumber = phoneNumber;
+        this.balance = balance;
+        this.provider = provider;
+    }
 }

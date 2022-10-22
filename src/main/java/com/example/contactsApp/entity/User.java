@@ -32,13 +32,19 @@ public class User {
     @Pattern(regexp = "^[a-z0-9_-]{3,15}$",message = "username format is bad")
     @Column(name = "username")
     private String username;
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",message = "weak password")
+//    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",message = "weak password")
     @Column(name = "password")
     private  String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // TODO research cascadeType
     private List<Contact> allContacts;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // TODO research cascadeType
     private List<PhoneNumber> phoneNumberList;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // TODO research cascadeType
     private List<History> historyList;
+
+    public User(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
 }
