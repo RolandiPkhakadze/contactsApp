@@ -4,7 +4,7 @@ package com.example.contactsApp.service.Impl;
 import com.example.contactsApp.Exception.ProviderDoesNotExistException;
 import com.example.contactsApp.entity.NumberProvider;
 import com.example.contactsApp.repository.NumberProviderRepository;
-import com.example.contactsApp.service.Intf.NumberProviderService;
+import com.example.contactsApp.service.NumberProviderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class NumberProviderServiceImpl implements NumberProviderService {
     private NumberProviderRepository numberProviderRepository;
+    private final CustomMapper mapper;
 
     @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
@@ -43,6 +44,6 @@ public class NumberProviderServiceImpl implements NumberProviderService {
     public NumberProvider updateProvider(NumberProvider provider, Long id) {
         NumberProvider providerForSave = numberProviderRepository.getNumberProviderById(id);
 
-        return numberProviderRepository.save(CustomMapperImpl.providerNullExclude(providerForSave,provider));
+        return numberProviderRepository.save(mapper.providerNullExclude(providerForSave,provider));
     }
 }

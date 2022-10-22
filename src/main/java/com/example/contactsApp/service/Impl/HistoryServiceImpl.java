@@ -2,12 +2,11 @@ package com.example.contactsApp.service.Impl;
 
 
 import com.example.contactsApp.Exception.CallTimesException;
-import com.example.contactsApp.Exception.ContactDoesNotExistException;
 import com.example.contactsApp.Exception.HistoryDoesNotExistException;
 import com.example.contactsApp.entity.History;
 import com.example.contactsApp.repository.HistoryRepository;
 import com.example.contactsApp.repository.UserRepository;
-import com.example.contactsApp.service.Intf.HistoryService;
+import com.example.contactsApp.service.HistoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +22,7 @@ import java.util.List;
 public class HistoryServiceImpl implements HistoryService {
     private final HistoryRepository historyRepository;
     private final UserRepository userRepository;
+    private final CustomMapper mapper;
 
     @Transactional(rollbackFor = HistoryDoesNotExistException.class)
     @Override
@@ -64,6 +64,6 @@ public class HistoryServiceImpl implements HistoryService {
     public History updateHistoryPartially(History history, Long id) {
         History historyForSave = historyRepository.getHistoriesById(id);
 
-        return historyRepository.save(CustomMapperImpl.historyNullExclude(historyForSave,history));
+        return historyRepository.save(mapper.historyNullExclude(historyForSave,history));
     }
 }

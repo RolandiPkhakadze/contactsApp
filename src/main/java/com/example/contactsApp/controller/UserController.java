@@ -3,7 +3,7 @@ package com.example.contactsApp.controller;
 import com.example.contactsApp.dtoConverter.converter.UserConverter;
 import com.example.contactsApp.dtoConverter.dtoModel.UserDto;
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.service.Intf.UserService;
+import com.example.contactsApp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

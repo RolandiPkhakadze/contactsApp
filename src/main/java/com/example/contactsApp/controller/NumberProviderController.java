@@ -3,7 +3,7 @@ package com.example.contactsApp.controller;
 import com.example.contactsApp.dtoConverter.converter.ProviderConverter;
 import com.example.contactsApp.dtoConverter.dtoModel.ProviderDto;
 import com.example.contactsApp.entity.NumberProvider;
-import com.example.contactsApp.service.Intf.NumberProviderService;
+import com.example.contactsApp.service.NumberProviderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

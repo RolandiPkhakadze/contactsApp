@@ -16,17 +16,6 @@ import java.util.List;
 @Table(name = "phones")
 public class PhoneNumber {
     @Id
-    @SequenceGenerator(
-            name = "phones_id_seq",
-            sequenceName = "phones_id_seq",
-            allocationSize = 1
-    )
-
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "phones_id_seq"
-    )
-    private Long id;
     @Column(name = "phone_number")
     @Pattern(regexp = "^[0-9]{9}$",message = "wrong phone number")
     private String phoneNumber;
@@ -43,4 +32,16 @@ public class PhoneNumber {
     @OneToMany(mappedBy = "phoneNumber")
     @ToString.Exclude
     private List<History> historyList;
+
+    public PhoneNumber(User user, Long balance, NumberProvider provider) {
+        this.user = user;
+        this.balance = balance;
+        this.provider = provider;
+    }
+
+    public PhoneNumber(String phoneNumber, Long balance, NumberProvider provider) {
+        this.phoneNumber = phoneNumber;
+        this.balance = balance;
+        this.provider = provider;
+    }
 }

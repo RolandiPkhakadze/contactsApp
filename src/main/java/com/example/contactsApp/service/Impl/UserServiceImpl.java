@@ -1,11 +1,10 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.Exception.PhoneDoesNotExistException;
 import com.example.contactsApp.Exception.UserDoesNotExistException;
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.UserRepository;
-import com.example.contactsApp.service.Intf.UserService;
+import com.example.contactsApp.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -20,8 +19,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private CustomMapper mapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return  userRepository.findAll(PageRequest.of(0,2)).stream().toList();
     }
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUserPartially(User user, Long id) {
         User userForSave = userRepository.getUserById(id);
-        return userRepository.save(CustomMapperImpl.userNullExclude(userForSave,user));
+        return userRepository.save(mapper.userNullExclude(userForSave,user));
     }
 
 

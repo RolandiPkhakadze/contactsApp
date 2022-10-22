@@ -9,7 +9,6 @@ public class PhoneConverter {
     public PhoneDto entityToDto(PhoneNumber phone){
 
         return PhoneDto.builder()
-                .id(phone.getId())
                 .phoneNumber(phone.getPhoneNumber())
                 .balance(phone.getBalance())
                 .build();
