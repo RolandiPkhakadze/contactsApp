@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Transactional(rollbackFor = UserDoesNotExistException.class)
+    //@Transactional(rollbackFor = UserDoesNotExistException.class)
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
