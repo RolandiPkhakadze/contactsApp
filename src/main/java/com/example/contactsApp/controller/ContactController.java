@@ -33,9 +33,9 @@ public class ContactController {
     }
 
 
-    @DeleteMapping(path = "/delete-history")
-    public String deletePhone(@RequestParam Long contactId){
-        contactService.deleteContact(contactId);
+    @DeleteMapping(path = "/delete-contact")
+    public String deletePhone(@RequestParam String phone){
+        contactService.deleteContact(phone);
         return "provider deleted";
     }
 }

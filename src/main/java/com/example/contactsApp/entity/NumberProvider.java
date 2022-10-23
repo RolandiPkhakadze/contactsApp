@@ -52,4 +52,7 @@ public class NumberProvider {
         this.tariffForSame = tariffForSame;
         this.tariffForNonGeo = tariffForNonGeo;
     }
+
+    public void getIsGeorgian(Boolean aTrue) {
+    }
 }

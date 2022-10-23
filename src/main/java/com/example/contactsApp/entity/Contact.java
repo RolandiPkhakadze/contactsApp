@@ -16,16 +16,6 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "contacts")
 public class Contact {
     @Id
-    @SequenceGenerator(
-            name = "contacts_id_seq",
-            sequenceName = "contacts_id_seq",
-            allocationSize = 1
-    )
-
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "contacts_id_seq"
-    )
     private String id;
     @OneToOne
     @JoinColumn(name = "id")
@@ -42,4 +32,5 @@ public class Contact {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+
 }

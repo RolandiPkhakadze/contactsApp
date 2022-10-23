@@ -48,7 +48,7 @@ class PhoneNumberServiceImplTest {
         // then
         PhoneNumber phoneNumberFromDb = phoneNumberRepository.findPhoneNumberByPhoneNumber(phoneNumber.getPhoneNumber()).get();
 
-//        Assertions.assertThat(phoneNumber).usingRecursiveComparison().ignoringFields("id", "historyList").isEqualTo(phoneNumberFromDb);
+        Assertions.assertThat(phoneNumber).usingRecursiveComparison().ignoringFields("id", "historyList").isEqualTo(phoneNumberFromDb);
     }
 
     @Test

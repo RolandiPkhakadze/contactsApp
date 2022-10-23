@@ -3,6 +3,8 @@ package com.example.contactsApp.dtoConverter.converter;
 
 import com.example.contactsApp.dtoConverter.dtoModel.ContactDto;
 import com.example.contactsApp.entity.Contact;
+import com.example.contactsApp.repository.ContactRepository;
+import com.example.contactsApp.repository.PhoneNumberRepository;
 import com.example.contactsApp.service.Impl.PhoneNumberServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,17 +12,17 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Component
 public class ContactConverter {
 
-
+    private final PhoneNumberRepository phoneNumberRepository;
     public Contact dtoToEntity(ContactDto contactDto) {
         Contact contact = new Contact();
         contact.setFirstName(contactDto.getFirstName());
         contact.setLastName(contactDto.getLastName());
         contact.setIsFavorite(contactDto.getIsFavorite());
         contact.setId(contactDto.getPhoneNumber());
-      //  contact.setId(phoneNumberService.getPhoneNumberByPhoneNumber(contactDto.getPhoneNumber()).getId());
         return contact;
     }
 
@@ -33,7 +35,7 @@ public class ContactConverter {
         contactDto.setFirstName(contact.getFirstName());
         contactDto.setLastName(contact.getLastName());
         contactDto.setIsFavorite(contact.getIsFavorite());
-        contactDto.setPhoneNumber(contact.getPhoneNumber().getPhoneNumber());
+        contactDto.setPhoneNumber(contact.getId());
         return contactDto;
     }
 

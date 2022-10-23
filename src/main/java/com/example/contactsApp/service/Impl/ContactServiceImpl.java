@@ -33,7 +33,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Transactional
     @Override
-    public void deleteContact(Long contactId) {
+    public void deleteContact(String contactId) {
         contactRepository.deleteById(contactId);
     }
     
