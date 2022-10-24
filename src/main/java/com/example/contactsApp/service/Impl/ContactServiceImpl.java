@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ContactServiceImpl implements ContactService {
     private final UserRepository userRepository;
     private final ContactRepository contactRepository;
-    private final CustomMapper mapper;
+    private final CustomMapperImpl mapper;
 
 
     @Transactional(rollbackFor = ContactDoesNotExistException.class)

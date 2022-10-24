@@ -1,65 +1,44 @@
 package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.entity.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.stereotype.Component;
 
+import java.lang.annotation.Target;
 import java.time.LocalDateTime;
+
+import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
+import static org.mapstruct.ReportingPolicy.IGNORE;
+
 @Component
-public class CustomMapper {
+@Mapper(componentModel = "spring", nullValueCheckStrategy = ALWAYS, unmappedTargetPolicy = IGNORE)
+public abstract class CustomMapper {
 
-    public Contact contactNullExclude(Contact contactFromBase, Contact contactFromApi) {
-        var firstName = contactFromApi.getFirstName();
-        contactFromBase.setFirstName(firstName != null ? firstName : contactFromBase.getFirstName());
-        var lastName = contactFromApi.getLastName();
-        contactFromBase.setLastName(lastName != null ? lastName : contactFromBase.getLastName());
-        var isFavorite = contactFromApi.getIsFavorite();
-        contactFromBase.setIsFavorite(isFavorite != null ? isFavorite : contactFromBase.getIsFavorite());
-
-        return contactFromBase;
-    }
+    @Mapping(source = "firstName", target = "firstName",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "lastName", target = "lastName",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "isFavorite", target = "isFavorite",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract Contact contactNullExclude(@MappingTarget Contact contactFromBase,  Contact contactFromApi);
 
 
-     public User userNullExclude(User userFromBase, User userFromApi) {
-        String email = userFromApi.getEmail();
-        userFromBase.setEmail(email !=null? email : userFromBase.getEmail());
-        String password = userFromApi.getPassword();
-        userFromBase.setPassword(password !=null? password : userFromBase.getPassword());
-        String username = userFromApi.getUsername();
-        userFromBase.setUsername(username !=null? username : userFromBase.getUsername());
-        return userFromBase;
-    }
+    @Mapping(source = "email", target = "email",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "password", target = "password",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "username", target = "username",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract User userNullExclude(@MappingTarget User userFromBase, User userFromApi);
 
+    @Mapping(source = "balance", target = "balance",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract PhoneNumber phoneNullExclude(@MappingTarget PhoneNumber phoneFromBase, PhoneNumber phoneFromApi);
 
-    public PhoneNumber phoneNullExclude(PhoneNumber phoneFromBase, PhoneNumber phoneFromApi) {
-        Long balance = phoneFromApi.getBalance();
-        phoneFromBase.setBalance(balance !=null? balance : phoneFromBase.getBalance());
-        return phoneFromBase;
-    }
+    @Mapping(source = "name", target = "name",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "isGeorgian", target = "isGeorgian",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "tariffForGeo", target = "tariffForGeo",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "tariffForNonGeo", target = "tariffForNonGeo",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "tariffForSame", target = "tariffForSame",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract NumberProvider providerNullExclude(@MappingTarget NumberProvider providerFromBase, NumberProvider providerFromApi);
 
-
-    public NumberProvider providerNullExclude(NumberProvider providerFromBase, NumberProvider providerFromApi) {
-        String name = providerFromApi.getName();
-        providerFromBase.setName(name !=null? name : providerFromBase.getName());
-        Boolean isGeorgian = providerFromApi.getIsGeorgian();
-        providerFromBase.setIsGeorgian(isGeorgian !=null? isGeorgian : providerFromBase.getIsGeorgian());
-        Integer tariffForGeo = providerFromApi.getTariffForGeo();
-        providerFromBase.setTariffForGeo(tariffForGeo !=null? tariffForGeo : providerFromBase.getTariffForGeo());
-        Integer tariffForNonGeo = providerFromApi.getTariffForNonGeo();
-        providerFromBase.setTariffForNonGeo(tariffForNonGeo !=null? tariffForNonGeo : providerFromBase.getTariffForNonGeo());
-        Integer tariffForSame = providerFromApi.getTariffForSame();
-        providerFromBase.setTariffForSame(tariffForSame !=null? tariffForSame : providerFromBase.getTariffForSame());
-
-        return providerFromBase;
-    }
-
-
-    public History historyNullExclude(History historyFromBase, History historyFromApi) {
-
-        LocalDateTime startDate = historyFromApi.getStartTime();
-        historyFromBase.setStartTime(startDate !=null? startDate :historyFromBase.getStartTime());
-        LocalDateTime endDate = historyFromApi.getEndTime();
-        historyFromBase.setEndTime(endDate !=null? endDate :historyFromBase.getEndTime());
-
-        return historyFromBase;
-    }
+    @Mapping(source = "startTime", target = "startTime",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "endTime", target = "endTime",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract History historyNullExclude(@MappingTarget History historyFromBase, History historyFromApi);
 }
