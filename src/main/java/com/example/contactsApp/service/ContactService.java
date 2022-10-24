@@ -7,7 +7,7 @@ public interface ContactService {
 
     Contact addContact(Contact contact, Long userId);
 
-    void deleteContact(Long contactId);
+    void deleteContact(String contactId);
 
     Contact updateContactPartially(Contact contact);
 

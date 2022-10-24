@@ -33,8 +33,8 @@ public class ContactServiceImpl implements ContactService {
 
     @Transactional
     @Override
-    public void deleteContact(Long contactId) {
-        contactRepository.deleteById(contactId);
+    public void deleteContact(String contactId) {
+        contactRepository.deleteContactById(contactId);
     }
     
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
