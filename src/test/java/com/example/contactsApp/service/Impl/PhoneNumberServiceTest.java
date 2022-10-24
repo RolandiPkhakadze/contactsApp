@@ -1,10 +1,8 @@
-package com.example.contactsApp.serviceTest;
+package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.Exception.PhoneNotFoundException;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.service.Impl.PhoneNumberServiceImpl;
-import com.example.contactsApp.service.Impl.UserServiceImpl;
 import com.example.contactsApp.service.PhoneNumberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

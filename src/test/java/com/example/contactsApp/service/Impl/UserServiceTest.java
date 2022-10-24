@@ -1,9 +1,8 @@
-package com.example.contactsApp.serviceTest;
+package com.example.contactsApp.service.Impl;
 
 import com.example.contactsApp.Exception.UserDoesNotExistException;
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.service.Impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
