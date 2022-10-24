@@ -33,8 +33,8 @@ public class ContactController {
     }
 
 
-    @DeleteMapping(path = "/delete-history")
-    public String deletePhone(@RequestParam Long contactId){
+    @DeleteMapping(path = "/delete-contact")
+    public String deleteContact(@RequestParam String contactId){
         contactService.deleteContact(contactId);
         return "provider deleted";
     }

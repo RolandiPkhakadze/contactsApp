@@ -16,19 +16,10 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "contacts")
 public class Contact {
     @Id
-    @SequenceGenerator(
-            name = "contacts_id_seq",
-            sequenceName = "contacts_id_seq",
-            allocationSize = 1
-    )
-
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "contacts_id_seq"
-    )
+    @Column(name = "id")
     private String id;
-    @OneToOne
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id" , referencedColumnName = "phone_number")
     private PhoneNumber phoneNumber;
     @Column(name = "is_favorite")
     private Boolean isFavorite;

@@ -34,6 +34,9 @@ public class PhoneNumber {
     @ToString.Exclude
     private List<History> historyList;
 
+    @OneToOne(mappedBy = "phoneNumber")
+    private Contact contact;
+
     public PhoneNumber(User user, Long balance, NumberProvider provider) {
         this.user = user;
         this.balance = balance;
