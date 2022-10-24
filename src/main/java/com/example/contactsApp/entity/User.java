@@ -35,11 +35,11 @@ public class User {
 //    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",message = "weak password")
     @Column(name = "password")
     private  String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // TODO research cascadeType
+    @OneToMany(mappedBy = "user") // TODO research cascadeType
     private List<Contact> allContacts;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // TODO research cascadeType
+    @OneToMany(mappedBy = "user") // TODO research cascadeType
     private List<PhoneNumber> phoneNumberList;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // TODO research cascadeType
+    @OneToMany(mappedBy = "user") // TODO research cascadeType
     private List<History> historyList;
 
     public User(String email, String username, String password) {

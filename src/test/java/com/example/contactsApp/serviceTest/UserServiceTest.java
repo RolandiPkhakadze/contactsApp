@@ -1,9 +1,11 @@
 package com.example.contactsApp.serviceTest;
 
 import com.example.contactsApp.Exception.UserDoesNotExistException;
+import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.service.Impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -60,6 +62,15 @@ class UserServiceTest {
     }
 
     @Test
+    void loginWrongPasswordTest() {
+        var testUser = registerUser();
+
+        Assertions.assertThrows(WrongPasswordException.class, () -> userService.loginUser(name, String.format("wrong%s", password)));
+
+        userService.deleteUser(testUser.getId());
+    }
+
+    @Test
     void changePasswordTest() {
 
         var testUser = registerUser();
@@ -69,6 +80,136 @@ class UserServiceTest {
         Assertions.assertNotNull(userService.loginUser(name, expected));
 
         userService.deleteUser(testUser.getId());
+    }
+
+    @Test
+    void updateUserTest() {
+        var testUser = registerUser();
+        var newName = String.format("new%s", name);
+        var newPassword = String.format("new%s",password);
+        var newEmail = String.format("new%s",email);
+        testUser.setPassword(newPassword);
+        testUser.setUsername(newName);
+        testUser.setEmail(newEmail);
+
+        var updatedUser = userService.updateUser(testUser, testUser.getId());
+
+        Assertions.assertEquals(updatedUser.getEmail(), newEmail);
+        Assertions.assertEquals(updatedUser.getUsername(),newName);
+        Assertions.assertEquals(updatedUser.getPassword(), newPassword);
+
+        userService.deleteUser(testUser.getId());
+    }
+
+
+
+    @Nested
+    class updateUserPartially {
+        @Test
+        void updateUserPartiallyUserNameTest() {
+            var testUser = registerUser();
+            var newName = String.format("new%s", name);
+            testUser.setUsername(newName);
+
+            var updatedUser = userService.updateUserPartially(testUser, testUser.getId());
+
+            Assertions.assertEquals(updatedUser.getUsername(),newName);
+
+            userService.deleteUser(testUser.getId());
+        }
+
+        @Test
+        void updateUserPartiallyEmailTest() {
+            var testUser = registerUser();
+            var newEmail = String.format("new%s",email);
+            testUser.setEmail(newEmail);
+
+            var updatedUser = userService.updateUserPartially(testUser, testUser.getId());
+
+            Assertions.assertEquals(updatedUser.getEmail(), newEmail);
+
+            userService.deleteUser(testUser.getId());
+        }
+
+        @Test
+        void updateUserPartiallyPasswordTest() {
+            var testUser = registerUser();
+            var newPassword = String.format("new%s",password);
+            testUser.setPassword(newPassword);
+
+            var updatedUser = userService.updateUserPartially(testUser, testUser.getId());
+
+            Assertions.assertEquals(updatedUser.getPassword(), newPassword);
+
+            userService.deleteUser(testUser.getId());
+        }
+
+        @Test
+        void updateUserPartiallyUserNameAndPasswordTest() {
+            var testUser = registerUser();
+            var newName = String.format("new%s", name);
+            var newPassword = String.format("new%s",password);
+            testUser.setPassword(newPassword);
+            testUser.setUsername(newName);
+
+            var updatedUser = userService.updateUserPartially(testUser, testUser.getId());
+
+            Assertions.assertEquals(updatedUser.getUsername(),newName);
+            Assertions.assertEquals(updatedUser.getPassword(), newPassword);
+
+            userService.deleteUser(testUser.getId());
+        }
+        @Test
+        void updateUserPartiallyUserNameAndEmailTest() {
+            var testUser = registerUser();
+            var newName = String.format("new%s", name);
+            var newEmail = String.format("new%s",email);
+            testUser.setUsername(newName);
+            testUser.setEmail(newEmail);
+
+            var updatedUser = userService.updateUserPartially(testUser, testUser.getId());
+
+            Assertions.assertEquals(updatedUser.getEmail(), newEmail);
+            Assertions.assertEquals(updatedUser.getUsername(),newName);
+
+            userService.deleteUser(testUser.getId());
+        }
+
+        @Test
+        void updateUserPartiallyEmailAndPasswordTest() {
+            var testUser = registerUser();
+            var newPassword = String.format("new%s",password);
+            var newEmail = String.format("new%s",email);
+            testUser.setPassword(newPassword);
+            testUser.setEmail(newEmail);
+
+            var updatedUser = userService.updateUserPartially(testUser, testUser.getId());
+
+            Assertions.assertEquals(updatedUser.getEmail(), newEmail);
+            Assertions.assertEquals(updatedUser.getPassword(), newPassword);
+
+            userService.deleteUser(testUser.getId());
+        }
+
+        @Test
+        void updateUserPartiallyEverythingTest() {
+            var testUser = registerUser();
+            var newName = String.format("new%s", name);
+            var newPassword = String.format("new%s",password);
+            var newEmail = String.format("new%s",email);
+            testUser.setPassword(newPassword);
+            testUser.setUsername(newName);
+            testUser.setEmail(newEmail);
+
+            var updatedUser = userService.updateUserPartially(testUser, testUser.getId());
+
+            Assertions.assertEquals(updatedUser.getEmail(), newEmail);
+            Assertions.assertEquals(updatedUser.getUsername(),newName);
+            Assertions.assertEquals(updatedUser.getPassword(), newPassword);
+
+            userService.deleteUser(testUser.getId());
+        }
+
     }
 
 }
