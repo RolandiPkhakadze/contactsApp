@@ -86,11 +86,121 @@ public class ContactServiceTest {
     }
 
 
+    @Test
+    void UpdateContactTest() {
+        var user = registerUser();
+        var phone = addPhone(user);
+
+        var contact = Contact.builder().
+                firstName(NAME).
+                lastName(NAME).
+                phoneNumber(phone).
+                isFavorite(Boolean.TRUE).
+                id(phone.getPhoneNumber()).
+                build();
+
+        contactService.addContact(contact, user.getId());
+
+        contact = Contact.builder().
+                firstName("new"+NAME).
+                lastName("new"+NAME).
+                phoneNumber(phone).
+                isFavorite(Boolean.FALSE).
+                id(phone.getPhoneNumber()).
+                build();
+
+        var contactFromDb = contactService.updateContact(contact);
+
+        Assertions.assertEquals(contactFromDb.getUser().getId(), user.getId());
+        Assertions.assertEquals(contactFromDb.getFirstName(), contact.getFirstName());
+        Assertions.assertEquals(contactFromDb.getLastName(), contact.getLastName());
+        Assertions.assertEquals(contactFromDb.getId(), contact.getId());
+        Assertions.assertEquals(contactFromDb.getId(), phone.getPhoneNumber());
+        Assertions.assertEquals(contactFromDb.getIsFavorite(), contact.getIsFavorite());
 
 
+        contactService.deleteContact(contactFromDb.getId());
+        phoneNumberService.deletePhone(phone.getPhoneNumber());
+        userService.deleteUser(user.getId());
+    }
+
+    @Test
+    void UpdateContactfirstNameTest() {
+        var user = registerUser();
+        var phone = addPhone(user);
+
+        var contact = Contact.builder().
+                firstName(NAME).
+                lastName(NAME).
+                phoneNumber(phone).
+                isFavorite(Boolean.TRUE).
+                id(phone.getPhoneNumber()).
+                build();
+
+        contactService.addContact(contact, user.getId());
+
+        contact = Contact.builder().
+                firstName("new"+NAME).
+                lastName(NAME).
+                phoneNumber(phone).
+                isFavorite(Boolean.TRUE).
+                id(phone.getPhoneNumber()).
+                build();
+
+        var dto = Contact.builder().id(phone.getPhoneNumber()).firstName("new"+NAME).build(); //TODO validation
+
+        var contactFromDb = contactService.updateContactPartially(dto);
+
+        Assertions.assertEquals(contactFromDb.getUser().getId(), user.getId());
+        Assertions.assertEquals(contactFromDb.getFirstName(), contact.getFirstName());
+        Assertions.assertEquals(contactFromDb.getLastName(), contact.getLastName());
+        Assertions.assertEquals(contactFromDb.getId(), contact.getId());
+        Assertions.assertEquals(contactFromDb.getId(), phone.getPhoneNumber());
+        Assertions.assertEquals(contactFromDb.getIsFavorite(), contact.getIsFavorite());
 
 
+        contactService.deleteContact(contactFromDb.getId());
+        phoneNumberService.deletePhone(phone.getPhoneNumber());
+        userService.deleteUser(user.getId());
+    }
+
+    @Test
+    void UpdateContactIsFavoriteTest() {
+        var user = registerUser();
+        var phone = addPhone(user);
+
+        var contact = Contact.builder().
+                firstName(NAME).
+                lastName(NAME).
+                phoneNumber(phone).
+                isFavorite(Boolean.TRUE).
+                id(phone.getPhoneNumber()).
+                build();
+
+        contactService.addContact(contact, user.getId());
+
+        contact = Contact.builder().
+                firstName(NAME).
+                lastName(NAME).
+                phoneNumber(phone).
+                isFavorite(Boolean.FALSE).
+                id(phone.getPhoneNumber()).
+                build();
+
+        var dto = Contact.builder().isFavorite(Boolean.FALSE).id(phone.getPhoneNumber()).firstName(NAME).build(); //TODO validation
+
+        var contactFromDb = contactService.updateContactPartially(dto);
+
+        Assertions.assertEquals(contactFromDb.getUser().getId(), user.getId());
+        Assertions.assertEquals(contactFromDb.getFirstName(), contact.getFirstName());
+        Assertions.assertEquals(contactFromDb.getLastName(), contact.getLastName());
+        Assertions.assertEquals(contactFromDb.getId(), contact.getId());
+        Assertions.assertEquals(contactFromDb.getId(), phone.getPhoneNumber());
+        Assertions.assertEquals(contactFromDb.getIsFavorite(), contact.getIsFavorite());
 
 
-
+        contactService.deleteContact(contactFromDb.getId());
+        phoneNumberService.deletePhone(phone.getPhoneNumber());
+        userService.deleteUser(user.getId());
+    }
 }

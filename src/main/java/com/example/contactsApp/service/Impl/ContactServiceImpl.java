@@ -41,13 +41,15 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Contact updateContactPartially(Contact contact) {
         Contact contactForSave = contactRepository.getContactById(contact.getId());
+        contact.setUser(contactForSave.getUser());
         return contactRepository.save(mapper.contactNullExclude(contactForSave,contact));
     }
 
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
     public Contact updateContact(Contact contact) {
-        contactRepository.getContactById(contact.getId());
+        Contact contactFromBase = contactRepository.getContactById(contact.getId());
+        contact.setUser(contactFromBase.getUser());
         return contactRepository.save(contact);
     }
 }
