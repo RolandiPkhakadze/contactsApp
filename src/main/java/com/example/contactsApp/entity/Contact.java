@@ -18,8 +18,8 @@ public class Contact {
     @Id
     @Column(name = "id")
     private String id;
-    @OneToOne
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id" , referencedColumnName = "phone_number")
     private PhoneNumber phoneNumber;
     @Column(name = "is_favorite")
     private Boolean isFavorite;
