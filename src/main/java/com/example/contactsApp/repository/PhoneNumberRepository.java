@@ -19,6 +19,8 @@ public interface PhoneNumberRepository  extends JpaRepository<PhoneNumber, Long>
         return findPhoneNumberByPhoneNumber(phoneNumber).orElseThrow(() -> new PhoneNotFoundException(String.format("phone with %S phone number not found", phoneNumber)));
     }
 
+    void deletePhoneNumberByPhoneNumber(String phoneNumber);
+
     @Query("SELECT u FROM PhoneNumber u WHERE u.phoneNumber = ?1 ")
     Optional<PhoneNumber> findPhoneNumberByPhoneNumber(String phoneNumber);
 }

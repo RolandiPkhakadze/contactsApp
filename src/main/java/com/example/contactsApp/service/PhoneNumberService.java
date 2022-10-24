@@ -7,11 +7,11 @@ public interface PhoneNumberService {
 
     PhoneNumber addContactPhone(PhoneNumber phone);
 
-    void deletePhone(Long phoneId);
-
     PhoneNumber updatePhone(PhoneNumber phone);
 
     PhoneNumber updatePhonePartially(PhoneNumber phone);
+
+    void deletePhone(String phoneNumber);
 
     PhoneNumber getPhoneNumberByPhoneNumber(String phoneNumber);
 }

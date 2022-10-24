@@ -31,8 +31,6 @@ public class CustomMapper {
 
 
     public PhoneNumber phoneNullExclude(PhoneNumber phoneFromBase, PhoneNumber phoneFromApi) {
-        String phoneNumber = phoneFromApi.getPhoneNumber();
-        phoneFromBase.setPhoneNumber(phoneNumber !=null? phoneNumber : phoneFromBase.getPhoneNumber());
         Long balance = phoneFromApi.getBalance();
         phoneFromBase.setBalance(balance !=null? balance : phoneFromBase.getBalance());
         return phoneFromBase;

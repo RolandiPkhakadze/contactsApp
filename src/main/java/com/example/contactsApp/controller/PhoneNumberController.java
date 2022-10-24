@@ -41,7 +41,7 @@ public class PhoneNumberController {
     }
 
     @DeleteMapping(path = "/delete-phone")
-    public String deletePhone(@RequestParam Long phoneId){
+    public String deletePhone(@RequestParam String phoneId){
         phoneNumberService.deletePhone(phoneId);
         return "provider deleted";
     }
