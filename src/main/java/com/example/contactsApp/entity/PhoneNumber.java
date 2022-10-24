@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Getter
+@Builder
 @Setter
 @ToString
 @NoArgsConstructor

@@ -37,8 +37,8 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
 
     @Transactional(rollbackFor = PhoneDoesNotExistException.class)
     @Override
-    public void deletePhone(Long phoneId) {
-        phoneNumberRepository.deleteById(phoneId);
+    public void deletePhone(String phoneNumber) {
+        phoneNumberRepository.deletePhoneNumberByPhoneNumber(phoneNumber);
     }
 
     @Transactional(rollbackFor = PhoneDoesNotExistException.class)
