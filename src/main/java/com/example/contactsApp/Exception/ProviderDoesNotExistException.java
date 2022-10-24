@@ -1,11 +1,10 @@
 package com.example.contactsApp.Exception;
 
 public class ProviderDoesNotExistException extends RuntimeException{
-    private String message;
 
-    public ProviderDoesNotExistException(String msg)
+
+    public ProviderDoesNotExistException(Long id)
     {
-        super(msg);
-        this.message = msg;
+        super(String.format("provider with id: %d was not found.",id));
     }
 }

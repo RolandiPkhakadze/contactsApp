@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface NumberProviderRepository  extends JpaRepository<NumberProvider, Long> {
     default NumberProvider getNumberProviderById(Long id) {
-        return findNumberProviderById(id).orElseThrow(() -> new ProviderDoesNotExistException("provider with id: "+id+" was not found."));
+        return findNumberProviderById(id).orElseThrow(() -> new ProviderDoesNotExistException(id));
     }
 
     Optional<NumberProvider> findNumberProviderById(Long id);

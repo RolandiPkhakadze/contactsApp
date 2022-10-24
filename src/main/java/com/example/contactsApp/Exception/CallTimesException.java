@@ -2,13 +2,13 @@ package com.example.contactsApp.Exception;
 
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 public class CallTimesException extends RuntimeException {
-    private String message;
 
-    public CallTimesException(String msg)
+    public CallTimesException(LocalDateTime startTime,LocalDateTime endTime)
     {
-        super(msg);
-        this.message = msg;
+        super(String.format("call start time: %s must be less than end time: %s",startTime.toString(),endTime.toString()));
     }
 }

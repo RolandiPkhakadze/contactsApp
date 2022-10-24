@@ -1,11 +1,9 @@
 package com.example.contactsApp.Exception;
 
 public class PhoneNotFoundException extends RuntimeException{
-    private String message;
 
-    public PhoneNotFoundException(String msg)
+    public PhoneNotFoundException(String id)
     {
-        super(msg);
-        this.message = msg;
+        super(String.format("phone with %s was not found.",id));
     }
 }

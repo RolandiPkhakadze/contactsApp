@@ -16,7 +16,7 @@ public interface HistoryRepository  extends JpaRepository<History, Long> {
     List<History> getHistoriesByUser(User user, PageRequest pageRequest);
 
     default History getHistoriesById(Long id) {
-        return findHistoriesById(id).orElseThrow(() -> new HistoryDoesNotExistException("provider with id: "+id+" was not found."));
+        return findHistoriesById(id).orElseThrow(() -> new HistoryDoesNotExistException(id));
     }
 
     Optional<History> findHistoriesById(Long id);

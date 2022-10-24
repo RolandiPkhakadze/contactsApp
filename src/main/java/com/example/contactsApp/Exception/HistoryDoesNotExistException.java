@@ -1,11 +1,10 @@
 package com.example.contactsApp.Exception;
 
 public class HistoryDoesNotExistException extends  RuntimeException{
-    private String message;
 
-    public HistoryDoesNotExistException(String msg)
+
+    public HistoryDoesNotExistException(Long id)
     {
-        super(msg);
-        this.message = msg;
+        super(String.format("history with id: %d was not found.",id));
     }
 }

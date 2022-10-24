@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ContactRepository  extends JpaRepository<Contact, Long> {
+public interface ContactRepository extends JpaRepository<Contact, Long> {
     default Contact getContactById(String id) {
-        return findContactById(id).orElseThrow(() -> new ContactDoesNotExistException("contact with id: "+id+" was not found."));
+        return findContactById(id).orElseThrow(() -> new ContactDoesNotExistException(id ));
     }
 
     void deleteContactById(String id);

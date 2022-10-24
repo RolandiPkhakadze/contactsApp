@@ -1,12 +1,10 @@
 package com.example.contactsApp.Exception;
 
 public class ContactDoesNotExistException extends  RuntimeException{
-    private String message;
 
-    public ContactDoesNotExistException(String msg)
+    public ContactDoesNotExistException(String phone)
     {
-        super(msg);
-        this.message = msg;
+        super(String.format("contact with phone %s was not found.",phone));
     }
 
 }

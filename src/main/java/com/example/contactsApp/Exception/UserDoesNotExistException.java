@@ -5,11 +5,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDoesNotExistException extends RuntimeException{
 
-    private String message;
 
-    public UserDoesNotExistException(String msg)
+    public UserDoesNotExistException(Long id)
     {
-        super(msg);
-        this.message = msg;
+            super(String.format("user with id: %d was not found.", id));
     }
 }
