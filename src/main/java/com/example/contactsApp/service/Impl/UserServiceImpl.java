@@ -18,13 +18,14 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
+    static final int PAGINATION_SIZE = 5;
     private UserRepository userRepository;
     private CustomMapper mapper;
 
     @Override
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-        return  userRepository.findAll(PageRequest.of(0,2)).stream().toList();
+        return  userRepository.findAll(PageRequest.of(0,PAGINATION_SIZE)).stream().toList();
     }
 
     @Transactional(rollbackFor = UserDoesNotExistException.class)
