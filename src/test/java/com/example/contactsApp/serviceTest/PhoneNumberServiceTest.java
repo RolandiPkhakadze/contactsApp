@@ -55,12 +55,17 @@ public class PhoneNumberServiceTest {
     @Test
     void addUserPhoneTest() {
         var user = registerUser();
+//        var expected = initPhoneNumber();
+//        expected.setUser(userService.loginUser(user.getEmail(), user.getPassword()));
         var phone = addPhone(user);
+
 
 
         Assertions.assertEquals(phone.getPhoneNumber(),PHONE_NUMBER);
         Assertions.assertEquals(phone.getBalance(), BALANCE);
         Assertions.assertEquals(phone.getUser().getId(), user.getId());
+
+//        org.assertj.core.api.Assertions.assertThat(expected).usingRecursiveComparison().ignoringFields("id", "historyList").isEqualTo(phone);
 
         phoneNumberService.deletePhone(phone.getPhoneNumber());
         userService.deleteUser(user.getId());
@@ -121,6 +126,9 @@ public class PhoneNumberServiceTest {
         Assertions.assertEquals(phone.getBalance(), added.getBalance());
         Assertions.assertEquals(phone.getPhoneNumber(), added.getPhoneNumber());
         Assertions.assertNull(added.getUser());
+
+
+//        org.assertj.core.api.Assertions.assertThat(phone).usingRecursiveComparison().ignoringFields("id", "historyList").isEqualTo(added);
 
         phoneNumberService.deletePhone(phone.getPhoneNumber());
 
