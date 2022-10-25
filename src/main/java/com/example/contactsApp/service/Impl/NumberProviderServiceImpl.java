@@ -33,7 +33,7 @@ public class NumberProviderServiceImpl implements NumberProviderService {
 
     @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
-    public NumberProvider addProviderPartially(NumberProvider provider, Long id) {
+    public NumberProvider updateProvider (NumberProvider provider, Long id) {
         numberProviderRepository.getNumberProviderById(id);
         provider.setId(id);
         return provider;
@@ -41,7 +41,7 @@ public class NumberProviderServiceImpl implements NumberProviderService {
 
     @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
-    public NumberProvider updateProvider(NumberProvider provider, Long id) {
+    public NumberProvider addProviderPartially(NumberProvider provider, Long id) {
         NumberProvider providerForSave = numberProviderRepository.getNumberProviderById(id);
 
         return numberProviderRepository.save(mapper.providerNullExclude(providerForSave,provider));

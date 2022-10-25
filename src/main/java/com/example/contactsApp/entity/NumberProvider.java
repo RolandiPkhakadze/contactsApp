@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "number_providers")
 public class NumberProvider {
     @Id
@@ -44,5 +45,14 @@ public class NumberProvider {
     @OneToMany(mappedBy = "provider")
     private List<PhoneNumber> phoneNumberList;
 
-
+    @Override
+    public String toString() {
+        return "NumberProvider{" +
+                "id=" + id +
+                ", isGeorgian=" + isGeorgian +
+                ", tariffForGeo=" + tariffForGeo +
+                ", tariffForSame=" + tariffForSame +
+                ", tariffForNonGeo=" + tariffForNonGeo +
+                '}';
+    }
 }
