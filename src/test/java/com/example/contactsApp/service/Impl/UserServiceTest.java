@@ -3,7 +3,6 @@ package com.example.contactsApp.service.Impl;
 import com.example.contactsApp.Exception.WrongEmailOrUsernameException;
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -32,8 +31,6 @@ class UserServiceTest {
 
     }*/
 
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private UserService userService;
     private static final String NAME = "testname";
@@ -68,7 +65,6 @@ class UserServiceTest {
     void registerUserTest() {
         var result = registerUser();
         userService.deleteUser(result.getId());
-        var resultall = userRepository.findAll();
 
         Assertions.assertNotNull(result);
     }

@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Builder
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -37,15 +36,11 @@ public class PhoneNumber {
     @OneToOne(mappedBy = "phoneNumber")
     private Contact contact;
 
-    public PhoneNumber(User user, Long balance, NumberProvider provider) {
-        this.user = user;
-        this.balance = balance;
-        this.provider = provider;
-    }
-
-    public PhoneNumber(String phoneNumber, Long balance, NumberProvider provider) {
-        this.phoneNumber = phoneNumber;
-        this.balance = balance;
-        this.provider = provider;
+    @Override
+    public String toString() {
+        return "PhoneNumber{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 }

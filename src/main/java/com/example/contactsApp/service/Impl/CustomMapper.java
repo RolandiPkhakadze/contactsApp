@@ -6,10 +6,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.stereotype.Component;
-
-import java.lang.annotation.Target;
-import java.time.LocalDateTime;
-
 import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
@@ -22,15 +18,17 @@ public abstract class CustomMapper {
     @Mapping(source = "isFavorite", target = "isFavorite",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract Contact contactNullExclude(@MappingTarget Contact contactFromBase,  Contact contactFromApi);
 
-
+    @Mapping(source = "id", target = "id",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "email", target = "email",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "password", target = "password",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "username", target = "username",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract User userNullExclude(@MappingTarget User userFromBase, User userFromApi);
 
+    @Mapping(source = "phoneNumber", target = "phoneNumber",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "balance", target = "balance",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract PhoneNumber phoneNullExclude(@MappingTarget PhoneNumber phoneFromBase, PhoneNumber phoneFromApi);
 
+    @Mapping(source = "id", target = "id",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "name", target = "name",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "isGeorgian", target = "isGeorgian",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "tariffForGeo", target = "tariffForGeo",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -38,6 +36,7 @@ public abstract class CustomMapper {
     @Mapping(source = "tariffForSame", target = "tariffForSame",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract NumberProvider providerNullExclude(@MappingTarget NumberProvider providerFromBase, NumberProvider providerFromApi);
 
+    @Mapping(source = "id", target = "id",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "startTime", target = "startTime",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(source = "endTime", target = "endTime",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract History historyNullExclude(@MappingTarget History historyFromBase, History historyFromApi);

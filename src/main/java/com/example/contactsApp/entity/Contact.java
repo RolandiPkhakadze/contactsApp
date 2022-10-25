@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 
 @Builder
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -34,4 +33,14 @@ public class Contact {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id='" + id + '\'' +
+                ", isFavorite=" + isFavorite +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }

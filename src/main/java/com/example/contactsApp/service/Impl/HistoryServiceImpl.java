@@ -9,6 +9,7 @@ import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.HistoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +44,11 @@ public class HistoryServiceImpl implements HistoryService {
     @Transactional(rollbackFor = HistoryDoesNotExistException.class)
     @Override
     public void deleteHistory(Long historyId) {
-        historyRepository.deleteById(historyId);
+        try{
+            historyRepository.deleteById(historyId);
+        }catch(EmptyResultDataAccessException ex) {
+            throw new HistoryDoesNotExistException(historyId);
+        }
     }
 
     @Transactional(rollbackFor = HistoryDoesNotExistException.class)

@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
+@Builder
 @Table(name = "histories")
 public class History {
 
@@ -47,5 +47,15 @@ public class History {
     @PostLoad
     public void initDuring() {
         duration = Duration.between(startTime, endTime).toSeconds();
+    }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", duration=" + duration +
+                '}';
     }
 }

@@ -6,9 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -32,7 +32,7 @@ public class User {
     @Pattern(regexp = "^[a-z0-9_-]{3,15}$",message = "username format is bad")
     @Column(name = "username")
     private String username;
-//    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",message = "weak password")
+    //@Pattern(regexp = "^{8,}$",message = "weak password")
     @Column(name = "password")
     private  String password;
     @OneToMany(mappedBy = "user") // TODO research cascadeType
@@ -42,9 +42,13 @@ public class User {
     @OneToMany(mappedBy = "user") // TODO research cascadeType
     private List<History> historyList;
 
-    public User(String email, String username, String password) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
