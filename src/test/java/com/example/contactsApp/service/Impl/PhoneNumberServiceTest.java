@@ -4,9 +4,11 @@ import com.example.contactsApp.Exception.PhoneNotFoundException;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -14,9 +16,10 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
-@Testcontainers
+@ActiveProfiles("test")
+//@Testcontainers
 public class PhoneNumberServiceTest {
-    @Container
+   /* @Container
     private static final PostgreSQLContainer container = (PostgreSQLContainer) new PostgreSQLContainer("postgres:latest").withReuse(true);
 
     @DynamicPropertySource
@@ -26,6 +29,10 @@ public class PhoneNumberServiceTest {
         registry.add("spring.datasource.password",container::getPassword);
 
     }
+    @BeforeAll
+    public static void setup(){
+        container.start();
+    }*/
     private final UserServiceImpl userService;
     private final PhoneNumberServiceImpl phoneNumberService;
     private static final String NAME = "testname";

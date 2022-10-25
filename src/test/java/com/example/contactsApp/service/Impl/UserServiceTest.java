@@ -3,27 +3,25 @@ package com.example.contactsApp.service.Impl;
 import com.example.contactsApp.Exception.WrongEmailOrUsernameException;
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
+import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @SpringBootTest
-@Testcontainers
+@ActiveProfiles("test")
+//@Testcontainers
 
 class UserServiceTest {
-    @Container
+    /*@Container
     private static final PostgreSQLContainer container = (PostgreSQLContainer) new PostgreSQLContainer("postgres:latest").withReuse(true);
 
     @DynamicPropertySource
@@ -32,19 +30,16 @@ class UserServiceTest {
         registry.add("spring.datasource.username",container::getUsername);
         registry.add("spring.datasource.password",container::getPassword);
 
-    }
+    }*/
 
-    private final UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
     private static final String NAME = "testname";
     private static final String EMAIL = "test@mail.com";
     private static final String PASSWORD = "TestPassword12";
     private static final int USER_NUM_TO_ADD = 5;
-
-
-    @Autowired
-    public UserServiceTest(UserServiceImpl userService) {
-        this.userService = userService;
-    }
 
     private User registerUser() {
         return registerUser(NAME, EMAIL, PASSWORD);
@@ -55,6 +50,7 @@ class UserServiceTest {
         testUser.setEmail(email);
         testUser.setUsername(name);
         testUser.setPassword(password);
+
 
         return userService.registerUser(testUser);
     }
@@ -72,6 +68,7 @@ class UserServiceTest {
     void registerUserTest() {
         var result = registerUser();
         userService.deleteUser(result.getId());
+        var resultall = userRepository.findAll();
 
         Assertions.assertNotNull(result);
     }

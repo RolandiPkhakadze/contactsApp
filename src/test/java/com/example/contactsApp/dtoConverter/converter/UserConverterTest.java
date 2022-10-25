@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -17,9 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-@Testcontainers
+@ActiveProfiles("test")
+//@Testcontainers
 public class UserConverterTest {
-    @Container
+   /* @Container
     private static final PostgreSQLContainer container = (PostgreSQLContainer) new PostgreSQLContainer("postgres:latest").withReuse(true);
 
     @DynamicPropertySource
@@ -28,7 +30,7 @@ public class UserConverterTest {
         registry.add("spring.datasource.username",container::getUsername);
         registry.add("spring.datasource.password",container::getPassword);
 
-    }
+    }*/
     private final UserConverter userConverter;
     private final UserServiceImpl userService;
     private static final String NAME = "testname";
