@@ -3,21 +3,24 @@ package com.example.contactsApp.service.Impl;
 import com.example.contactsApp.entity.Contact;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
+import com.example.contactsApp.service.ContactService;
 import com.example.contactsApp.service.PhoneNumberService;
+import com.example.contactsApp.service.UserService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 
 @SpringBootTest
-//@Testcontainers
+@Testcontainers
 public class ContactServiceTest {
-    //@Container
+    @Container
     private static final PostgreSQLContainer container = (PostgreSQLContainer) new PostgreSQLContainer("postgres:latest").withReuse(true);
 
     @DynamicPropertySource
@@ -28,13 +31,13 @@ public class ContactServiceTest {
 
     }
 
-    @BeforeAll
-    public static void setup(){
-        container.start();
-    }
+    //@BeforeAll
+    //public static void setup(){
+   //     container.start();
+    //}
 
-    private final UserServiceImpl userService;
-    private final ContactServiceImpl contactService;
+    private final UserService userService;
+    private final ContactService contactService;
     private final PhoneNumberService phoneNumberService;
     private static final String NAME = "testname";
     private static final String EMAIL = "test@mail.com";

@@ -17,19 +17,22 @@ public class ContactController {
     private final ContactConverter contactConverter;
 
     @PostMapping(path = "/add-contact")
-    public Contact addContact( @RequestParam Long userId,@Valid @RequestBody ContactDto contactDto){
-        return contactService.addContact(contactConverter.dtoToEntity(contactDto),userId);
+    public ContactDto addContact( @RequestParam Long userId,@Valid @RequestBody ContactDto contactDto){
+        return contactConverter.entityToDto(
+                contactService.addContact(contactConverter.dtoToEntity(contactDto),userId));
     }
 
     @PutMapping(path = "/update-contact")
-    public  Contact updateContact( @Valid @RequestBody ContactDto contactDto){
+    public  ContactDto updateContact( @Valid @RequestBody ContactDto contactDto){
         Contact contact = contactConverter.dtoToEntity(contactDto);
-        return contactService.updateContact(contact);
+        return contactConverter.entityToDto(
+                contactService.updateContact(contact));
     }
 
     @PatchMapping(path = "/update-contact")
-    public Contact updateContactPartially(@RequestBody ContactDto contactDto) {
-        return contactService.updateContactPartially(contactConverter.dtoToEntity(contactDto));
+    public ContactDto updateContactPartially(@RequestBody ContactDto contactDto) {
+        return contactConverter.entityToDto(
+                contactService.updateContactPartially(contactConverter.dtoToEntity(contactDto)));
     }
 
 

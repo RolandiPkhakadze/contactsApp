@@ -3,17 +3,31 @@ package com.example.contactsApp.service.Impl;
 import com.example.contactsApp.Exception.PhoneNotFoundException;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
-import com.example.contactsApp.service.PhoneNumberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
+@Testcontainers
 public class PhoneNumberServiceTest {
+    @Container
+    private static final PostgreSQLContainer container = (PostgreSQLContainer) new PostgreSQLContainer("postgres:latest").withReuse(true);
 
+    @DynamicPropertySource
+    public static void overrideProps(DynamicPropertyRegistry registry){
+        registry.add("spring.datasource.url",container::getJdbcUrl);
+        registry.add("spring.datasource.username",container::getUsername);
+        registry.add("spring.datasource.password",container::getPassword);
+
+    }
     private final UserServiceImpl userService;
-    private final PhoneNumberService phoneNumberService;
+    private final PhoneNumberServiceImpl phoneNumberService;
     private static final String NAME = "testname";
     private static final String EMAIL = "test@mail.com";
     private static final String PASSWORD = "TestPassword12";
@@ -100,13 +114,14 @@ public class PhoneNumberServiceTest {
     }
 
     @Test
-    void updatePhonePartiallyTest() {
+    void updateUserPhonePartiallyTest() {
         var user = registerUser();
         var phone = addPhone(user);
 
-        phone.setBalance(BALANCE + 4L);
+        phone.setBalance(BALANCE+4L);
+        PhoneNumber phoneToSend = PhoneNumber.builder().phoneNumber(phone.getPhoneNumber()).balance(BALANCE+4L).build();
 
-        var updated = phoneNumberService.updatePhonePartially(phone);
+        var updated = phoneNumberService.updatePhonePartially(phoneToSend);
 
         Assertions.assertEquals(phone.getBalance(), updated.getBalance());
 

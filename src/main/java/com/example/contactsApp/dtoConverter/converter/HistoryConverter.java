@@ -23,10 +23,6 @@ public class HistoryConverter {
         return history;
     }
 
-    public List<History> dtoToEntity(List<HistoryDto> historyDto) {
-        return historyDto.stream().map(this::dtoToEntity).collect(Collectors.toList());
-    }
-
     public HistoryDto entityToDto(History history) {
 
         return HistoryDto.builder()

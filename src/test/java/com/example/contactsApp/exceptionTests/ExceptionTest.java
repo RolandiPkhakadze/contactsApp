@@ -12,18 +12,34 @@ import com.example.contactsApp.service.Impl.PhoneNumberServiceImpl;
 import com.example.contactsApp.service.NumberProviderService;
 import com.example.contactsApp.service.Impl.NumberProviderServiceImpl;
 import com.example.contactsApp.service.Impl.UserServiceImpl;
+import com.example.contactsApp.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 
 @SpringBootTest
+@Testcontainers
 public class ExceptionTest {
+    @Container
+    private static final PostgreSQLContainer container = (PostgreSQLContainer) new PostgreSQLContainer("postgres:latest").withReuse(true);
 
-    private final UserServiceImpl userService;
+    @DynamicPropertySource
+    public static void overrideProps(DynamicPropertyRegistry registry){
+        registry.add("spring.datasource.url",container::getJdbcUrl);
+        registry.add("spring.datasource.username",container::getUsername);
+        registry.add("spring.datasource.password",container::getPassword);
+
+    }
+    private final UserService userService;
     private final PhoneNumberService phoneNumberService;
     private final NumberProviderService numberProviderService;
     private final HistoryService historyService;
@@ -66,7 +82,7 @@ public class ExceptionTest {
 
     @Test
     void userDoesNotExistException() {
-        Assertions.assertThrows(UserDoesNotExistException.class, () -> userService.loginUser("asdfgsda", "Asdffgsd12asdf3"));
+        Assertions.assertThrows(WrongEmailOrUsernameException.class, () -> userService.loginUser("asdfgsda", "Asdffgsd12asdf3"));
     }
 
     @Test
