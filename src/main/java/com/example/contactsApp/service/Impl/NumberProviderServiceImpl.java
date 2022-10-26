@@ -20,7 +20,9 @@ public class NumberProviderServiceImpl implements NumberProviderService {
     @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
     public NumberProvider addProvider(NumberProvider provider) {
-        return numberProviderRepository.save(provider);
+        provider = numberProviderRepository.save(provider);
+        log.debug("provider added with id "+provider.getId());
+        return provider;
     }
 
 
@@ -28,7 +30,9 @@ public class NumberProviderServiceImpl implements NumberProviderService {
     @Transactional(rollbackFor = ProviderDoesNotExistException.class)
     @Override
     public void deleteProvider(Long providerId) {
+
         numberProviderRepository.deleteById(providerId);
+        log.debug(String.format("provider with id: %d was deleted",providerId));
     }
 
     @Transactional(rollbackFor = ProviderDoesNotExistException.class)
@@ -36,6 +40,7 @@ public class NumberProviderServiceImpl implements NumberProviderService {
     public NumberProvider updateProvider (NumberProvider provider, Long id) {
         numberProviderRepository.getNumberProviderById(id);
         provider.setId(id);
+        log.debug(String.format("Provider with id: %d was updated",id));
         return provider;
     }
 
@@ -43,7 +48,8 @@ public class NumberProviderServiceImpl implements NumberProviderService {
     @Override
     public NumberProvider addProviderPartially(NumberProvider provider, Long id) {
         NumberProvider providerForSave = numberProviderRepository.getNumberProviderById(id);
-
-        return numberProviderRepository.save(mapper.providerNullExclude(providerForSave,provider));
+        provider = numberProviderRepository.save(mapper.providerNullExclude(providerForSave,provider));
+        log.debug(String.format("Provider with id: %d was updated",id));
+        return provider;
     }
 }

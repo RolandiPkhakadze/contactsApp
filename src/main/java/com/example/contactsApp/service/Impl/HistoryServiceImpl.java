@@ -32,7 +32,8 @@ public class HistoryServiceImpl implements HistoryService {
     public History saveHistory(History history, Long userId) {
         if(history.getStartTime().isAfter(history.getEndTime())){
         //    log.debug("Call Times exception was thrown");
-            throw new CallTimesException(history.getStartTime(),history.getEndTime());
+            throw new CallTimesException(String.format("call start time: %s must be less than end time: %s",
+                    history.getStartTime().toString(),history.getEndTime().toString()));
         }
 
         history.setUser(userRepository.getUserById(userId));
@@ -43,6 +44,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<History> getAllHistoriesForUser(Long userId) {
         return historyRepository.getHistoriesByUser(userRepository.getUserById(userId), PageRequest.of(PAGINATION_PAGE,PAGINATION_SIZE));
     }
@@ -54,7 +56,7 @@ public class HistoryServiceImpl implements HistoryService {
             historyRepository.deleteById(historyId);
             log.debug(String.format("history with id %d was deleted",historyId));
         }catch(EmptyResultDataAccessException ex) {
-            throw new HistoryDoesNotExistException(historyId);
+            throw new HistoryDoesNotExistException(String.format("history with id: %d was not found.",historyId));
         }
     }
 
@@ -62,7 +64,8 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public History updateHistory(History history, Long id) {
         if(history.getStartTime().isAfter(history.getEndTime())){
-            throw new CallTimesException(history.getStartTime(),history.getEndTime());
+            throw new CallTimesException(String.format("call start time: %s must be less than end time: %s",
+                    history.getStartTime().toString(),history.getEndTime().toString()));
         }
 
         historyRepository.getHistoriesById(id);

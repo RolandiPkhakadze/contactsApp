@@ -1,10 +1,13 @@
 package com.example.contactsApp.Exception;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UserAlreadyExistsException extends RuntimeException{
 
     public UserAlreadyExistsException(String msg)
     {
-        super(String.format("user %s already exists.",msg));
+        super(msg);
+        log.error(msg);
     }
 }

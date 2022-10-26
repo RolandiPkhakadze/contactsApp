@@ -1,6 +1,5 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.Exception.UserDoesNotExistException;
 import com.example.contactsApp.Exception.WrongPasswordException;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.UserRepository;
@@ -28,24 +27,29 @@ public class UserServiceImpl implements UserService {
         return  userRepository.findAll(PageRequest.of(0,PAGINATION_SIZE)).stream().toList();
     }
 
-    @Transactional(rollbackFor = UserDoesNotExistException.class)
+    @Transactional
     @Override
     public User registerUser(User user) {
         userRepository.findUserByEmailOrUsernameForRegister(user.getEmail(), user.getUsername());
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        log.debug("User registered with id "+user.getId());
+        return user;
     }
 
     @Override
     public User loginUser(String usernameOrEmail, String password) {
         User userOptional = userRepository.findUserByEmailOrUsername(usernameOrEmail,usernameOrEmail);
         if(!userOptional.getPassword().equals(password)) {
+            log.error("wrong password try again");
             throw new WrongPasswordException("wrong password try again");
         }
+
+        log.debug(String.format("user with id: %d signed in",userOptional.getId()));
 
         return userOptional;
     }
 
-    @Transactional(rollbackFor = UserDoesNotExistException.class)
+    @Transactional
     @Override
     public User changePassword(Long userId, String password) {
         User userOptional = userRepository.getUserById(userId);
@@ -54,29 +58,37 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(userOptional);
 
+        log.debug(String.format("user with id: %d changed his/her password",userId));
         return userOptional;
     }
 
 
-    //@Transactional(rollbackFor = UserDoesNotExistException.class)
+    @Transactional
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+        log.debug(String.format("user with id: %d was deleted",userId));
     }
 
-    @Transactional(rollbackFor = UserDoesNotExistException.class)
+    @Transactional
     @Override
     public User updateUser(@Valid User user, Long id) {
         userRepository.getUserById(id);
         user.setId(id);
-        return userRepository.save(user);
+        user = userRepository.save(user);
+
+        log.debug(String.format("user with id: %d was updated",id));
+        return user;
     }
-//mappers, mapstruct, objectMapper
-    @Transactional(rollbackFor = UserDoesNotExistException.class)
+
+    @Transactional
     @Override
     public User updateUserPartially(User user, Long id) {
         User userForSave = userRepository.getUserById(id);
-        return userRepository.save(mapper.userNullExclude(userForSave,user));
+        user = userRepository.save(mapper.userNullExclude(userForSave,user));
+
+        log.debug(String.format("user with id: %d was updated",id));
+        return user;
     }
 
 

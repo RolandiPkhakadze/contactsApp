@@ -1,10 +1,14 @@
 package com.example.contactsApp.Exception;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ContactDoesNotExistException extends  RuntimeException{
 
-    public ContactDoesNotExistException(String phone)
+    public ContactDoesNotExistException(String msg)
     {
-        super(String.format("contact with phone %s was not found.",phone));
+        super(msg);
+        log.error(msg);
     }
 
 }

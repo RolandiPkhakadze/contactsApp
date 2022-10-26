@@ -1,8 +1,12 @@
 package com.example.contactsApp.Exception;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class WrongEmailOrUsernameException extends RuntimeException{
 
-    public WrongEmailOrUsernameException(String emailOrUsername) {
-        super(String.format("user %s was not found.", emailOrUsername));
+    public WrongEmailOrUsernameException(String msg) {
+        super(msg);
+        log.error(msg);
     }
 }

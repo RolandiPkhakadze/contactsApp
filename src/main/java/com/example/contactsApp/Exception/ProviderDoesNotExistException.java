@@ -1,10 +1,14 @@
 package com.example.contactsApp.Exception;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ProviderDoesNotExistException extends RuntimeException{
 
 
-    public ProviderDoesNotExistException(Long id)
+    public ProviderDoesNotExistException(String msg)
     {
-        super(String.format("provider with id: %d was not found.",id));
+        super(msg);
+        log.error(msg);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.Exception.PhoneDoesNotExistException;
 import com.example.contactsApp.entity.PhoneNumber;
 import com.example.contactsApp.entity.User;
 import com.example.contactsApp.repository.PhoneNumberRepository;
@@ -19,45 +18,57 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     private final PhoneNumberRepository phoneNumberRepository;
     private final CustomMapper mapper;
 
-    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
+    @Transactional
     @Override
     public PhoneNumber addUserPhone(PhoneNumber phone, Long userId) {
         User userOptional = userRepository.getUserById(userId);
-        log.debug("dsfdsfsd");
 
         phone.setUser(userOptional);
-        return phoneNumberRepository.save(phone);
+        phone = phoneNumberRepository.save(phone);
+
+        log.debug(String.format("user with id: %d added phone with phone number: %s",userId,phone.getPhoneNumber()));
+        return phone;
     }
 
-    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
+    @Transactional
     @Override
     public PhoneNumber addContactPhone(PhoneNumber phone) {
-        return phoneNumberRepository.save(phone);
+        phone = phoneNumberRepository.save(phone);
+
+        log.debug(String.format("contact's phone number %s was added",phone.getPhoneNumber()));
+        return phone;
     }
 
-    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
+    @Transactional
     @Override
     public void deletePhone(String phoneNumber) {
         phoneNumberRepository.deletePhoneNumberByPhoneNumber(phoneNumber);
+        log.debug(String.format("Phone number %s was deleted",phoneNumber));
     }
 
-    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
+    @Transactional
     @Override
     public PhoneNumber updatePhone(PhoneNumber phone) {
         phoneNumberRepository.getPhoneById(phone.getPhoneNumber());
-        return phoneNumberRepository.save(phone);
+        phone = phoneNumberRepository.save(phone);
+        log.debug(String.format("phone: %s was updated",phone.getPhoneNumber()));
+        return phone;
     }
 
-    @Transactional(rollbackFor = PhoneDoesNotExistException.class)
+    @Transactional
     @Override
     public PhoneNumber updatePhonePartially(PhoneNumber phone) {
         PhoneNumber phoneForSave = phoneNumberRepository.getPhoneById(phone.getPhoneNumber());
-        return phoneNumberRepository.save(mapper.phoneNullExclude(phoneForSave,phone));
+        phone = phoneNumberRepository.save(mapper.phoneNullExclude(phoneForSave,phone));
+        log.debug(String.format("phone: %s was updated",phone.getPhoneNumber()));
+        return phone;
     }
 
     @Override
     public PhoneNumber getPhoneNumberByPhoneNumber(String phoneNumber) {
-        return phoneNumberRepository.getPhoneNumberByPhoneNumber(phoneNumber);
+        PhoneNumber phone = phoneNumberRepository.getPhoneNumberByPhoneNumber(phoneNumber);
+        log.debug(String.format("phone: %s was requested and was returned successfully",phoneNumber));
+        return phone;
     }
 
 }
