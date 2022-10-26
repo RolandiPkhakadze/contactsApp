@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @SpringBootTest
 @ActiveProfiles("test")
-//@Testcontainers
 
 class UserServiceTest {
     /*@Container
@@ -55,9 +54,7 @@ class UserServiceTest {
     @Test
     void deleteUserTest() {
         var testUser = registerUser();
-        var id = testUser.getId();
-        userService.deleteUser(id);
-
+        userService.deleteUser(testUser.getId());
         Assertions.assertThrows(WrongEmailOrUsernameException.class, () -> userService.loginUser(testUser.getUsername(), testUser.getPassword()));
     }
 
@@ -122,8 +119,8 @@ class UserServiceTest {
 
     @Test
     void getAllUsersTest() {
-        var allUsersIDs = userService.getAllUsers().stream().map(User::getId).collect(Collectors.toList());
-        removeAllUsersFromDB(allUsersIDs);
+//        var allUsersIDs = userService.getAllUsers().stream().map(User::getId).collect(Collectors.toList());
+//        removeAllUsersFromDB(allUsersIDs);
 
         var testUsersIDs = addTestUsers().stream().map(User::getId).collect(Collectors.toList());
 
