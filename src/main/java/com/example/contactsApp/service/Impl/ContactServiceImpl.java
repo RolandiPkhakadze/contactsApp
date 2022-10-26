@@ -37,6 +37,7 @@ public class ContactServiceImpl implements ContactService {
     @Transactional
     @Override
     public void deleteContact(String contactId) {
+        contactRepository.getContactById(contactId);
         contactRepository.deleteContactById(contactId);
         log.debug(String.format("Contact with phone: %s was successfully deleted",contactId));
     }

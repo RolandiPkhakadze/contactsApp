@@ -13,6 +13,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
         return findContactById(id).orElseThrow(() -> new ContactDoesNotExistException(String.format("contact with phone %s was not found.",id)));
     }
 
+
     void deleteContactById(String id);
 
     Optional<Contact> findContactById(String id);
