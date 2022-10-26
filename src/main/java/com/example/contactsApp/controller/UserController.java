@@ -19,7 +19,7 @@ public class UserController {
     private final UserConverter converter;
 
     @GetMapping(path  = "/get-all")
-    public List<UserDto> GetUser() {
+    public List<UserDto> getAllUsers() {
         List<User> findAll = userService.getAllUsers();
         return converter.entityToDto(findAll);
     }
@@ -63,6 +63,6 @@ public class UserController {
     @DeleteMapping(path = "/delete-user")
     public String deleteUser(@RequestParam Long userId){
         userService.deleteUser(userId);
-        return "provider deleted";
+        return "user deleted";
     }
 }

@@ -119,8 +119,8 @@ class UserServiceTest {
 
     @Test
     void getAllUsersTest() {
-//        var allUsersIDs = userService.getAllUsers().stream().map(User::getId).collect(Collectors.toList());
-//        removeAllUsersFromDB(allUsersIDs);
+        var allUsersIDs = userService.getAllUsers().stream().map(User::getId).collect(Collectors.toList());
+        removeAllUsersFromDB(allUsersIDs);
 
         var testUsersIDs = addTestUsers().stream().map(User::getId).collect(Collectors.toList());
 

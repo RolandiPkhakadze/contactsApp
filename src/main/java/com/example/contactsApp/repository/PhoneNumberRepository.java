@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
@@ -19,6 +20,7 @@ public interface PhoneNumberRepository  extends JpaRepository<PhoneNumber, Long>
         return findPhoneNumberByPhoneNumber(phoneNumber).orElseThrow(() -> new PhoneNotFoundException(String.format("phone with %s was not found.",phoneNumber)));
     }
 
+    @Transactional
     void deletePhoneNumberByPhoneNumber(String phoneNumber);
 
     @Query("SELECT u FROM PhoneNumber u WHERE u.phoneNumber = ?1 ")
