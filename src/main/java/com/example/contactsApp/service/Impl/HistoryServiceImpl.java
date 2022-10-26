@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -25,33 +24,41 @@ public class HistoryServiceImpl implements HistoryService {
     private final UserRepository userRepository;
     private final CustomMapper mapper;
 
-    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
+    private static final int PAGINATION_PAGE = 0;
+    private static final int PAGINATION_SIZE = 2;
+
+    @Transactional
     @Override
     public History saveHistory(History history, Long userId) {
         if(history.getStartTime().isAfter(history.getEndTime())){
         //    log.debug("Call Times exception was thrown");
             throw new CallTimesException(history.getStartTime(),history.getEndTime());
         }
+
         history.setUser(userRepository.getUserById(userId));
-        return historyRepository.save(history);
+
+        History savedHistory = historyRepository.save(history);
+        log.debug("history: " +savedHistory + "was saved.");
+        return savedHistory;
     }
 
     @Override
     public List<History> getAllHistoriesForUser(Long userId) {
-        return historyRepository.getHistoriesByUser(userRepository.getUserById(userId), PageRequest.of(0,2));
+        return historyRepository.getHistoriesByUser(userRepository.getUserById(userId), PageRequest.of(PAGINATION_PAGE,PAGINATION_SIZE));
     }
 
-    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
+    @Transactional
     @Override
     public void deleteHistory(Long historyId) {
         try{
             historyRepository.deleteById(historyId);
+            log.debug(String.format("history with id %d was deleted",historyId));
         }catch(EmptyResultDataAccessException ex) {
             throw new HistoryDoesNotExistException(historyId);
         }
     }
 
-    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
+    @Transactional
     @Override
     public History updateHistory(History history, Long id) {
         if(history.getStartTime().isAfter(history.getEndTime())){
@@ -61,14 +68,17 @@ public class HistoryServiceImpl implements HistoryService {
         historyRepository.getHistoriesById(id);
         history.setId(id);
 
-        return historyRepository.save(history);
+        History savedHistory = historyRepository.save(history);
+        log.debug(String.format("history with id %d was updated",id));
+        return savedHistory;
     }
 
-    @Transactional(rollbackFor = HistoryDoesNotExistException.class)
+    @Transactional
     @Override
     public History updateHistoryPartially(History history, Long id) {
         History historyForSave = historyRepository.getHistoriesById(id);
-
-        return historyRepository.save(mapper.historyNullExclude(historyForSave,history));
+        History savedHistory = historyRepository.save(mapper.historyNullExclude(historyForSave,history));
+        log.debug(String.format("history with id %d was updated",id));
+        return savedHistory;
     }
 }
