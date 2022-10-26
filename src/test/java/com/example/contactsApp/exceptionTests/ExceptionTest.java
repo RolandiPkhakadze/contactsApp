@@ -1,10 +1,9 @@
 package com.example.contactsApp.exceptionTests;
 
 import com.example.contactsApp.Exception.*;
-import com.example.contactsApp.entity.History;
-import com.example.contactsApp.entity.NumberProvider;
-import com.example.contactsApp.entity.PhoneNumber;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.entity.*;
+import com.example.contactsApp.repository.ContactRepository;
+import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.HistoryService;
 import com.example.contactsApp.service.Impl.HistoryServiceImpl;
 import com.example.contactsApp.service.PhoneNumberService;
@@ -18,11 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -44,7 +38,9 @@ public class ExceptionTest {
     private final UserService userService;
     private final PhoneNumberService phoneNumberService;
     private final NumberProviderService numberProviderService;
+    private final ContactRepository contactRepository;
     private final HistoryService historyService;
+    private final UserRepository userRepository;
 
     private static final String name = "testname";
     private static final String email = "test@mail.com";
@@ -55,12 +51,14 @@ public class ExceptionTest {
     public ExceptionTest(UserServiceImpl userService,
                          PhoneNumberServiceImpl phoneNumberService,
                          NumberProviderServiceImpl numberProviderService,
-                         HistoryServiceImpl historyService)
+                         ContactRepository contactRepository, HistoryServiceImpl historyService, UserRepository userRepository)
     {
         this.userService = userService;
         this.phoneNumberService = phoneNumberService;
         this.numberProviderService = numberProviderService;
+        this.contactRepository = contactRepository;
         this.historyService = historyService;
+        this.userRepository = userRepository;
     }
 
     private User registerUser() {
@@ -116,6 +114,16 @@ public class ExceptionTest {
         Assertions.assertThrows(CallTimesException.class, () -> historyService.saveHistory(history, user.getId()));
 
         userService.deleteUser(user.getId());
+    }
+
+    @Test
+    void userDoesNotExistsExceptionTest() {
+        Assertions.assertThrows(UserDoesNotExistException.class, () -> userRepository.getUserById(-1L));
+    }
+
+    @Test
+    void contactDoesNotExistsExceptionTest() {
+        Assertions.assertThrows(ContactDoesNotExistException.class, () -> contactRepository.getContactById(""));
     }
 
 }

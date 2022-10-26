@@ -1,8 +1,6 @@
 package com.example.contactsApp.Exception;
 
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 public class UserDoesNotExistException extends RuntimeException{
 
 
