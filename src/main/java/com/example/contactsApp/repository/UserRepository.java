@@ -14,19 +14,19 @@ import java.util.Optional;
 public interface UserRepository  extends JpaRepository<User, Long> {
 
     default User getUserById(Long id) {
-        return findUserById(id).orElseThrow(() -> new UserDoesNotExistException(id));
+        return findUserById(id).orElseThrow(() -> new UserDoesNotExistException(String.format("user with id: %d was not found.", id)));
     }
 
 
     default User findUserByEmailOrUsername(String email,String username){
         return getUserByEmailOrUsername(email,username)
-                .orElseThrow(() -> new WrongEmailOrUsernameException(email.equals("")?username:email));
+                .orElseThrow(() -> new WrongEmailOrUsernameException(String.format("user %s was not found.", email.equals("")?username:email)));
     }
 
     default void findUserByEmailOrUsernameForRegister(String email,String username){
 
         if(getUserByEmailOrUsername(email,username).isPresent()){
-            throw new UserAlreadyExistsException(email.equals("")?username:email);
+            throw new UserAlreadyExistsException(String.format("user %s already exists.",email.equals("")?username:email));
         }
     }
 

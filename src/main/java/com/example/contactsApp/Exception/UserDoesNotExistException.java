@@ -1,13 +1,16 @@
 package com.example.contactsApp.Exception;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @NoArgsConstructor
+@Slf4j
 public class UserDoesNotExistException extends RuntimeException{
 
 
-    public UserDoesNotExistException(Long id)
+    public UserDoesNotExistException(String msg)
     {
-            super(String.format("user with id: %d was not found.", id));
+        super(msg);
+        log.error(msg);
     }
 }

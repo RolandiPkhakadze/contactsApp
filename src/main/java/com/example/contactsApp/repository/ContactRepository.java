@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
     default Contact getContactById(String id) {
-        return findContactById(id).orElseThrow(() -> new ContactDoesNotExistException(id ));
+        return findContactById(id).orElseThrow(() -> new ContactDoesNotExistException(String.format("contact with phone %s was not found.",id)));
     }
 
     void deleteContactById(String id);

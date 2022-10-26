@@ -12,11 +12,11 @@ import java.util.Optional;
 @Repository
 public interface PhoneNumberRepository  extends JpaRepository<PhoneNumber, Long> {
     default PhoneNumber getPhoneById(String id) {
-        return findPhoneNumberByPhoneNumber(id).orElseThrow(() -> new PhoneDoesNotExistException(id));
+        return findPhoneNumberByPhoneNumber(id).orElseThrow(() -> new PhoneDoesNotExistException(String.format("phone with %s was not found.",id)));
     }
 
     default PhoneNumber getPhoneNumberByPhoneNumber(String phoneNumber) {
-        return findPhoneNumberByPhoneNumber(phoneNumber).orElseThrow(() -> new PhoneNotFoundException(phoneNumber));
+        return findPhoneNumberByPhoneNumber(phoneNumber).orElseThrow(() -> new PhoneNotFoundException(String.format("phone with %s was not found.",phoneNumber)));
     }
 
     void deletePhoneNumberByPhoneNumber(String phoneNumber);

@@ -25,31 +25,42 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Contact addContact(Contact contact, Long userId) {
         User userOptional = userRepository.getUserById(userId);
-        log.debug("dsfdsfsd");
+        log.debug(String.format("user with id: %d was needed and returned successfully",userId));
 
         contact.setUser(userOptional);
-        return contactRepository.save(contact);
+        contact = contactRepository.save(contact);
+
+        log.debug(String.format("contact was successfully created with phone %s",contact.getId()));
+        return contact;
     }
 
     @Transactional
     @Override
     public void deleteContact(String contactId) {
         contactRepository.deleteContactById(contactId);
+        log.debug(String.format("Contact with phone: %s was successfully deleted",contactId));
     }
     
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
     public Contact updateContactPartially(Contact contact) {
         Contact contactForSave = contactRepository.getContactById(contact.getId());
+        log.debug("Requested to get contact with phone number"+contactForSave.getId());
         contact.setUser(contactForSave.getUser());
-        return contactRepository.save(mapper.contactNullExclude(contactForSave,contact));
+        contact = contactRepository.save(mapper.contactNullExclude(contactForSave,contact));
+        log.debug(String.format("contact with phone %s was successfully updated",contact.getPhoneNumber()));
+        return contact;
     }
 
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
     public Contact updateContact(Contact contact) {
         Contact contactFromBase = contactRepository.getContactById(contact.getId());
+        log.debug("Requested to get contact with phone number"+contactFromBase.getId());
         contact.setUser(contactFromBase.getUser());
-        return contactRepository.save(contact);
+        contact = contactRepository.save(contact);
+
+        log.debug(String.format("contact with phone %s was successfully updated",contact.getPhoneNumber()));
+        return contact;
     }
 }
