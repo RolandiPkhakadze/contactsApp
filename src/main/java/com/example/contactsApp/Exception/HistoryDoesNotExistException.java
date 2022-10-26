@@ -8,7 +8,7 @@ public class HistoryDoesNotExistException extends  RuntimeException{
 
     public HistoryDoesNotExistException(String msg)
     {
-        super(String.format("history with id: %d was not found.",msg));
+        super(String.format("history with id: %s was not found.",msg));
         log.error(msg);
     }
 }
