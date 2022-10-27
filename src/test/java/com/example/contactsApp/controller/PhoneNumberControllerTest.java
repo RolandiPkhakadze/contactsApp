@@ -113,4 +113,18 @@ public class PhoneNumberControllerTest {
         userRepository.deleteById(user.getId());
     }
 
+    @Test
+    void deletePhoneTest() {
+        var user = registerUser();
+        var phone = addPhone(user);
+
+        Assertions.assertEquals("provider deleted", phoneNumberController.deletePhone(phone.getPhoneNumber()));
+
+        //Assertions.assertThrows(PhoneDoesNotExistException.class, () -> phoneNumberController.deletePhone(phone.getPhoneNumber()));
+
+        phoneNumberRepository.deletePhoneNumberByPhoneNumber(phone.getPhoneNumber());
+        userRepository.deleteById(user.getId());
+
+    }
+
 }
