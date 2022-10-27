@@ -18,7 +18,6 @@ public class PhoneNumberController {
 
     @PostMapping(path = "/add-user-phone")
     public PhoneDto addUserPhone( @RequestParam Long userId, @RequestBody  PhoneDto dto){
-
         @Valid PhoneNumber phone = phoneNumberService.addUserPhone(converter.dtoToEntity(dto),userId);
         return converter.entityToDto(phone);
     }
@@ -34,6 +33,7 @@ public class PhoneNumberController {
         PhoneNumber phone = phoneNumberService.updatePhone(converter.dtoToEntity(dto));
         return converter.entityToDto(phone);
     }
+
     @PatchMapping(path = "/update-phone")
     public PhoneDto updatePhonePartially(  @RequestBody PhoneDto dto){
         PhoneNumber phone = phoneNumberService.updatePhonePartially(converter.dtoToEntity(dto));
