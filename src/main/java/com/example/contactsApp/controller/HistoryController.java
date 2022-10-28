@@ -1,8 +1,8 @@
 package com.example.contactsApp.controller;
 
-import com.example.contactsApp.dtoConverter.converter.HistoryConverter;
-import com.example.contactsApp.dtoConverter.dtoModel.HistoryDto;
-import com.example.contactsApp.entity.History;
+import com.example.contactsApp.converter.HistoryConverter;
+import com.example.contactsApp.dto.HistoryDto;
+import com.example.contactsApp.domain.History;
 import com.example.contactsApp.service.HistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,40 +13,38 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "history")
 public class HistoryController {
 
     private final HistoryService historyService;
     private final HistoryConverter historyConverter;
 
-    @GetMapping(path = "/histories")
-    public List<HistoryDto> getAllHistoriesForUser(@RequestParam Long userId) {
+    @GetMapping("/users/{userId}/histories")
+    public List<HistoryDto> getAllHistoriesForUser(@PathVariable Long userId) {
         return historyConverter.entityToDto(historyService.getAllHistoriesForUser(userId));
-
     }
 
-    @PostMapping(path = "/add-history")
-    public History addHistory(@Valid  @RequestBody HistoryDto historyDto, @RequestParam Long userId) {
-        return historyService.saveHistory(historyConverter.dtoToEntity(historyDto),userId);
+    @PostMapping("/users/{userId}/histories")
+    public History addHistory(@Valid @RequestBody HistoryDto historyDto, @PathVariable Long userId) {
+        return historyService.save(historyConverter.toEntity(historyDto),userId);
     }
 
-    @PutMapping(path = "/update-history/{id}")
+    @PutMapping(path = "/histories/{id}")
     public History updateHistory(@Valid  @RequestBody HistoryDto historyDto,
                                   @PathVariable("id") Long id){
-        return historyService.updateHistory(historyConverter.dtoToEntity(historyDto),id);
+        return historyService.update(historyConverter.toEntity(historyDto),id);
     }
 
-    @PatchMapping(path = "/update-history/{id}")
-    public History updateHistoryPartially(  @RequestBody HistoryDto historyDto,
+    @PatchMapping(path = "/histories/{id}")
+    public History updateHistoryPartially( @RequestBody HistoryDto historyDto,
                                           @PathVariable("id") Long id){
-        var history = historyConverter.dtoToEntity(historyDto);
+        var history = historyConverter.toEntity(historyDto);
         history.setId(id);
-        return historyService.updateHistoryPartially(history,id);
+        return historyService.partiallyUpdate(history,id);
     }
 
-    @DeleteMapping(path = "/delete-history")
-    public String deleteHistory(@RequestParam Long historyId){
-        historyService.deleteHistory(historyId);
+    @DeleteMapping(path = "/histories/{historyId}")
+    public String deleteHistory(@PathVariable Long historyId){
+        historyService.delete(historyId);
         return "provider deleted";
     }
 }

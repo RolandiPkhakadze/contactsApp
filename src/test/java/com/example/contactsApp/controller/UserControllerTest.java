@@ -1,7 +1,7 @@
 package com.example.contactsApp.controller;
 
-import com.example.contactsApp.dtoConverter.dtoModel.UserDto;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.dto.UserDto;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;

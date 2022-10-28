@@ -1,18 +1,20 @@
 package com.example.contactsApp.service;
 
-import com.example.contactsApp.entity.History;
+import com.example.contactsApp.domain.History;
 
 import java.util.List;
 
 public interface HistoryService {
 
-    History saveHistory(History history, Long userId);
+    // you already in history service and  you can name save method instead of saveHistory
+    History save(History history, Long userId);
 
+    // need to implemet pagination because user can have a lot of histories
     List<History> getAllHistoriesForUser(Long userId);
 
-    void deleteHistory(Long historyId);
+    void delete(Long historyId);
 
-    History updateHistory(History history, Long id);
+    History update(History history, Long id);
 
-    History updateHistoryPartially(History history, Long id);
+    History partiallyUpdate(History history, Long id);
 }

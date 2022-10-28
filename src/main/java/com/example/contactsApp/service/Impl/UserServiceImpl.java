@@ -1,30 +1,37 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.Exception.WrongPasswordException;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.exceptions.WrongPasswordException;
+import com.example.contactsApp.converter.UserConverter;
+import com.example.contactsApp.dto.UserDto;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
-import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
 
     static final int PAGINATION_SIZE = 5;
-    private UserRepository userRepository;
     private CustomMapper mapper;
+
+    private final UserConverter converter;
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> getAllUsers() {
-        return  userRepository.findAll(PageRequest.of(0,PAGINATION_SIZE)).stream().toList();
+    // here u need to return not a domain entity but user dto
+    // as u can see here u can use pageable on service layer and chain it to repository level.
+    public Page<UserDto> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).map(converter::entityToDto);
     }
 
     @Transactional

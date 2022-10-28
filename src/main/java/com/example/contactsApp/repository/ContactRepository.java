@@ -1,7 +1,7 @@
 package com.example.contactsApp.repository;
 
-import com.example.contactsApp.Exception.ContactDoesNotExistException;
-import com.example.contactsApp.entity.Contact;
+import com.example.contactsApp.exceptions.ContactDoesNotExistException;
+import com.example.contactsApp.domain.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

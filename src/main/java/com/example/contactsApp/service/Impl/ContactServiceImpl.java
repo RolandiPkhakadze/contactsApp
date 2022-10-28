@@ -1,9 +1,9 @@
 package com.example.contactsApp.service.Impl;
 
 
-import com.example.contactsApp.Exception.ContactDoesNotExistException;
-import com.example.contactsApp.entity.Contact;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.exceptions.ContactDoesNotExistException;
+import com.example.contactsApp.domain.Contact;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.repository.ContactRepository;
 import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.ContactService;
@@ -18,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class ContactServiceImpl implements ContactService {
     private final UserRepository userRepository;
     private final ContactRepository contactRepository;
-    private final CustomMapperImpl mapper;
 
+    // u need to inject only abstraction, Spring will decide by itself
+    // read Spring container, DI pattern, IoC pattern and how there are implemented
+    private final CustomMapper mapper;
 
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
@@ -41,7 +43,7 @@ public class ContactServiceImpl implements ContactService {
         contactRepository.deleteContactById(contactId);
         log.debug(String.format("Contact with phone: %s was successfully deleted",contactId));
     }
-    
+
     @Transactional(rollbackFor = ContactDoesNotExistException.class)
     @Override
     public Contact updateContactPartially(Contact contact) {

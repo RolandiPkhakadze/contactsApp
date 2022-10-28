@@ -1,7 +1,6 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.entity.History;
-import com.example.contactsApp.entity.NumberProvider;
+import com.example.contactsApp.domain.NumberProvider;
 import com.example.contactsApp.repository.NumberProviderRepository;
 import com.example.contactsApp.service.NumberProviderService;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.Duration;
 import java.util.Optional;
 
 @SpringBootTest

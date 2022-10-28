@@ -1,27 +1,26 @@
 package com.example.contactsApp.controller;
 
-import com.example.contactsApp.dtoConverter.converter.UserConverter;
-import com.example.contactsApp.dtoConverter.dtoModel.UserDto;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.dto.UserDto;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path  = "user")
+@RequestMapping(path  = "users")
 public class UserController {
 
     private final UserService userService;
-    private final UserConverter converter;
 
-    @GetMapping(path  = "/get-all")
-    public List<UserDto> getAllUsers() {
-        List<User> findAll = userService.getAllUsers();
-        return converter.entityToDto(findAll);
+    // looks prettier, what do u think?
+    @GetMapping
+    public Page<UserDto> getAllUsers(Pageable pageable) {
+        return userService.getAllUsers(pageable);
     }
 
 
@@ -31,7 +30,7 @@ public class UserController {
         return converter.entityToDto(user);
     }
 
-    @PutMapping(path = "/update-user/{id}")
+    @PutMapping(path = "/{id}")
     public UserDto updateUser(@Valid  @RequestBody  UserDto dto,
                                      @PathVariable("id") Long id){
 
@@ -39,7 +38,7 @@ public class UserController {
         return converter.entityToDto(user);
     }
 
-    @PatchMapping(path = "/update-user/{id}")
+    @PatchMapping(path = "/{id}")
     public UserDto updateUserPartially(@RequestBody UserDto dto,
                                     @PathVariable("id") Long id){
 
@@ -60,7 +59,7 @@ public class UserController {
 //    }
 
 
-    @DeleteMapping(path = "/delete-user")
+    @DeleteMapping
     public String deleteUser(@RequestParam Long userId){
         userService.deleteUser(userId);
         return "user deleted";

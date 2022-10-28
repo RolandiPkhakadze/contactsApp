@@ -1,9 +1,9 @@
 package com.example.contactsApp.repository;
 
-import com.example.contactsApp.Exception.UserAlreadyExistsException;
-import com.example.contactsApp.Exception.UserDoesNotExistException;
-import com.example.contactsApp.Exception.WrongEmailOrUsernameException;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.exceptions.UserAlreadyExistsException;
+import com.example.contactsApp.exceptions.UserDoesNotExistException;
+import com.example.contactsApp.exceptions.WrongEmailOrUsernameException;
+import com.example.contactsApp.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

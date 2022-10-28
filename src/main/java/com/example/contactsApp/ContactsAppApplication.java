@@ -10,7 +10,6 @@ public class ContactsAppApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ContactsAppApplication.class, args);
-        System.out.println("USER-" + UUID.randomUUID().toString());
     }
 
 }

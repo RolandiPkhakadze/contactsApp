@@ -1,6 +1,6 @@
 package com.example.contactsApp.service;
 
-import com.example.contactsApp.entity.Contact;
+import com.example.contactsApp.domain.Contact;
 
 
 public interface ContactService {

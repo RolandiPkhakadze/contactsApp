@@ -1,7 +1,7 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.entity.PhoneNumber;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.domain.PhoneNumber;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.repository.PhoneNumberRepository;
 import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.PhoneNumberService;

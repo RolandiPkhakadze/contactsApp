@@ -1,7 +1,7 @@
 package com.example.contactsApp.exceptionTests;
 
-import com.example.contactsApp.Exception.*;
-import com.example.contactsApp.entity.*;
+import com.example.contactsApp.exceptions.*;
+import com.example.contactsApp.domain.*;
 import com.example.contactsApp.repository.ContactRepository;
 import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.HistoryService;
@@ -111,7 +111,7 @@ public class ExceptionTest {
         history.setStartTime(LocalDateTime.of(2022, Month.OCTOBER, 20, 16, 9, 16));
         history.setEndTime(LocalDateTime.of(2022, Month.OCTOBER, 20, 16, 9, 8));
 
-        Assertions.assertThrows(CallTimesException.class, () -> historyService.saveHistory(history, user.getId()));
+        Assertions.assertThrows(CallTimesException.class, () -> historyService.save(history, user.getId()));
 
         userService.deleteUser(user.getId());
     }

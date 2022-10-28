@@ -1,8 +1,8 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.Exception.WrongEmailOrUsernameException;
-import com.example.contactsApp.Exception.WrongPasswordException;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.exceptions.WrongEmailOrUsernameException;
+import com.example.contactsApp.exceptions.WrongPasswordException;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;

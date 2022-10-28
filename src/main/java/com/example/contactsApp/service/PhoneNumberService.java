@@ -1,6 +1,6 @@
 package com.example.contactsApp.service;
 
-import com.example.contactsApp.entity.PhoneNumber;
+import com.example.contactsApp.domain.PhoneNumber;
 
 public interface PhoneNumberService {
     PhoneNumber addUserPhone(PhoneNumber phone, Long userId);

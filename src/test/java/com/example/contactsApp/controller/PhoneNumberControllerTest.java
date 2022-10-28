@@ -1,8 +1,8 @@
 package com.example.contactsApp.controller;
 
 
-import com.example.contactsApp.dtoConverter.dtoModel.PhoneDto;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.dto.PhoneDto;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.repository.PhoneNumberRepository;
 import com.example.contactsApp.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;

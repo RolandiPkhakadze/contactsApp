@@ -1,9 +1,9 @@
 package com.example.contactsApp.service.Impl;
 
 
-import com.example.contactsApp.Exception.CallTimesException;
-import com.example.contactsApp.Exception.HistoryDoesNotExistException;
-import com.example.contactsApp.entity.History;
+import com.example.contactsApp.exceptions.CallTimesException;
+import com.example.contactsApp.exceptions.HistoryDoesNotExistException;
+import com.example.contactsApp.domain.History;
 import com.example.contactsApp.repository.HistoryRepository;
 import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.HistoryService;
@@ -29,7 +29,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Transactional
     @Override
-    public History saveHistory(History history, Long userId) {
+    public History save(History history, Long userId) {
         if(history.getStartTime().isAfter(history.getEndTime())){
         //    log.debug("Call Times exception was thrown");
             throw new CallTimesException(String.format("call start time: %s must be less than end time: %s",
@@ -51,7 +51,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Transactional
     @Override
-    public void deleteHistory(Long historyId) {
+    public void delete(Long historyId) {
         try{
             historyRepository.deleteById(historyId);
             log.debug(String.format("history with id %d was deleted",historyId));
@@ -62,7 +62,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Transactional
     @Override
-    public History updateHistory(History history, Long id) {
+    public History update(History history, Long id) {
         if(history.getStartTime().isAfter(history.getEndTime())){
             throw new CallTimesException(String.format("call start time: %s must be less than end time: %s",
                     history.getStartTime().toString(),history.getEndTime().toString()));
@@ -78,7 +78,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Transactional
     @Override
-    public History updateHistoryPartially(History history, Long id) {
+    public History partiallyUpdate(History history, Long id) {
         History historyForSave = historyRepository.getHistoriesById(id);
         History savedHistory = historyRepository.save(mapper.historyNullExclude(historyForSave,history));
         log.debug(String.format("history with id %d was updated",id));

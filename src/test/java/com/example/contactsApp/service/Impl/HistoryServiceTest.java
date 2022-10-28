@@ -1,9 +1,9 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.Exception.CallTimesException;
-import com.example.contactsApp.Exception.HistoryDoesNotExistException;
-import com.example.contactsApp.entity.History;
-import com.example.contactsApp.entity.User;
+import com.example.contactsApp.exceptions.CallTimesException;
+import com.example.contactsApp.exceptions.HistoryDoesNotExistException;
+import com.example.contactsApp.domain.History;
+import com.example.contactsApp.domain.User;
 import com.example.contactsApp.repository.HistoryRepository;
 import com.example.contactsApp.repository.UserRepository;
 import com.example.contactsApp.service.HistoryService;
@@ -61,7 +61,7 @@ public class HistoryServiceTest {
         history.setStartTime(END_TIME.plusHours(3));
 
         Assertions.assertThrows(CallTimesException.class,
-                () -> historyService.saveHistory(history, user.getId()));
+                () -> historyService.save(history, user.getId()));
 
         userRepository.deleteById(user.getId());
     }
@@ -70,7 +70,7 @@ public class HistoryServiceTest {
     void saveHistoryTest() {
         User user = userRepository.save( getUser());
 
-        History history = historyService.saveHistory(getHistory(),user.getId());
+        History history = historyService.save(getHistory(),user.getId());
         History historyFromBase = historyRepository.getHistoriesById(history.getId());
 
         Assertions.assertEquals(history.toString(),historyFromBase.toString());
@@ -91,19 +91,19 @@ public class HistoryServiceTest {
     @Test
     void deleteHistoryIfThrowsTest() {
         Assertions.assertThrows(HistoryDoesNotExistException.class,
-                () ->historyService.deleteHistory(9999L));
+                () ->historyService.delete(9999L));
     }
 
     @Test
     void updateHistory() {
         User user = userRepository.save( getUser());
 
-        History history = historyService.saveHistory(getHistory(),user.getId());
+        History history = historyService.save(getHistory(),user.getId());
 
         history.setStartTime(START_TIME.minusMinutes(15));
         history.setEndTime(END_TIME.minusMinutes(5));
 
-        history =  historyService.updateHistory(history,history.getId());
+        history =  historyService.update(history,history.getId());
 
         History historyFromBase = historyRepository.getHistoriesById(history.getId());
         history.setDuration(historyFromBase.getDuration());
@@ -118,11 +118,11 @@ public class HistoryServiceTest {
     void updateHistoryPartially() {
         User user = userRepository.save( getUser());
 
-        History history = historyService.saveHistory(getHistory(),user.getId());
+        History history = historyService.save(getHistory(),user.getId());
 
         History historyToSend = History.builder().endTime(END_TIME.minusMinutes(5)).build();
 
-        history =  historyService.updateHistoryPartially(historyToSend,history.getId());
+        history =  historyService.partiallyUpdate(historyToSend,history.getId());
 
         History historyFromBase = historyRepository.getHistoriesById(history.getId());
         history.setDuration(historyFromBase.getDuration());
@@ -136,11 +136,11 @@ public class HistoryServiceTest {
     @Test
     void endDateIsBeforeStartDateTest() {
         var user = userRepository.save( getUser());
-        var history = historyService.saveHistory(getHistory(),user.getId());
+        var history = historyService.save(getHistory(),user.getId());
         history.setStartTime(END_TIME);
         history.setEndTime(START_TIME);
 
-        Assertions.assertThrows(CallTimesException.class, () -> historyService.updateHistory(history, history.getId()));
+        Assertions.assertThrows(CallTimesException.class, () -> historyService.update(history, history.getId()));
 
         historyRepository.deleteById(history.getId());
         userRepository.deleteById(user.getId());
@@ -176,7 +176,7 @@ public class HistoryServiceTest {
     private List<Long> addHistoriesAndGetIds(User user) {
         List<History> result = new ArrayList<>();
         for(int i = 0; i < NUM_HISTORIES_TO_ADD; i++) {
-            result.add(historyService.saveHistory(getHistory(),user.getId()));
+            result.add(historyService.save(getHistory(),user.getId()));
         }
         return result
                 .stream()

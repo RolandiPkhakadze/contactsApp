@@ -1,6 +1,6 @@
 package com.example.contactsApp.service.Impl;
 
-import com.example.contactsApp.entity.*;
+import com.example.contactsApp.domain.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

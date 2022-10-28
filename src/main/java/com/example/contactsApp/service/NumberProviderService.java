@@ -1,13 +1,13 @@
 package com.example.contactsApp.service;
 
-import com.example.contactsApp.entity.NumberProvider;
+import com.example.contactsApp.dto.ProviderDto;
 
 public interface NumberProviderService {
-    NumberProvider addProvider(NumberProvider provider);
+    ProviderDto addProvider(ProviderDto providerDto);
 
     void deleteProvider(Long providerId);
 
-    NumberProvider addProviderPartially(NumberProvider provider, Long id);
+    ProviderDto addProviderPartially(ProviderDto provider, Long id);
 
-    NumberProvider updateProvider(NumberProvider provider, Long id);
+    ProviderDto updateProvider(ProviderDto providerDto, Long id);
 }

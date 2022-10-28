@@ -1,12 +1,13 @@
 package com.example.contactsApp.service;
 
-import com.example.contactsApp.entity.User;
-
-import java.util.List;
+import com.example.contactsApp.dto.UserDto;
+import com.example.contactsApp.domain.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 public interface UserService {
-    List<User> getAllUsers();
+    Page<UserDto> getAllUsers(Pageable pageable);
 
     User registerUser(User user);
 
