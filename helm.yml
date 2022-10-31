@@ -1,0 +1,27 @@
+svc: "efx-account"  # Example name. Use "efx-" prefix to avoid name conflics with our services
+team: "falcon"      # Default team. don't change it for now
+secret: true        # True if service needs pgsql access or store some sensitive data.
+java: true          # True if java-based service
+db_type: pgsql      # Database type. "pgsql" or "mongo". As "mongo" access is not implemented, it is up to service to create and access collections.
+replicaCount: 1     # number of service copies to run at same time
+health:
+  startupProbe:
+    initial: 5
+    timeout: 5
+    period: 5
+    threshold: 60
+  livenessProbe:
+    initial: 10
+    timeout: 10
+    period: 5
+  readinessProbe:
+    initial: 10
+    timeout: 3
+    period: 5
+resources:
+  requests:
+    memory: 1Gi
+  limits:
+    memory: 1Gi
+javaArgs:
+  maxRAMPercentage: '90.0'
